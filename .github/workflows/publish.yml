@@ -1,4 +1,4 @@
-name: Publish in-browser example
+name: Build publish and release the apps
 
 on:
   workflow_dispatch:
