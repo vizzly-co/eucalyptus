@@ -37,7 +37,7 @@ jobs:
     - name: Build, publish & release the image
       env:
         IMAGE_TAG: ${{ github.sha }}
-        APP_NAME: ${{ matrix.app }}
+        APP_NAME: eucalyptus-${{ matrix.app }}
       run: |
         # Build the image with a tag that can be referenced.
         docker build -f ./apps/$APP_NAME/Dockerfile ./apps/$APP_NAME -t $APP_NAME\:latest
