@@ -1,0 +1,50 @@
+name: Publish in-browser example
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  publish-docker-image:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        app: ['in-browser']
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: eu-west-2
+
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.repository_owner }}
+        password: ${{ secrets.PACKAGES_GITHUB_TOKEN }}
+
+    - name: Get & set release tag
+      id: vars
+      run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+
+    - name: Build, publish & release the image
+      env:
+        IMAGE_TAG: ${{ github.sha }}
+        APP_NAME: ${{ matrix.app }}
+      run: |
+        # Build the image with a tag that can be referenced.
+        docker build -f ./apps/$APP_NAME/Dockerfile ./apps/$APP_NAME -t $APP_NAME\:latest
+
+        # Tag the image with GitHub container registry
+        docker tag $APP_NAME:latest ghcr.io/vizzly-co/$APP_NAME:$IMAGE_TAG
+        docker tag $APP_NAME:latest ghcr.io/vizzly-co/$APP_NAME:latest
+
+        # Push the images to the repositories
+        docker push ghcr.io/vizzly-co/$APP_NAME --all-tags
