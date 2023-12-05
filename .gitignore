@@ -1,0 +1,6 @@
+.DS_Store
+node_modules
+.angular
+static-build-outputs/**
+!static-build-outputs/.gitkeep
+dist
