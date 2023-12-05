@@ -40,7 +40,7 @@ jobs:
         APP_NAME: eucalyptus-${{ matrix.app }}
       run: |
         # Build the image with a tag that can be referenced.
-        docker build -f ./apps/$APP_NAME/Dockerfile ./apps/$APP_NAME -t $APP_NAME\:latest
+        docker build -f ./apps/${{ matrix.app }}/Dockerfile ./apps/$APP_NAME -t $APP_NAME\:latest
 
         # Tag the image with GitHub container registry
         docker tag $APP_NAME:latest ghcr.io/vizzly-co/$APP_NAME:$IMAGE_TAG
