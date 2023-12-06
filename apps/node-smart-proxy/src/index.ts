@@ -67,7 +67,10 @@ app.all("/*", async (req, res) => {
   });
 
   // Pass the response from the query engine back to the user.
-  return res.status(response.status).send(await response.text());
+  return res.status(response.status)
+    .setHeader('Access-Control-Allow-Headers', '*')
+    .setHeader('Access-Control-Allow-Origin', '*')
+    .send(await response.text());
 });
 
 if (process.env["NODE_ENV"] != "test") {

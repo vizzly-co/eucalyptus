@@ -1,0 +1,22 @@
+import * as React from "react";
+import { createRoot } from "react-dom/client";
+import Vizzly from "@vizzly/dashboard";
+
+function App() {
+  return (
+    <Vizzly.Dashboard
+        queryEngineEndpoint="http://koala-tree.vizzly.co:9010/dynamic"
+        identity={async () => {
+          // Example loading tokens from the # value.
+          // eyJkYXNoYm9hcmRBY2Nlc3NUb2tlbiI6ImV5SmhiR2NpT2lKRlV6STFOaUlzSW10cFpDSTZJa2hmVW1SUFNWRk5VVFpoWm1scVZtd3lNVVJGWjNONFRYSlhjV2xhZG5ZMmNWVXhXVU0zTW5kWlJtTWlmUS5leUpoWTJObGMzTlVlWEJsSWpvaWMzUmhibVJoY21RaUxDSndjbTlxWldOMFNXUWlPaUp3Y21wZk0yVXpOelkyTldRM1lUVmlOREJoT1dJNVpUaGhPR0ZrTnpFeU9HVTNNemdpTENKMWMyVnlVbVZtWlhKbGJtTmxJam9pT1RFeE4yRXdZelV0WkRabFpDMDBZelEwTFRnNE1qTXRPR0ZsTWpKbE9EZzBZbUV3SWl3aWMyTnZjR1VpT2lKeVpXRmtYM2R5YVhSbElpd2ljR0Z5Wlc1MFJHRnphR0p2WVhKa1NXUnpJanBiSW1SemFGODVZMkpsT0dGaVlXRXhNV0kwWmpnek9XTmhNVEF4T0dKa05HRmhZbUl3TVNKZExDSmxlSEJwY21Weklqb2lNakF5TXkweE1pMHdObFF3TXpveU1Ub3pNeTQwTWpaYUluMC5JelBwZFY3QVdEYU84SzZQU2dFQ1JUeU51Vm9xWGw3ejlxMVlrVlJXYUZmSVRJOVdyVFZlVE5Xa1lCX2FUdWFwck1qXzFaUzJhTGRfVlFmTkZ1VzZHUSIsImRhdGFBY2Nlc3NUb2tlbiI6ImV5SmhiR2NpT2lKRlV6STFOaUlzSW10cFpDSTZJa2hmVW1SUFNWRk5VVFpoWm1scVZtd3lNVVJGWjNONFRYSlhjV2xhZG5ZMmNWVXhXVU0zTW5kWlJtTWlmUS5leUp3Y205cVpXTjBTV1FpT2lKd2NtcGZNMlV6TnpZMk5XUTNZVFZpTkRCaE9XSTVaVGhoT0dGa056RXlPR1UzTXpnaUxDSmtZWFJoVTJWMFNXUnpJanBiSW1SaGRHRmZjMlYwWHpFaUxDSmtZWFJoWDNObGRGOHlJbDBzSW5ObFkzVnlaVVpwYkhSbGNuTWlPbnQ5TENKbGVIQnBjbVZ6SWpvaU1qQXlNeTB4TWkwd05sUXdNem95TVRvek15NDBNakJhSW4wLnJvNEFJdW1OWWF0WDVFZHJlT0J4T0VwQzdZb1BiT3VxRG5Za09RYm5tOWRQUmlNUFpPLVlxU2JiSm1CLU1wRUI3YnFUXzV2dnJfemd3QW1BaWstNjJnIiwicXVlcnlFbmdpbmVBY2Nlc3NUb2tlbiI6ImV5SmhiR2NpT2lKRlV6STFOaUlzSW10cFpDSTZJa2hmVW1SUFNWRk5VVFpoWm1scVZtd3lNVVJGWjNONFRYSlhjV2xhZG5ZMmNWVXhXVU0zTW5kWlJtTWlmUS5leUp3Y205cVpXTjBTV1FpT2lKd2NtcGZNMlV6TnpZMk5XUTNZVFZpTkRCaE9XSTVaVGhoT0dGa056RXlPR1UzTXpnaUxDSmhiR3h2ZDBSaGRHRmlZWE5sVTJOb1pXMWhRV05qWlhOeklqcG1ZV3h6WlN3aVlXeHNiM2RFWVhSaFVISmxkbWxsZDBGalkyVnpjeUk2Wm1Gc2MyVXNJbVY0Y0dseVpYTWlPaUl5TURJekxURXlMVEEyVkRBek9qSXhPak16TGpReU9Gb2lmUS45SHFrUlRKWGU2cXJXLUhHWC1EMmNxNW1NRzBESWZneWFPN2dEeHExb3RMaDZPSWRRNXRPODBBdlJRZEtBVGFaWm45QjNaV3VwWHlVZDgwbzEwX2pwdyJ9
+          const encodedTokens = window.location.hash.replace('#', '');
+          const identityTokens = JSON.parse(atob(encodedTokens));
+          return identityTokens;
+        }}
+      />
+  );
+}
+
+const container = document.getElementById("root");
+const root = createRoot(container!);
+root.render(<App />);
