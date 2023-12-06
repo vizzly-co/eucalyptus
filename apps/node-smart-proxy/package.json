@@ -5,7 +5,8 @@
     "format": "prettier --write ./**/*.ts",
     "validate-ts": "tsc --noEmit",
     "build": "tsc",
-    "start": "node ./build/index.js"
+    "start": "node ./build/index.js",
+    "start:local": ". ./secrets.env && yarn start"
   },
   "dependencies": {
     "@vizzly/auth": "0.2.2",

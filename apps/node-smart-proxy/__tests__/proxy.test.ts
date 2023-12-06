@@ -20,7 +20,7 @@ describe("Proxy", () => {
     const { app } = require("../src/index.ts");
 
     const response = await supertest(app)
-      .post("/api/status")
+      .post("/dynamic/api/status")
       .set("Content-Type", "application/json")
       .set("Accept", "application/json")
       .send({});
@@ -46,7 +46,7 @@ describe("Proxy", () => {
       connectionOk: true,
       dataSetsCount: 1,
       message: "Ready to accept queries",
-      projectId: 'prj_c4e2ddd2f8784217969f340b2c27eff8',
+      projectId: "prj_c4e2ddd2f8784217969f340b2c27eff8",
       version: expect.any(String),
     });
   });
@@ -56,7 +56,7 @@ describe("Proxy", () => {
       const { app } = require("../src/index.ts");
 
       const response = await supertest(app)
-        .post("/api/v1/resolve-data-sets")
+        .post("/dynamic/api/v1/resolve-data-sets")
         .set("Content-Type", "application/json")
         .set("Accept", "application/json")
         .set("Cookie", "user=1")
@@ -103,7 +103,7 @@ describe("Proxy", () => {
       const { app } = require("../src/index.ts");
 
       const response = await supertest(app)
-        .post("/api/v1/resolve-data-sets")
+        .post("/dynamic/api/v1/resolve-data-sets")
         .set("Content-Type", "application/json")
         .set("Accept", "application/json")
         .set("Cookie", "user=2")

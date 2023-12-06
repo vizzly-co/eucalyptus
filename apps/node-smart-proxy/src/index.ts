@@ -9,11 +9,20 @@ import cookieParser from "cookie-parser";
 
 const app: Express = express();
 app.use(cookieParser());
-app.use(express.json({ limit: "50mb" }));
+app.use(express.json({ limit: "10mb" }));
+
+const KEEP_RESPONSE_HEADERS = [
+  "content-type",
+  "set-cookie",
+  "response-time",
+  "vizzly-query-engine-request-id",
+  "vizzly-query-engine-strategy",
+];
 
 app.all("/*", async (req, res) => {
-  const baseUrl = Settings.getQueryEngineBaseUrl();
-  const url = `${baseUrl}${req.path}`;
+  const queryEngineSchemeAndHost = new URL(Settings.getQueryEngineBaseUrl())
+    .origin;
+  const url = `${queryEngineSchemeAndHost}${req.path}`;
   let proxiedBody = req.body;
 
   let proxiedHeaders: { [key: string]: string } =
@@ -41,7 +50,6 @@ app.all("/*", async (req, res) => {
     proxiedBody.dynamicConfig = dynamicConfig;
   }
 
-  // Run the request against the query engine
   const response = await fetch(url, {
     method: req.method,
     body: req.method === "POST" ? JSON.stringify(proxiedBody) : undefined,
@@ -49,16 +57,21 @@ app.all("/*", async (req, res) => {
   });
 
   // Add all response headers to the response...
-  response.headers.forEach((value, key) => {
-    res.setHeader(key, value);
+  KEEP_RESPONSE_HEADERS.forEach((header: string) => {
+    const value = response.headers.get(header);
+    if (value) {
+      res.setHeader(header, value);
+    }
   });
 
   // Pass the response from the query engine back to the user.
   return res.status(response.status).send(await response.text());
 });
 
-app.listen(9010, () => {
-  console.log('Listening on 9010');
-});
+if (process.env["NODE_ENV"] != "test") {
+  app.listen(9010, () => {
+    console.log("Listening on 9010");
+  });
+}
 
 module.exports = { app };
