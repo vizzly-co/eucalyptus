@@ -23,6 +23,7 @@ describe("Proxy", () => {
       .post("/dynamic/api/status")
       .set("Content-Type", "application/json")
       .set("Accept", "application/json")
+      .set("Host", "localhost")
       .send({});
 
     expect(response.status).toEqual(200);

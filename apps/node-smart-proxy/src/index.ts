@@ -11,6 +11,8 @@ const app: Express = express();
 app.use(cookieParser());
 app.use(express.json({ limit: "10mb" }));
 
+const KEEP_REQUEST_HEADERS = ["accept", "content-type", "auth"];
+
 const KEEP_RESPONSE_HEADERS = [
   "content-type",
   "set-cookie",
@@ -26,7 +28,7 @@ app.all("/*", async (req, res) => {
   let proxiedBody = req.body;
 
   let proxiedHeaders: { [key: string]: string } =
-    ProxyHelpers.requestHeadersToMap(req);
+    ProxyHelpers.requestHeadersToMap(KEEP_REQUEST_HEADERS, req);
 
   // Add the query engine API key header to authenticate the request
   proxiedHeaders["Config-Api-Key"] = Settings.getQueryEngineApiKey();
