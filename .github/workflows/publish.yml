@@ -2,14 +2,14 @@ name: Build publish and release the apps
 
 on:
   workflow_dispatch:
+    inputs:
+      dashboard_version:
+        description: 'Dashboard package version to use'
+        required: false
+        default: 'dev'
+
   push:
     branches: [ main ]
-
-inputs:
-  dashboard_version:
-    description: 'Dashboard package version to use'
-    required: false
-    default: 'dev'
 
 jobs:
   publish-docker-image:
