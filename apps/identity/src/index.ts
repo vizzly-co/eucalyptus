@@ -20,7 +20,9 @@ tScr9CSIWn5Ov0Zya/CzF4XjfOSMKfaodpFtjYZ0MC4BjmVuYlrixXSrQg==
 -----END PUBLIC KEY-----
 */
 
-const ALLOWED_PROJECTS: string[] = ["prj_1"];
+const ALLOWED_PROJECTS: string[] = [
+  'prj_7a314cbcb0944a8e915d484625ff46af'
+];
 
 app.post("/identity", async (req, res) => {
   const privateKey = Settings.getVizzlyPrivateKey();
