@@ -9,5 +9,5 @@ COPY ./package.json ./package.json
 COPY ./app.tsx ./app.tsx
 
 RUN yarn install
-EXPOSE 9009
+
 CMD [ "yarn", "start"]
