@@ -9,5 +9,6 @@ COPY ./package.json ./package.json
 COPY ./app.tsx ./app.tsx
 
 RUN yarn install
+RUN yarn build
 
-CMD [ "yarn", "start"]
+ENTRYPOINT [ "yarn", "serve" ]
