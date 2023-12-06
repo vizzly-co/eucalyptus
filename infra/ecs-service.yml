@@ -39,7 +39,7 @@ Parameters:
   AppName:
     Description: Eucalyptus app name
     Type: String
-    AllowedValues : ["eucalyptus-in-browser", 'eucalyptus-node-smart-proxy', 'dynamic-datasets-dashboard']
+    AllowedValues : ["eucalyptus-in-browser", 'eucalyptus-node-smart-proxy', 'dynamic-datasets-dashboard', 'eucalyptus-identity']
 
 Conditions:
   ProvidedTaskRole: !Not [ !Equals [ !Ref TaskRoleArn, "" ] ]
