@@ -4,7 +4,7 @@
     "test:ci": "jest --colors",
     "format": "prettier --write ./**/*.ts",
     "validate-ts": "tsc --noEmit",
-    "build": "tsc",
+    "build": "rm -rf ./build && tsc",
     "start": "node ./build/index.js",
     "start:local": ". ./secrets.env && yarn start"
   },

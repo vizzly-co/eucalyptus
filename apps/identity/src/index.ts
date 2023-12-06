@@ -20,31 +20,40 @@ tScr9CSIWn5Ov0Zya/CzF4XjfOSMKfaodpFtjYZ0MC4BjmVuYlrixXSrQg==
 -----END PUBLIC KEY-----
 */
 
-const ALLOWED_PROJECTS: string[] = [
-  'prj_7a314cbcb0944a8e915d484625ff46af'
-];
+const ALLOWED_PROJECTS: string[] = ["prj_7a314cbcb0944a8e915d484625ff46af"];
 
-app.post("/identity", async (req, res) => {
-  const privateKey = Settings.getVizzlyPrivateKey();
-  const ttlInMinutes = 10;
-  const signer = createSigner({ privateKey, ttlInMinutes });
+app.all("/identity", async (req, res) => {
+  if (req.method === "POST") {
+    const privateKey = Settings.getVizzlyPrivateKey();
+    const ttlInMinutes = 10;
+    const signer = createSigner({ privateKey, ttlInMinutes });
 
-  try {
-    if (!ALLOWED_PROJECTS.includes(req.body["projectId"]))
-      throw `Please set ${req.body["projectId"]} as an allowed projectId in the GitHub Repo; vizzly-co/eucalyptus`;
+    try {
+      if (!ALLOWED_PROJECTS.includes(req.body["projectId"]))
+        throw `Please set ${req.body["projectId"]} as an allowed projectId in the GitHub Repo; vizzly-co/eucalyptus`;
 
-    const accessTokens = await signer.generateTokens({ ...req.body });
+      const accessTokens = await signer.generateTokens({ ...req.body });
 
+      return res
+        .status(200)
+        .setHeader("Access-Control-Allow-Headers", "*")
+        .setHeader("Access-Control-Allow-Origin", "*")
+        .send({ accessTokens });
+    } catch (e) {
+      console.error(e);
+
+      return res
+        .setHeader("Access-Control-Allow-Headers", "*")
+        .setHeader("Access-Control-Allow-Origin", "*")
+        .status(500)
+        .send({ error: JSON.stringify(e) });
+    }
+  } else {
     return res
       .setHeader("Access-Control-Allow-Headers", "*")
       .setHeader("Access-Control-Allow-Origin", "*")
-      .send({ accessTokens });
-  } catch (e) {
-    return res
-      .setHeader("Access-Control-Allow-Headers", "*")
-      .setHeader("Access-Control-Allow-Origin", "*")
-      .status(500)
-      .send({ error: JSON.stringify(e) });
+      .status(200)
+      .send({});
   }
 });
 
