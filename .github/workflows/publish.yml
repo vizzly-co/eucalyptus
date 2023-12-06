@@ -17,7 +17,7 @@ jobs:
     timeout-minutes: 10
     strategy:
       matrix:
-        app: ['in-browser']
+        app: ['in-browser', 'node-smart-proxy']
 
     steps:
     - uses: actions/checkout@v2
