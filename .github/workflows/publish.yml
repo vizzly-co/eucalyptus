@@ -48,3 +48,6 @@ jobs:
 
         # Push the images to the repositories
         docker push ghcr.io/vizzly-co/$APP_NAME --all-tags
+
+        echo "Updating the running services..."
+        aws ecs update-service --cluster example-koala --service eucalyptus-in-browser3-Service-GaWKCxpo9sUe --force-new-deployment
