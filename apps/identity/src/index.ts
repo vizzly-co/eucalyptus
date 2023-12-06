@@ -1,7 +1,7 @@
 import express, { Express } from "express";
 import cookieParser from "cookie-parser";
-import * as Settings from './Settings';
-import { createSigner } from '@vizzly/auth';
+import * as Settings from "./Settings";
+import { createSigner } from "@vizzly/auth";
 
 const app: Express = express();
 app.use(cookieParser());
@@ -20,22 +20,30 @@ tScr9CSIWn5Ov0Zya/CzF4XjfOSMKfaodpFtjYZ0MC4BjmVuYlrixXSrQg==
 -----END PUBLIC KEY-----
 */
 
-const ALLOWED_PROJECTS: string[] = ['prj_1'];
+const ALLOWED_PROJECTS: string[] = ["prj_1"];
 
 app.post("/identity", async (req, res) => {
   const privateKey = Settings.getVizzlyPrivateKey();
   const ttlInMinutes = 10;
-  const signer = createSigner({privateKey, ttlInMinutes});
+  const signer = createSigner({ privateKey, ttlInMinutes });
 
   try {
-    if(! ALLOWED_PROJECTS.includes(req.body['projectId'])) throw `Please set ${req.body['projectId']} as an allowed projectId in the GitHub Repo; vizzly-co/eucalyptus`;
+    if (!ALLOWED_PROJECTS.includes(req.body["projectId"]))
+      throw `Please set ${req.body["projectId"]} as an allowed projectId in the GitHub Repo; vizzly-co/eucalyptus`;
 
-    const accessTokens = await signer.generateTokens({...req.body});
+    const accessTokens = await signer.generateTokens({ ...req.body });
 
-    return res.send({accessTokens});
-  } catch(e) {
-    return res.status(500).send({error: JSON.stringify(e)});
-  };
+    return res
+      .setHeader("Access-Control-Allow-Headers", "*")
+      .setHeader("Access-Control-Allow-Origin", "*")
+      .send({ accessTokens });
+  } catch (e) {
+    return res
+      .setHeader("Access-Control-Allow-Headers", "*")
+      .setHeader("Access-Control-Allow-Origin", "*")
+      .status(500)
+      .send({ error: JSON.stringify(e) });
+  }
 });
 
 app.listen(9012, () => {
