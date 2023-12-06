@@ -1,0 +1,35 @@
+name: Node smart proxy tests
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - apps/node-smart-proxy/**
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.14.2
+          cache: 'yarn'
+          cache-dependency-path: 'apps/node-smart-proxy/yarn.lock'
+
+      - name: Run tests
+        env:
+          VIZZLY_QUERY_ENGINE_BASE_URL: ${{ secrets.VIZZLY_QUERY_ENGINE_BASE_URL }}
+          VIZZLY_QUERY_ENGINE_API_KEY: ${{ secrets.VIZZLY_QUERY_ENGINE_API_KEY }}
+          VIZZLY_ENCRYPTION_SECRET: ${{ secrets.VIZZLY_ENCRYPTION_SECRET }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          DATABASE_USER: ${{ secrets.DATABASE_USER }}
+          DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+          DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
+          VIZZLY_PRIVATE_KEY: ${{ secrets.VIZZLY_PRIVATE_KEY }}
+        run: 'cd apps/node-smart-proxy && yarn install && yarn test:ci'
