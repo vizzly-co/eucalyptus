@@ -46,7 +46,7 @@ jobs:
         APP_NAME: eucalyptus-${{ matrix.app }}
       run: |
         # Upgrade the dev package of the dashboard
-        yarn --cwd ./apps/${{ matrix.app }} add @vizzly/dashboard@${{inputs.dashboard_version}}
+        yarn --cwd ./apps/${{ matrix.app }} add @vizzly/dashboard@${{inputs.dashboard_version || 'dev'}}
 
         # Build the image with a tag that can be referenced.
         docker build -f ./apps/${{ matrix.app }}/Dockerfile ./apps/${{ matrix.app }} -t $APP_NAME\:latest
