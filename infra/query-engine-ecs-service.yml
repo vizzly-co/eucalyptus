@@ -71,6 +71,9 @@ Resources:
             Options:
               awslogs-group: !Ref CloudWatchLogsGroup
               awslogs-region: !Ref AWS::Region
+          Environment:
+            - Name: LOG_LEVEL
+              Value: debug
           EnvironmentFiles:
             - Value: !Sub arn:aws:s3:::${Environment}-eucalyptus-qe-envs/${AppName}.env
               Type: s3
@@ -112,5 +115,6 @@ Resources:
               - s3:GetObject
               - s3:GetBucketLocation
             Resource:
+              - !Sub arn:aws:s3:::${Environment}-eucalyptus-qe-envs
               - !Sub arn:aws:s3:::${Environment}-eucalyptus-qe-envs/${AppName}.env
             Effect: "Allow"

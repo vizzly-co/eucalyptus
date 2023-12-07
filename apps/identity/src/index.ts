@@ -20,7 +20,7 @@ tScr9CSIWn5Ov0Zya/CzF4XjfOSMKfaodpFtjYZ0MC4BjmVuYlrixXSrQg==
 -----END PUBLIC KEY-----
 */
 
-const ALLOWED_PROJECTS: string[] = ["prj_7a314cbcb0944a8e915d484625ff46af"];
+const ALLOWED_PROJECTS: string[] = ["prj_7a314cbcb0944a8e915d484625ff46af", "prj_e46e7d3179bf4462884fc38544b7ddb3"];
 
 app.all("/identity", async (req, res) => {
   if (req.method === "POST") {

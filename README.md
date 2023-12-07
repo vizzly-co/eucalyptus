@@ -30,5 +30,11 @@ As each app will be an independent project, each will need its own query engine 
 If possible, this should be setup using a managed query engine project on the staging environment.
 
 #### For self-hosted
-1. Upload the env file to the S3 bucket; `{{environment}}-eucalyptus-qe-envs` and save as `{{app-folder-name}}.env`
-2. Run the CloudFormation script to create a query engine on a specific port of the koala tree
+1. Go through the project setup steps to generate your vizzly.env file
+2. Run `echo "\nVIZZLY_API_HOST=https://staging.api.vizzly.co" >> vizzly.env` to the vizzly.env file
+3. Change the `VIZZLY_PUBLIC_KEYS` value too the base encoded version of the public key; (remember to include the final =)
+```
+WyItLS0tLUJFR0lOIFBVQkxJQyBLRVktLS0tLVxyXG5NRmt3RXdZSEtvWkl6ajBDQVFZSUtvWkl6ajBEQVFjRFFnQUVWeUtGNEdCa3oxMDEvNlRhM2ZEZ3Z2Ukl0VTdqXHJcbnRTY3I5Q1NJV241T3YwWnlhL0N6RjRYamZPU01LZmFvZHBGdGpZWjBNQzRCam1WdVlscml4WFNyUWc9PVxyXG4tLS0tLUVORCBQVUJMSUMgS0VZLS0tLS1cclxuIl0=
+```
+4. Upload the env file to the S3 bucket; `{{environment}}-eucalyptus-qe-envs` and save as `{{app-folder-name}}.env`
+5. Run the CloudFormation script to create a query engine on a specific port of the koala tree

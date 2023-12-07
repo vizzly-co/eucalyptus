@@ -6,10 +6,12 @@ import fetch from 'isomorphic-fetch'
 function App() {
   return (
     <Vizzly.Dashboard
-        vizzlyApiHost="https://api.staging.vizzly.co"
-        queryEngineEndpoint="http://koala-tree.vizzly.co:9010/dynamic"
-        parentDashboardId="dsh_e3ce5f6fba9947d1ad798a5f09b31f7b"
+        vizzlyApiHost="https://staging.api.vizzly.co"
+        // Hit the node-smart-proxy app
+        queryEngineEndpoint="http://koala-tree.vizzly.co:9010"
+        parentDashboardId="dsh_7a675e99ce7b40f1a35fd87f04565803"
         identity={async () => {
+          // Hit the auth app
           const response = await fetch('http://koala-tree.vizzly.co:9012/identity', {
             method: 'post',
             headers: {
@@ -17,7 +19,7 @@ function App() {
               Accept: 'application/json',
             },
             body: JSON.stringify({
-              projectId: 'prj_7a314cbcb0944a8e915d484625ff46af',
+              projectId: 'prj_e46e7d3179bf4462884fc38544b7ddb3',
               secureFilters: {},
               dataSetIds: '*',
               userReference: 'a user id - 2874924832',
