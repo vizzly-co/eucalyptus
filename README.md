@@ -12,7 +12,7 @@ Apps that run on the koala tree for Vizzly E2E testing
 
 ### Setting up a new project/dashboard
 
-1. Create a new project on staging environment.
+1. Create a new project on the "staging" environment. Choose the "Managed" type if possible.
 2. Save this public key to the project under "key pairs".
 ```
 -----BEGIN PUBLIC KEY-----
@@ -23,3 +23,12 @@ tScr9CSIWn5Ov0Zya/CzF4XjfOSMKfaodpFtjYZ0MC4BjmVuYlrixXSrQg==
 3. Create the parent dashboards required in the project.
 4. Add the `project_id` value to the allowlist in the `identity` app in this repo.
 5. Build out the `identity` function of the dashboard by sending a POST request with the access token claims to `http://koala-tree.vizzly.co:9012/identity`
+
+### Setting up a query engine
+As each app will be an independent project, each will need its own query engine if that is the implementation type required.
+
+If possible, this should be setup using a managed query engine project on the staging environment.
+
+#### For self-hosted
+1. Upload the env file to the S3 bucket; `{{environment}}-eucalyptus-qe-envs` and save as `{{app-folder-name}}.env`
+2. Run the CloudFormation script to create a query engine on a specific port of the koala tree

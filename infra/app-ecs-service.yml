@@ -49,6 +49,9 @@ Resources:
     Type: AWS::ECS::Service
     Properties:
       Cluster: !Sub arn:aws:ecs:eu-west-2:463194597663:cluster/example-koala
+      DeploymentConfiguration:
+        MaximumPercent: 100
+        MinimumHealthyPercent: 0
       DesiredCount: !Ref DesiredCount
       TaskDefinition: !Ref TaskDefinition
 

@@ -19,7 +19,7 @@ function App() {
             body: JSON.stringify({
               projectId: 'prj_7a314cbcb0944a8e915d484625ff46af',
               secureFilters: {},
-              dataSetIds: [],
+              dataSetIds: '*',
               userReference: 'a user id - 2874924832',
               scope: 'read_write'
             })
