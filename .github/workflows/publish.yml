@@ -64,3 +64,5 @@ jobs:
         aws ecs update-service --cluster example-koala --service eucalyptus-identity-Service-bbNPKqaaBWQQ --force-new-deployment
         aws ecs update-service --cluster example-koala --service eucalyptus-node-smart-proxy-Service-287bUTqxB9rm --force-new-deployment
         aws ecs update-service --cluster example-koala --service eucalyptus-dynamic-datasets-dashboard-Service-Nfit6fQ4OzJQ --force-new-deployment
+
+        aws ecs update-service --cluster example-koala --service dynamic-datasets-dashboard-qe2-Service-E69muRAsgqZk --force-new-deployment
