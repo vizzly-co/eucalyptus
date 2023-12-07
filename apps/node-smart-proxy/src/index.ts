@@ -70,6 +70,7 @@ app.all("/*", async (req, res) => {
   return res.status(response.status)
     .setHeader('Access-Control-Allow-Headers', '*')
     .setHeader('Access-Control-Allow-Origin', '*')
+    .setHeader('Access-Control-Allow-Methods', '*')
     .send(await response.text());
 });
 
