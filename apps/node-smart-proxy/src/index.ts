@@ -43,9 +43,11 @@ app.all("/*", async (req, res) => {
   // Build the config dynamically depending on the user.
   const dynamicConfig = ConfigBuilder.buildConfigForUser(req.cookies["user"]);
 
+  const requestHasBody = req.method == "POST" || req.method == 'PUT';
+
   // Add the `dynamicConfig` property to the body, for POST requests and where content-type is application/json.
   if (
-    req.method == "POST" &&
+    requestHasBody &&
     req.headers["content-type"]?.includes("application/json") &&
     proxiedBody
   ) {
@@ -54,7 +56,7 @@ app.all("/*", async (req, res) => {
 
   const response = await fetch(url, {
     method: req.method,
-    body: req.method === "POST" ? JSON.stringify(proxiedBody) : undefined,
+    body: requestHasBody ? JSON.stringify(proxiedBody) : undefined,
     headers: proxiedHeaders,
   });
 
