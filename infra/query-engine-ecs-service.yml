@@ -1,0 +1,121 @@
+Description: >
+  An ECS Service for a long-running task from the vizzly-co/eucalyptus repo
+Parameters:
+  VPC:
+    Description: The VPC that the ECS cluster is deployed to
+    Type: AWS::EC2::VPC::Id
+
+  Environment:
+    Description: Environment identifier
+    Type: String
+    Default: example
+
+  DesiredCount:
+    Description: How many instances of this task should we run across our cluster?
+    Type: Number
+    Default: 1
+
+  ECRDockerImage:
+    Description: Docker image url of the app
+    Type: String
+    Default: ghcr.io/vizzly-co/query-engine-dev:latest
+
+  HostPort:
+    Description: Port to expose on the host. Must be unique per task on the host.
+    Type: Number
+
+  AppPort:
+    Description: Port the query engine runs on
+    Type: Number
+    Default: 8000
+
+  ContainerMemory:
+    Description: Container memory allocation
+    Type: Number
+    Default: 256
+
+  TaskRoleArn:
+    Description: (OPTIONAL) The ARN of the role that grants containers in the task permission to call AWS APIs on your behalf
+    Type: String
+
+  AppName:
+    Description: Eucalyptus app name that this query engine will be used for
+    Type: String
+    AllowedValues : ['dynamic-datasets-dashboard']
+
+Conditions:
+  ProvidedTaskRole: !Not [ !Equals [ !Ref TaskRoleArn, "" ] ]
+
+Resources:
+  Service:
+    Type: AWS::ECS::Service
+    Properties:
+      Cluster: !Sub arn:aws:ecs:eu-west-2:463194597663:cluster/example-koala
+      DeploymentConfiguration:
+        MaximumPercent: 100
+        MinimumHealthyPercent: 0
+      DesiredCount: !Ref DesiredCount
+      TaskDefinition: !Ref TaskDefinition
+
+  TaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: !Sub ${Environment}-QE-${AppName}
+      TaskRoleArn: !If [ ProvidedTaskRole, !Ref TaskRoleArn, !Ref "AWS::NoValue"]
+      ExecutionRoleArn: !Ref TaskDefinitionExecutionRole
+      ContainerDefinitions:
+        - Name: !Sub ${Environment}-QE-${AppName}
+          Essential: true
+          Image: !Ref ECRDockerImage
+          Memory: !Ref ContainerMemory
+          PortMappings:
+            - ContainerPort: !Ref AppPort
+              HostPort: !Ref HostPort
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Ref CloudWatchLogsGroup
+              awslogs-region: !Ref AWS::Region
+          EnvironmentFiles:
+            - Value: !Sub arn:aws:s3:::${Environment}-eucalyptus-qe-envs/${AppName}.env
+              Type: s3
+
+  CloudWatchLogsGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub ${Environment}-QE-${AppName}-${AWS::StackName}
+      RetentionInDays: 30
+
+  TaskDefinitionExecutionRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      Path: "/"
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action:
+              - sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service:
+                - ecs-tasks.amazonaws.com
+
+  TaskDefinitionExecutionRolePolicy:
+    Type: "AWS::IAM::Policy"
+    Properties:
+      PolicyName: TaskDefinitionExecutionRolePolicy
+      Roles:
+        - Ref: TaskDefinitionExecutionRole
+      PolicyDocument:
+        Statement:
+          - Action:
+              - cloudwatch:*
+              - logs:*
+            Resource:
+              - "*"
+            Effect: "Allow"
+          - Action:
+              - s3:GetObject
+              - s3:GetBucketLocation
+            Resource:
+              - !Sub arn:aws:s3:::${Environment}-eucalyptus-qe-envs/${AppName}.env
+            Effect: "Allow"
