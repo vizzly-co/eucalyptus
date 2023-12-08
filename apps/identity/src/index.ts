@@ -20,8 +20,6 @@ tScr9CSIWn5Ov0Zya/CzF4XjfOSMKfaodpFtjYZ0MC4BjmVuYlrixXSrQg==
 -----END PUBLIC KEY-----
 */
 
-const ALLOWED_PROJECTS: string[] = ["prj_7a314cbcb0944a8e915d484625ff46af", "prj_e46e7d3179bf4462884fc38544b7ddb3"];
-
 app.all("/identity", async (req, res) => {
   if (req.method === "POST") {
     const privateKey = Settings.getVizzlyPrivateKey();
@@ -29,9 +27,6 @@ app.all("/identity", async (req, res) => {
     const signer = createSigner({ privateKey, ttlInMinutes });
 
     try {
-      if (!ALLOWED_PROJECTS.includes(req.body["projectId"]))
-        throw `Please set ${req.body["projectId"]} as an allowed projectId in the GitHub Repo; vizzly-co/eucalyptus`;
-
       const accessTokens = await signer.generateTokens({ ...req.body });
 
       return res
