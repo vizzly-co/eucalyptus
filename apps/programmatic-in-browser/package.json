@@ -1,0 +1,23 @@
+{
+  "name": "vizzly-react",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "esbuild app.tsx --bundle --serve=9015 --servedir=www/ --outdir=www/js --define:global=window",
+    "build": "esbuild app.tsx --bundle --outdir=www/js --define:global=window",
+    "serve": "http-server ./www -p 9015"
+  },
+  "dependencies": {
+    "@vizzly/dashboard": "^0.6.4-dev-a3b0f6c2254a7b92d60be24fc7eb90c5d4ea2dd7",
+    "@vizzly/services": "^0.6.4-dev-a3b0f6c2254a7b92d60be24fc7eb90c5d4ea2dd7",
+    "esbuild": "^0.16.10",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.9",
+    "http-server": "^14.1.1"
+  }
+}
