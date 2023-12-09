@@ -36,7 +36,7 @@ Parameters:
   AppName:
     Description: Which app is this query engine used for?
     Type: String
-    AllowedValues : ['dynamic-datasets-dashboard']
+    AllowedValues : ['dynamic-datasets-dashboard', 'in-browser-encrypted-dashboards']
 
 Conditions:
   ProvidedTaskRole: !Not [ !Equals [ !Ref TaskRoleArn, "" ] ]
