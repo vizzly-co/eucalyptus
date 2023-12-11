@@ -7,6 +7,7 @@ const ALLOWED_OPERATORS = ['=', '!=', '>', '<', '>=', '<=', 'is_one_of', 'is_not
 function App() {
   return (
     <Vizzly.Dashboard
+        vizzlyApiHost="https://staging.api.vizzly.co"
         dataSets={async () => {
           return [
             {
@@ -94,12 +95,29 @@ function App() {
             throw "Unknown data set.";
           }
         }}
+        parentDashboardId="dsh_df3a1e4ef5174ac1a8a803deba173788"
+        dashboardId="dsh_df3a1e4ef5174ac1a8a803deba173788"
         identity={async () => {
-          // Example loading tokens from the # value.
-          // eyJkYXNoYm9hcmRBY2Nlc3NUb2tlbiI6ImV5SmhiR2NpT2lKRlV6STFOaUlzSW10cFpDSTZJa2hmVW1SUFNWRk5VVFpoWm1scVZtd3lNVVJGWjNONFRYSlhjV2xhZG5ZMmNWVXhXVU0zTW5kWlJtTWlmUS5leUpoWTJObGMzTlVlWEJsSWpvaWMzUmhibVJoY21RaUxDSndjbTlxWldOMFNXUWlPaUp3Y21wZk0yVXpOelkyTldRM1lUVmlOREJoT1dJNVpUaGhPR0ZrTnpFeU9HVTNNemdpTENKMWMyVnlVbVZtWlhKbGJtTmxJam9pT1RFeE4yRXdZelV0WkRabFpDMDBZelEwTFRnNE1qTXRPR0ZsTWpKbE9EZzBZbUV3SWl3aWMyTnZjR1VpT2lKeVpXRmtYM2R5YVhSbElpd2ljR0Z5Wlc1MFJHRnphR0p2WVhKa1NXUnpJanBiSW1SemFGODVZMkpsT0dGaVlXRXhNV0kwWmpnek9XTmhNVEF4T0dKa05HRmhZbUl3TVNKZExDSmxlSEJwY21Weklqb2lNakF5TXkweE1pMHdObFF3TXpveU1Ub3pNeTQwTWpaYUluMC5JelBwZFY3QVdEYU84SzZQU2dFQ1JUeU51Vm9xWGw3ejlxMVlrVlJXYUZmSVRJOVdyVFZlVE5Xa1lCX2FUdWFwck1qXzFaUzJhTGRfVlFmTkZ1VzZHUSIsImRhdGFBY2Nlc3NUb2tlbiI6ImV5SmhiR2NpT2lKRlV6STFOaUlzSW10cFpDSTZJa2hmVW1SUFNWRk5VVFpoWm1scVZtd3lNVVJGWjNONFRYSlhjV2xhZG5ZMmNWVXhXVU0zTW5kWlJtTWlmUS5leUp3Y205cVpXTjBTV1FpT2lKd2NtcGZNMlV6TnpZMk5XUTNZVFZpTkRCaE9XSTVaVGhoT0dGa056RXlPR1UzTXpnaUxDSmtZWFJoVTJWMFNXUnpJanBiSW1SaGRHRmZjMlYwWHpFaUxDSmtZWFJoWDNObGRGOHlJbDBzSW5ObFkzVnlaVVpwYkhSbGNuTWlPbnQ5TENKbGVIQnBjbVZ6SWpvaU1qQXlNeTB4TWkwd05sUXdNem95TVRvek15NDBNakJhSW4wLnJvNEFJdW1OWWF0WDVFZHJlT0J4T0VwQzdZb1BiT3VxRG5Za09RYm5tOWRQUmlNUFpPLVlxU2JiSm1CLU1wRUI3YnFUXzV2dnJfemd3QW1BaWstNjJnIiwicXVlcnlFbmdpbmVBY2Nlc3NUb2tlbiI6ImV5SmhiR2NpT2lKRlV6STFOaUlzSW10cFpDSTZJa2hmVW1SUFNWRk5VVFpoWm1scVZtd3lNVVJGWjNONFRYSlhjV2xhZG5ZMmNWVXhXVU0zTW5kWlJtTWlmUS5leUp3Y205cVpXTjBTV1FpT2lKd2NtcGZNMlV6TnpZMk5XUTNZVFZpTkRCaE9XSTVaVGhoT0dGa056RXlPR1UzTXpnaUxDSmhiR3h2ZDBSaGRHRmlZWE5sVTJOb1pXMWhRV05qWlhOeklqcG1ZV3h6WlN3aVlXeHNiM2RFWVhSaFVISmxkbWxsZDBGalkyVnpjeUk2Wm1Gc2MyVXNJbVY0Y0dseVpYTWlPaUl5TURJekxURXlMVEEyVkRBek9qSXhPak16TGpReU9Gb2lmUS45SHFrUlRKWGU2cXJXLUhHWC1EMmNxNW1NRzBESWZneWFPN2dEeHExb3RMaDZPSWRRNXRPODBBdlJRZEtBVGFaWm45QjNaV3VwWHlVZDgwbzEwX2pwdyJ9
-          const encodedTokens = window.location.hash.replace('#', '');
-          const identityTokens = JSON.parse(atob(encodedTokens));
-          return identityTokens;
+          // Hit the auth app
+          const response = await fetch('http://koala-tree.vizzly.co:9012/identity', {
+            method: 'post',
+            headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+            },
+            body: JSON.stringify({
+              projectId: 'prj_844c4a7bc80e43c586f453a02b8da32d',
+              secureFilters: {},
+              dataSetIds: '*',
+              userReference: 'a user id - 2874924832',
+              scope: 'read',
+              accessType: 'standard'
+            })
+          });
+
+          const { accessTokens } = await response.json();
+
+          return accessTokens;
         }}
       />
   );
