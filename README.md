@@ -28,6 +28,11 @@ As each app will be an independent project, each will need its own query engine 
 
 If possible, this should be setup using a managed query engine project on the staging environment.
 
+To enable a managed query engine project, on staging this need to be ran;
+```elixir
+Vizz.Office.SetManagedKeyPairForEucalyptus.run("<< managed query engine id >>")
+```
+
 #### For self-hosted
 1. Go through the project setup steps to generate your vizzly.env file
 2. Run `echo "\nVIZZLY_API_HOST=https://staging.api.vizzly.co" >> vizzly.env` to the vizzly.env file
