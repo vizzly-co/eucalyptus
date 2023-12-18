@@ -17,7 +17,7 @@ jobs:
     timeout-minutes: 10
     strategy:
       matrix:
-        app: ['in-browser', 'node-smart-proxy', 'dynamic-datasets-dashboard', 'identity', 'programmatic-in-browser', 'in-browser-encrypted-dashboards', 'in-browser-encrypted-dashboard-management']
+        app: ['in-browser', 'node-smart-proxy', 'dynamic-datasets-dashboard', 'identity', 'programmatic-in-browser', 'in-browser-encrypted-dashboards', 'in-browser-encrypted-dashboard-management', 'in-browser-webcomponent']
 
     steps:
     - uses: actions/checkout@v2
