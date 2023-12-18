@@ -1855,6 +1855,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/uuid@^9.0.7":
+  version "9.0.7"
+  resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-9.0.7.tgz#b14cebc75455eeeb160d5fe23c2fcc0c64f724d8"
+  integrity sha512-WUtIVRUZ9i5dYXefDEAI7sh9/O7jGvHg7Df/5O/gtH3Yabe5odI3UWopVR1qbPXQtvOxWu3mM4XxlYeZtMWF4g==
+
 "@types/ws@^8.5.5":
   version "8.5.10"
   resolved "https://registry.yarnpkg.com/@types/ws/-/ws-8.5.10.tgz#4acfb517970853fa6574a3a6886791d04a396787"
@@ -1867,10 +1872,10 @@
   resolved "https://registry.yarnpkg.com/@vitejs/plugin-basic-ssl/-/plugin-basic-ssl-1.0.1.tgz#48c46eab21e0730921986ce742563ae83fe7fe34"
   integrity sha512-pcub+YbFtFhaGRTo1832FQHQSHvMrlb43974e2eS8EKleR3p1cDdkJFPci1UhwkEf1J9Bz+wKBSzqpKp7nNj2A==
 
-"@vizzly/services@^0.7.0-dev-630d737bab660ebd0d0d353de9a191c096732f89":
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/@vizzly/services/-/services-0.7.0.tgz#93b55ebb4d38ab9d925fa3c4adb54f839d429600"
-  integrity sha512-TSyHelcrZI9Zs9JK461TAW/1EZvQ6dZg0JseiVU88/19c5h0GkfxKOoBMxw2dVGYaVLZhlDNwN/d6+DunwjGgw==
+"@vizzly/services@^0.7.0-rc.0.13":
+  version "0.7.0-rc.0.13"
+  resolved "https://registry.yarnpkg.com/@vizzly/services/-/services-0.7.0-rc.0.13.tgz#4f193bf5fee9ab2bf62b0567852a74af1e4e4168"
+  integrity sha512-3meW8v51yrYvCkuYDhibyZnjv6F7qXiyS0SIZ5YoSxEOxEPsUh2avhk7NRUlfDFA8z1NeCM8UyDe0DYFPHMKKA==
 
 "@webassemblyjs/ast@1.11.6", "@webassemblyjs/ast@^1.11.5":
   version "1.11.6"
@@ -6343,6 +6348,11 @@ uuid@^8.3.2:
   version "8.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
   integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
+
+uuid@^9.0.1:
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-9.0.1.tgz#e188d4c8853cc722220392c424cd637f32293f30"
+  integrity sha512-b+1eJOlsR9K8HJpow9Ok3fiWOWSIcIzXodvv0rQjVoOVNpWMpxf1wZNpt4y9h10odCNrqnYp1OBzRktckBe3sA==
 
 validate-npm-package-license@^3.0.4:
   version "3.0.4"

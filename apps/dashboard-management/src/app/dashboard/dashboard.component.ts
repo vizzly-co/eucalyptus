@@ -21,55 +21,22 @@ const ALLOWED_OPERATORS = [
   selector: 'app-dashboard',
   standalone: true,
   templateUrl: `./dashboard.component.html`,
+  styleUrls: ['./dashboard.component.css'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-
 export class VizzlyDashboard implements OnInit {
+  reportId: string | null = null;
   ngOnInit() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const reportId = urlParams.get('reportId');
+    const userId = urlParams.get('userId');
+
+    this.reportId = reportId;
+
     dashboard.render({
       vizzlyApiHost: 'https://staging.api.vizzly.co',
       dataSets: async () => {
-        return [
-          {
-            id: 'data_set_1',
-            name: 'My first data set',
-            fields: [
-              {
-                dataType: 'number' as const,
-                publicName: 'Player age',
-                id: 'fie_1',
-                canBeDimension: false,
-                canBeMeasure: true,
-                allowedOperators: ALLOWED_OPERATORS,
-              },
-              {
-                dataType: 'string' as const,
-                publicName: 'Game',
-                id: 'fie_2',
-                canBeDimension: true,
-                canBeMeasure: false,
-                allowedOperators: ALLOWED_OPERATORS,
-              },
-              {
-                dataType: 'number' as const,
-                publicName: 'Score',
-                id: 'fie_3',
-                canBeDimension: false,
-                canBeMeasure: true,
-                allowedOperators: ALLOWED_OPERATORS,
-              },
-              {
-                dataType: 'date_time' as const,
-                publicName: 'Recorded at',
-                id: 'fie_4',
-                canBeDimension: false,
-                canBeMeasure: true,
-                allowedGranularities: ['month', 'year'],
-                allowedOperators: ALLOWED_OPERATORS,
-              },
-            ],
-          },
-        ];
+        return DATASET;
       },
 
       data: async (dataSet: { id: string }) => {
@@ -116,8 +83,50 @@ export class VizzlyDashboard implements OnInit {
           throw 'Unknown data set.';
         }
       },
-      parentDashboardId: 'dsh_19544ac518ce402bb98564d0db639211',
-      identity: getIdentity(),
+      dasboardId: reportId,
+      identity: getIdentity(userId ?? 'new_user'),
     });
   }
 }
+
+export const DATASET = [
+  {
+    id: 'data_set_1',
+    name: 'My first data set',
+    fields: [
+      {
+        dataType: 'number' as const,
+        publicName: 'Player age',
+        id: 'fie_1',
+        canBeDimension: false,
+        canBeMeasure: true,
+        allowedOperators: ALLOWED_OPERATORS,
+      },
+      {
+        dataType: 'string' as const,
+        publicName: 'Game',
+        id: 'fie_2',
+        canBeDimension: true,
+        canBeMeasure: false,
+        allowedOperators: ALLOWED_OPERATORS,
+      },
+      {
+        dataType: 'number' as const,
+        publicName: 'Score',
+        id: 'fie_3',
+        canBeDimension: false,
+        canBeMeasure: true,
+        allowedOperators: ALLOWED_OPERATORS,
+      },
+      {
+        dataType: 'date_time' as const,
+        publicName: 'Recorded at',
+        id: 'fie_4',
+        canBeDimension: false,
+        canBeMeasure: true,
+        allowedGranularities: ['month', 'year'],
+        allowedOperators: ALLOWED_OPERATORS,
+      },
+    ],
+  },
+];
