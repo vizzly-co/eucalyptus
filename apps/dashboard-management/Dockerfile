@@ -19,6 +19,7 @@ FROM nginx:alpine
 # Copy the build output from the previous stage
 COPY --from=build /app/dist /usr/share/nginx/html
 
+EXPOSE 4200
 
 # Start Nginx and keep it running
 CMD ["nginx", "-g", "daemon off;"]
