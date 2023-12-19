@@ -83,7 +83,7 @@ export class VizzlyDashboard implements OnInit {
           throw 'Unknown data set.';
         }
       },
-      dasboardId: reportId,
+      dasboardId: reportId ?? undefined,
       identity: getIdentity(userId ?? 'new_user'),
     });
   }
