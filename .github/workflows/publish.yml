@@ -4,12 +4,12 @@ on:
   workflow_dispatch:
     inputs:
       dashboard_version:
-        description: 'Dashboard package version to use'
+        description: "Dashboard package version to use"
         required: false
-        default: 'dev'
+        default: "dev"
 
   push:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   publish-docker-image:
@@ -17,55 +17,67 @@ jobs:
     timeout-minutes: 10
     strategy:
       matrix:
-        app: ['in-browser', 'node-smart-proxy', 'dynamic-datasets-dashboard', 'identity', 'programmatic-in-browser', 'in-browser-encrypted-dashboards', 'in-browser-encrypted-dashboard-management', 'in-browser-webcomponent']
+        app:
+          [
+            "in-browser",
+            "node-smart-proxy",
+            "dynamic-datasets-dashboard",
+            "identity",
+            "programmatic-in-browser",
+            "in-browser-encrypted-dashboards",
+            "in-browser-encrypted-dashboard-management",
+            "in-browser-webcomponent",
+            "dashboard-management",
+          ]
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: eu-west-2
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-2
 
-    - name: Login to GitHub Container Registry
-      uses: docker/login-action@v1
-      with:
-        registry: ghcr.io
-        username: ${{ github.repository_owner }}
-        password: ${{ secrets.PACKAGES_GITHUB_TOKEN }}
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.PACKAGES_GITHUB_TOKEN }}
 
-    - name: Get & set release tag
-      id: vars
-      run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+      - name: Get & set release tag
+        id: vars
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
 
-    - name: Build, publish & release the image
-      env:
-        IMAGE_TAG: ${{ github.sha }}
-        APP_NAME: eucalyptus-${{ matrix.app }}
-      run: |
-        # Upgrade the dev package of the dashboard
-        yarn --cwd ./apps/${{ matrix.app }} add @vizzly/dashboard@${{inputs.dashboard_version || 'dev'}}
+      - name: Build, publish & release the image
+        env:
+          IMAGE_TAG: ${{ github.sha }}
+          APP_NAME: eucalyptus-${{ matrix.app }}
+        run: |
+          # Upgrade the dev package of the dashboard
+          yarn --cwd ./apps/${{ matrix.app }} add @vizzly/dashboard@${{inputs.dashboard_version || 'dev'}}
+          yarn --cwd ./apps/${{ matrix.app }} add @vizzly/services@${{inputs.dashboard_version || 'dev'}}
 
-        # Build the image with a tag that can be referenced.
-        docker build -f ./apps/${{ matrix.app }}/Dockerfile ./apps/${{ matrix.app }} -t $APP_NAME\:latest
+          # Build the image with a tag that can be referenced.
+          docker build -f ./apps/${{ matrix.app }}/Dockerfile ./apps/${{ matrix.app }} -t $APP_NAME\:latest
 
-        # Tag the image with GitHub container registry
-        docker tag $APP_NAME:latest ghcr.io/vizzly-co/$APP_NAME:$IMAGE_TAG
-        docker tag $APP_NAME:latest ghcr.io/vizzly-co/$APP_NAME:latest
+          # Tag the image with GitHub container registry
+          docker tag $APP_NAME:latest ghcr.io/vizzly-co/$APP_NAME:$IMAGE_TAG
+          docker tag $APP_NAME:latest ghcr.io/vizzly-co/$APP_NAME:latest
 
-        # Push the images to the repositories
-        docker push ghcr.io/vizzly-co/$APP_NAME --all-tags
+          # Push the images to the repositories
+          docker push ghcr.io/vizzly-co/$APP_NAME --all-tags
 
-        echo "Updating the running services..."
+          echo "Updating the running services..."
 
-        aws ecs update-service --cluster example-koala --service eucalyptus-in-browser3-Service-GaWKCxpo9sUe --force-new-deployment
-        aws ecs update-service --cluster example-koala --service eucalyptus-identity-Service-bbNPKqaaBWQQ --force-new-deployment
-        aws ecs update-service --cluster example-koala --service eucalyptus-node-smart-proxy-Service-287bUTqxB9rm --force-new-deployment
-        aws ecs update-service --cluster example-koala --service eucalyptus-dynamic-datasets-dashboard-Service-Nfit6fQ4OzJQ --force-new-deployment
-        aws ecs update-service --cluster example-koala --service programmatic-in-browser-Service-qzekUB3FUuSG --force-new-deployment
-        aws ecs update-service --cluster example-koala --service in-browser-encrypted-dashboard-management-Service-HY5j1OQK45ns --force-new-deployment
-        aws ecs update-service --cluster example-koala --service in-browser-webcomponent-Service-W6pcgXLZkXSM --force-new-deployment
+          aws ecs update-service --cluster example-koala --service eucalyptus-in-browser3-Service-GaWKCxpo9sUe --force-new-deployment
+          aws ecs update-service --cluster example-koala --service eucalyptus-identity-Service-bbNPKqaaBWQQ --force-new-deployment
+          aws ecs update-service --cluster example-koala --service eucalyptus-node-smart-proxy-Service-287bUTqxB9rm --force-new-deployment
+          aws ecs update-service --cluster example-koala --service eucalyptus-dynamic-datasets-dashboard-Service-Nfit6fQ4OzJQ --force-new-deployment
+          aws ecs update-service --cluster example-koala --service programmatic-in-browser-Service-qzekUB3FUuSG --force-new-deployment
+          aws ecs update-service --cluster example-koala --service in-browser-encrypted-dashboard-management-Service-HY5j1OQK45ns --force-new-deployment
+          aws ecs update-service --cluster example-koala --service in-browser-webcomponent-Service-W6pcgXLZkXSM --force-new-deployment
 
-        aws ecs update-service --cluster example-koala --service dynamic-datasets-dashboard-qe2-Service-E69muRAsgqZk --force-new-deployment
+          aws ecs update-service --cluster example-koala --service dynamic-datasets-dashboard-qe2-Service-E69muRAsgqZk --force-new-deployment
