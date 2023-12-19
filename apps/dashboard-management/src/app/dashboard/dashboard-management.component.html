@@ -1,0 +1,22 @@
+<!-- dashboard-management.component.html -->
+
+<div>
+  <button (click)="createReport()">Create Report</button>
+  <ul *ngIf="dashboards; else loading">
+    <li *ngFor="let dashboard of dashboards">
+      <a href="#" (click)="goToReport(dashboard.id, $event)">{{
+        dashboard.id
+      }}</a>
+
+      <p>Version: {{ dashboard.version }}</p>
+      <div>
+        <button (click)="updateVersion(dashboard.id, dashboard.version)">Update Version</button>
+        <button (click)="deleteReport(dashboard.id)">Delete</button>
+      </div>
+    </li>
+  </ul>
+
+  <ng-template #loading>
+    <p>Loading dashboards...</p>
+  </ng-template>
+</div>
