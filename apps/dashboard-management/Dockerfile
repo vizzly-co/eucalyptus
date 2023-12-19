@@ -5,10 +5,7 @@ WORKDIR /app
 
 COPY package.json yarn.lock ./
 
-# Install dependencies
 RUN yarn install
-
-# Copy the project files into the Docker image
 COPY . .
 
 RUN yarn build
@@ -17,9 +14,9 @@ RUN yarn build
 FROM nginx:alpine
 
 # Copy the build output from the previous stage
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=build /app/dist/dashboard-management/browser /usr/share/nginx/html
 
-EXPOSE 4200
+EXPOSE 80
 
 # Start Nginx and keep it running
 CMD ["nginx", "-g", "daemon off;"]
