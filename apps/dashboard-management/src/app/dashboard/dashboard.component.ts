@@ -7,9 +7,6 @@ import {
 import { getIdentity } from './getVizzlyIdentity';
 import { CommonModule } from '@angular/common';
 
-interface Dashboard {
-  render: (config: any) => void;
-}
 declare var dashboard: any;
 
 const ALLOWED_OPERATORS = [
