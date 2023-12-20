@@ -1,33 +1,22 @@
 <!-- dashboard-management.component.html -->
 
 <div>
-  <button
-    (click)="createReport()"
-    [attr.data-testid]="dashboard - create - btn"
-  >
+  <button (click)="createReport()" [attr.data-testid]="'dashboard-create-btn'">
     Create Report
   </button>
   <ul *ngIf="dashboards; else loading">
     <li *ngFor="let dashboard of dashboards; let i = index">
-      <button
-        (click)="goToReport(dashboard.id)"
-        [attr.data-testid]="'dashboard-btn-' + i"
-      >
+      <button (click)="goToReport(dashboard.id)" [attr.data-testid]="'dashboard-btn-' + i">
         {{ dashboard.id }}
       </button>
 
       <p>Version: {{ dashboard.version }}</p>
       <div>
-        <button
-          (click)="updateVersion(dashboard.id, dashboard.version)"
-          [attr.data-testid]="'dashboard-update-btn-' + i"
-        >
+        <button (click)="updateVersion(dashboard.id, dashboard.version)"
+          [attr.data-testid]="'dashboard-update-btn-' + i">
           Update Version
         </button>
-        <button
-          (click)="deleteReport(dashboard.id)"
-          [attr.data-testid]="'dashboard-update-btn-' + i"
-        >
+        <button (click)="deleteReport(dashboard.id)" [attr.data-testid]="'dashboard-update-btn-' + i">
           Delete
         </button>
       </div>
