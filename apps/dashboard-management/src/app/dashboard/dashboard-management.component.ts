@@ -90,7 +90,7 @@ export class VizzlyDashboardManagement implements OnInit {
   }
 
   goToReport(reportId: string): void {
-    window.location.href = `/?reportId=${reportId}&userId=${this.userId}`;
+    window.location.href = `/?userId=${this.userId}&reportId=${reportId}`;
   }
 }
 

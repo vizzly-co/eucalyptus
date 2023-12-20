@@ -1,4 +1,6 @@
-<div>
-    <h1>{{ reportId }}</h1>
-    <vizzly-dashboard id="dashboard"></vizzly-dashboard>
+<div *ngIf="reportId">
+  <h1>{{ reportId }}</h1>
+  <vizzly-dashboard id="dashboard"></vizzly-dashboard>
 </div>
+
+<div *ngIf="!reportId">Build a report...</div>
