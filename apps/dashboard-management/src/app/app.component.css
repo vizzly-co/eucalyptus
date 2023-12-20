@@ -1,17 +1,17 @@
-
 main {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 nav {
-    flex: 0 0 320px;
-    background-color: #f5f5f5;
-    border-right: 1px solid #e1e1e1;
-    padding: 20px
+  flex: 0 0 320px;
+  background-color: #f5f5f5;
+  border-right: 1px solid #e1e1e1;
+  padding: 20px;
+  height: calc(100vh - 40px);
 }
 
 section {
-    flex: 1;
-    padding: 20px;
+  flex: 1;
+  padding: 20px;
 }

@@ -1,10 +1,16 @@
-import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  CUSTOM_ELEMENTS_SCHEMA,
+  AfterViewInit,
+} from '@angular/core';
 import { getIdentity } from './getVizzlyIdentity';
+import { CommonModule } from '@angular/common';
 
 interface Dashboard {
   render: (config: any) => void;
 }
-declare var dashboard: Dashboard;
+declare var dashboard: any;
 
 const ALLOWED_OPERATORS = [
   '=',
@@ -20,19 +26,29 @@ const ALLOWED_OPERATORS = [
 @Component({
   selector: 'app-dashboard',
   standalone: true,
+  imports: [CommonModule],
   templateUrl: `./dashboard.component.html`,
   styleUrls: ['./dashboard.component.css'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class VizzlyDashboard implements OnInit {
+export class VizzlyDashboard implements OnInit, AfterViewInit {
   reportId: string | null = null;
+  userId: string | null = null;
+  ngAfterViewInit(): void {
+    if (this.reportId && typeof dashboard !== 'undefined' && dashboard.render) {
+      this.initializeDashboard();
+    }
+  }
+  
   ngOnInit() {
     const urlParams = new URLSearchParams(window.location.search);
     const reportId = urlParams.get('reportId');
     const userId = urlParams.get('userId');
-
+    this.userId = userId;
     this.reportId = reportId;
+  }
 
+  private initializeDashboard() {
     dashboard.render({
       vizzlyApiHost: 'https://staging.api.vizzly.co',
       dataSets: async () => {
@@ -83,8 +99,8 @@ export class VizzlyDashboard implements OnInit {
           throw 'Unknown data set.';
         }
       },
-      dasboardId: reportId ?? undefined,
-      identity: getIdentity(userId ?? 'new_user'),
+      dasboardId: this.reportId,
+      identity: getIdentity(this.userId ?? 'new_user'),
     });
   }
 }
