@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { VizzlyDashboard } from './dashboard/dashboard.component';
-import { VizzlyDashboardManagement } from './dashboard/dashboardManagement.component';
+import { VizzlyDashboardManagement } from './dashboard/dashboard-management.component';
 
 @NgModule({
   declarations: [AppComponent],

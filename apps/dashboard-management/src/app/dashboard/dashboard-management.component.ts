@@ -89,8 +89,7 @@ export class VizzlyDashboardManagement implements OnInit {
     }
   }
 
-  goToReport(reportId: string, event: Event): void {
-    event.preventDefault();
+  goToReport(reportId: string): void {
     window.location.href = `/?reportId=${reportId}&userId=${this.userId}`;
   }
 }
