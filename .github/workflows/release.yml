@@ -1,0 +1,35 @@
+name: Release the ECS services with the latest images...
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 8-21 * * *'
+
+jobs:
+  publish-docker-image:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-2
+
+      - name: Release the images to the ECS services
+        run: |
+          echo "Updating the running services..."
+
+          aws ecs update-service --cluster example-koala --service eucalyptus-in-browser3-Service-GaWKCxpo9sUe --force-new-deployment
+          aws ecs update-service --cluster example-koala --service eucalyptus-identity-Service-bbNPKqaaBWQQ --force-new-deployment
+          aws ecs update-service --cluster example-koala --service eucalyptus-node-smart-proxy-Service-287bUTqxB9rm --force-new-deployment
+          aws ecs update-service --cluster example-koala --service eucalyptus-dynamic-datasets-dashboard-Service-Nfit6fQ4OzJQ --force-new-deployment
+          aws ecs update-service --cluster example-koala --service programmatic-in-browser-Service-qzekUB3FUuSG --force-new-deployment
+          aws ecs update-service --cluster example-koala --service in-browser-encrypted-dashboard-management-Service-HY5j1OQK45ns --force-new-deployment
+          aws ecs update-service --cluster example-koala --service in-browser-webcomponent-Service-W6pcgXLZkXSM --force-new-deployment
+
+          aws ecs update-service --cluster example-koala --service dynamic-datasets-dashboard-qe2-Service-E69muRAsgqZk --force-new-deployment
