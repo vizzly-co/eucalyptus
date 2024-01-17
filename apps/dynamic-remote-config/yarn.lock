@@ -1008,7 +1008,7 @@
     "@visx/event" "2.17.0"
     prop-types "^15.6.2"
 
-"@vizzly/dashboard@^0.7.1":
+"@vizzly/dashboard@*":
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/@vizzly/dashboard/-/dashboard-0.7.1.tgz#8d76cdb169df977a934f3944003e159e3bd30916"
   integrity sha512-gKFWX6J8VuL7Zm/yICn1S1XxO6i1vb5maG0U414hMOikhiWEbDVjJtt60gGQKCVoxYSTH26HEi6gCHDc4YaIRw==
