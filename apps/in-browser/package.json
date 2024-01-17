@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@vizzly/dashboard": "*",
+    "@vizzly/services": "0.7.1-dev-2baa9f9d8f6ff9f941716355c2330208380b791c",
     "esbuild": "^0.16.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

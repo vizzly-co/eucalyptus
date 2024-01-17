@@ -1,11 +1,56 @@
 import * as React from "react";
 import { createRoot } from "react-dom/client";
 import Vizzly from "@vizzly/dashboard";
+import {Vizzly as VizzlyServices} from '@vizzly/services';
 
 const ALLOWED_OPERATORS = ['=', '!=', '>', '<', '>=', '<=', 'is_one_of', 'is_not_one_of'];
 
+VizzlyServices.load('in-browser');
 function App() {
+  const api = new VizzlyServices.API(async () => {
+    // Hit the auth app
+    const response = await fetch('http://koala-tree.vizzly.co:9012/identity', {
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        projectId: 'prj_844c4a7bc80e43c586f453a02b8da32d',
+        secureFilters: {},
+        dataSetIds: '*',
+        userReference: 'a user id - 2874924832',
+        scope: 'read',
+        accessType: 'standard'
+      })
+    });
+
+    const { accessTokens } = await response.json();
+
+    return accessTokens;
+  }, {
+    vizzlyAPIConfig: {
+      host: 'https://staging.api.vizzly.co'
+    }
+  });
+
   return (
+    <>
+    <button onClick={async () => {
+      const dashboards = await api.getDashboards();
+      console.log('parents', await api.getParentDashboards());
+      console.log('dashboards', dashboards);
+      // const dashboard = new VizzlyServices.Dashboard(undefined, {
+      // });
+      // console.log('dashboard', dashboard);
+
+      //   const resp = await api.createDashboard({
+      //     definition: dashboard.build(),
+      //     meta: {}
+      //   });
+
+      //   console.log('resp', resp);
+    }}>create</button>
     <Vizzly.Dashboard
         vizzlyApiHost="https://staging.api.vizzly.co"
         dataSets={async () => {
@@ -120,6 +165,7 @@ function App() {
           return accessTokens;
         }}
       />
+      </>
   );
 }
 

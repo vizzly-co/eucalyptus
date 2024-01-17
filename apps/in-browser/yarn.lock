@@ -1033,6 +1033,11 @@
     twin.macro "^3.0.0-rc.3"
     uuid "^9.0.0"
 
+"@vizzly/services@0.7.1-dev-2baa9f9d8f6ff9f941716355c2330208380b791c":
+  version "0.7.1-dev-2baa9f9d8f6ff9f941716355c2330208380b791c"
+  resolved "https://registry.yarnpkg.com/@vizzly/services/-/services-0.7.1-dev-2baa9f9d8f6ff9f941716355c2330208380b791c.tgz#28c0f991cbb66dd5449fa2513885071947046f49"
+  integrity sha512-b7pB0sp3yV7Xxusm0QOWoe6WtKP74CgyiIuaXBOdY69DgP2isS9A0dXJVwby3cDotAOnLPM6nUWbqaMNVLmQ8g==
+
 airbnb-prop-types@^2.14.0, airbnb-prop-types@^2.15.0, airbnb-prop-types@^2.16.0:
   version "2.16.0"
   resolved "https://registry.npmjs.org/airbnb-prop-types/-/airbnb-prop-types-2.16.0.tgz"
