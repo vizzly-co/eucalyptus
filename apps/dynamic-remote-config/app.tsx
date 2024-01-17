@@ -22,7 +22,7 @@ function App() {
               projectId: 'prj_64ad10208e024edda174aa0436ebf590',
               secureFilters: {},
               dataSetIds: '*',
-              userReference: 'a user id - 2874924832',
+              userReference: window.location.hash || 'a user id - 2874924832',
               scope: 'read_write'
             })
           });
