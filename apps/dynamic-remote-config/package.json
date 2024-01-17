@@ -9,7 +9,7 @@
     "serve": "http-server ./www -p 9022"
   },
   "dependencies": {
-    "@vizzly/dashboard": "*",
+    "@vizzly/dashboard": "^0.7.1",
     "esbuild": "^0.16.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
