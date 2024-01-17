@@ -28,6 +28,7 @@ jobs:
             "in-browser-encrypted-dashboard-management",
             "in-browser-webcomponent",
             "dashboard-management",
+            "dynamic-remote-config"
           ]
 
     steps:
