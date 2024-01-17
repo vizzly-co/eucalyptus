@@ -41,4 +41,4 @@ Vizz.Office.SetManagedKeyPairForEucalyptus.run("<< managed query engine id >>")
 WyItLS0tLUJFR0lOIFBVQkxJQyBLRVktLS0tLVxyXG5NRmt3RXdZSEtvWkl6ajBDQVFZSUtvWkl6ajBEQVFjRFFnQUVWeUtGNEdCa3oxMDEvNlRhM2ZEZ3Z2Ukl0VTdqXHJcbnRTY3I5Q1NJV241T3YwWnlhL0N6RjRYamZPU01LZmFvZHBGdGpZWjBNQzRCam1WdVlscml4WFNyUWc9PVxyXG4tLS0tLUVORCBQVUJMSUMgS0VZLS0tLS1cclxuIl0=
 ```
 4. Upload the env file to the S3 bucket; `{{environment}}-eucalyptus-qe-envs` and save as `{{app-folder-name}}.env`
-5. Run the CloudFormation script to create a query engine on a specific port of the koala tree
+5. Run the CloudFormation script (query-engine-ecs-service.yml) to create a query engine on a specific port of the koala tree
