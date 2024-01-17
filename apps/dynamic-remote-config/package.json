@@ -6,7 +6,7 @@
   "scripts": {
     "start": "esbuild app.tsx --bundle --serve=9011 --servedir=www/ --outdir=www/js --define:global=window",
     "build": "esbuild app.tsx --bundle --outdir=www/js --define:global=window",
-    "serve": "http-server ./www -p 9020"
+    "serve": "http-server ./www -p 9022"
   },
   "dependencies": {
     "@vizzly/dashboard": "*",
