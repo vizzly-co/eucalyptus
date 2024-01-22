@@ -4,6 +4,7 @@ import { getIdentity } from './getVizzlyIdentity';
 import { DATASET } from './dashboard.component';
 import { v4 as uuidv4 } from 'uuid';
 import { CommonModule } from '@angular/common';
+import { DashboardService } from './DashboardService';
 
 VizzlyServices.load('in-browser');
 
@@ -21,7 +22,7 @@ export class VizzlyDashboardManagement implements OnInit {
   loading = false;
   userId: string | null = null;
 
-  constructor() {
+  constructor(private dashboardService: DashboardService) {
     const urlParams = new URLSearchParams(window.location.search);
     const userId = urlParams.get('userId');
     this.userId = userId;
@@ -90,7 +91,8 @@ export class VizzlyDashboardManagement implements OnInit {
   }
 
   goToReport(reportId: string): void {
-    window.location.href = `/?userId=${this.userId}&reportId=${reportId}`;
+    this.dashboardService.setReportId(reportId);
+    // window.location.href = `/?userId=${this.userId}&reportId=${reportId}`;
   }
 }
 

@@ -1872,10 +1872,10 @@
   resolved "https://registry.yarnpkg.com/@vitejs/plugin-basic-ssl/-/plugin-basic-ssl-1.0.1.tgz#48c46eab21e0730921986ce742563ae83fe7fe34"
   integrity sha512-pcub+YbFtFhaGRTo1832FQHQSHvMrlb43974e2eS8EKleR3p1cDdkJFPci1UhwkEf1J9Bz+wKBSzqpKp7nNj2A==
 
-"@vizzly/services@^0.7.0-rc.0.16":
-  version "0.7.0-rc.0.16"
-  resolved "https://registry.yarnpkg.com/@vizzly/services/-/services-0.7.0-rc.0.16.tgz#3f4ba70b8851530c2fa2b50477d4311d87577080"
-  integrity sha512-AmKgQ31HoR1r32fvDu+ST7o1/bEeQ7EMCwQywE/u+Le17nzqGk/qknYYCoDvn3XQE/kGhpqD5mryV6yjsPNVXQ==
+"@vizzly/services@^0.7.3":
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/@vizzly/services/-/services-0.7.3.tgz#36a65c96f26cc20c74d978d75d0cd7810f7bec28"
+  integrity sha512-WRZRCDhZxsxMU+DU3rBfgd5i4BENrKg0eXtIKFXX7/rugYeSWU9/1OZoTh76wYHppMHhGO/ZXmEuEIdatdyT9Q==
 
 "@webassemblyjs/ast@1.11.6", "@webassemblyjs/ast@^1.11.5":
   version "1.11.6"
