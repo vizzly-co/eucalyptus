@@ -3,7 +3,7 @@ import {
   OnInit,
   CUSTOM_ELEMENTS_SCHEMA,
   AfterViewInit,
-  ChangeDetectorRef,
+  SimpleChanges,
 } from '@angular/core';
 import { getIdentity } from './getVizzlyIdentity';
 import { CommonModule } from '@angular/common';
@@ -33,39 +33,40 @@ const ALLOWED_OPERATORS = [
 export class VizzlyDashboard implements OnInit, AfterViewInit {
   reportId: string | null = null; // Private property for reportId
   userId: string | null = null;
-  isViewInit: boolean = false;
-  maxRetries: number = 3;
 
-  constructor(
-    private dashboardService: DashboardService,
-    private cdr: ChangeDetectorRef
-  ) {}
+  constructor(private dashboardService: DashboardService) {}
 
   ngOnInit() {
     this.dashboardService.getReportId().subscribe((id) => {
       this.reportId = id;
-      this.tryInitializeDashboard();
+      this.pollForDashboardAvailability();
     });
     const urlParams = new URLSearchParams(window.location.search);
     this.userId = urlParams.get('userId');
   }
 
   ngAfterViewInit(): void {
-    this.isViewInit = true;
     this.tryInitializeDashboard();
   }
 
-  ngAfterViewChecked(): void {
-    this.tryInitializeDashboard();
+  private tryInitializeDashboard() {
+    if (typeof dashboard !== 'undefined' && dashboard.render) {
+      this.initializeDashboard();
+    }
   }
 
-  private tryInitializeDashboard(retries = 0) {
-    if (this.reportId && this.isViewInit) {
+  private pollForDashboardAvailability() {
+    const interval = setInterval(() => {
       if (typeof dashboard !== 'undefined' && dashboard.render) {
+        clearInterval(interval);
         this.initializeDashboard();
-      } else if (retries < this.maxRetries) {
-        this.cdr.detectChanges();
       }
+    }, 100);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if ('reportId' in changes) {
+      this.tryInitializeDashboard();
     }
   }
 
@@ -121,7 +122,7 @@ export class VizzlyDashboard implements OnInit, AfterViewInit {
         }
       },
       dashboardId: this.reportId,
-      identity: getIdentity(this.userId ?? 'new_user'),
+      identity: getIdentity('123435'),
     });
   }
 }
