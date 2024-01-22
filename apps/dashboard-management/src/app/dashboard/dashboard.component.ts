@@ -3,7 +3,7 @@ import {
   OnInit,
   CUSTOM_ELEMENTS_SCHEMA,
   AfterViewInit,
-  SimpleChanges,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { getIdentity } from './getVizzlyIdentity';
 import { CommonModule } from '@angular/common';
@@ -35,9 +35,11 @@ export class VizzlyDashboard implements OnInit, AfterViewInit {
   userId: string | null = null;
   isViewInit: boolean = false;
   maxRetries: number = 3;
-  retryDelay: number = 500;
 
-  constructor(private dashboardService: DashboardService) {}
+  constructor(
+    private dashboardService: DashboardService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
     this.dashboardService.getReportId().subscribe((id) => {
@@ -53,27 +55,21 @@ export class VizzlyDashboard implements OnInit, AfterViewInit {
     this.tryInitializeDashboard();
   }
 
+  ngAfterViewChecked(): void {
+    this.tryInitializeDashboard();
+  }
+
   private tryInitializeDashboard(retries = 0) {
     if (this.reportId && this.isViewInit) {
       if (typeof dashboard !== 'undefined' && dashboard.render) {
         this.initializeDashboard();
       } else if (retries < this.maxRetries) {
-        setTimeout(() => {
-          this.tryInitializeDashboard(retries + 1);
-        }, this.retryDelay);
+        this.cdr.detectChanges();
       }
     }
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if ('reportId' in changes && this.isViewInit) {
-      this.tryInitializeDashboard();
-    }
-  }
-
   private initializeDashboard() {
-    console.log('this.reportId', this.reportId);
-    console.log('this.userId', this.userId);
     dashboard.render({
       vizzlyApiHost: 'https://staging.api.vizzly.co',
       dataSets: async () => {
@@ -125,7 +121,7 @@ export class VizzlyDashboard implements OnInit, AfterViewInit {
         }
       },
       dashboardId: this.reportId,
-      identity: getIdentity('123435'),
+      identity: getIdentity(this.userId ?? 'new_user'),
     });
   }
 }
