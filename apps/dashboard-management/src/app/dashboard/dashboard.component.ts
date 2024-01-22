@@ -3,9 +3,11 @@ import {
   OnInit,
   CUSTOM_ELEMENTS_SCHEMA,
   AfterViewInit,
+  SimpleChanges,
 } from '@angular/core';
 import { getIdentity } from './getVizzlyIdentity';
 import { CommonModule } from '@angular/common';
+import { DashboardService } from './DashboardService';
 
 declare var dashboard: any;
 
@@ -29,23 +31,49 @@ const ALLOWED_OPERATORS = [
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class VizzlyDashboard implements OnInit, AfterViewInit {
-  reportId: string | null = null;
+  reportId: string | null = null; // Private property for reportId
   userId: string | null = null;
+  isViewInit: boolean = false;
+  maxRetries: number = 3;
+  retryDelay: number = 500;
+
+  constructor(private dashboardService: DashboardService) {}
+
+  ngOnInit() {
+    this.dashboardService.getReportId().subscribe((id) => {
+      this.reportId = id;
+      this.tryInitializeDashboard();
+    });
+    const urlParams = new URLSearchParams(window.location.search);
+    this.userId = urlParams.get('userId');
+  }
+
   ngAfterViewInit(): void {
-    if (this.reportId && typeof dashboard !== 'undefined' && dashboard.render) {
-      this.initializeDashboard();
+    this.isViewInit = true;
+    this.tryInitializeDashboard();
+  }
+
+  private tryInitializeDashboard(retries = 0) {
+    if (this.reportId && this.isViewInit) {
+      if (typeof dashboard !== 'undefined' && dashboard.render) {
+        this.initializeDashboard();
+      } else if (retries < this.maxRetries) {
+        setTimeout(() => {
+          this.tryInitializeDashboard(retries + 1);
+        }, this.retryDelay);
+      }
     }
   }
-  
-  ngOnInit() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const reportId = urlParams.get('reportId');
-    const userId = urlParams.get('userId');
-    this.userId = userId;
-    this.reportId = reportId;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if ('reportId' in changes && this.isViewInit) {
+      this.tryInitializeDashboard();
+    }
   }
 
   private initializeDashboard() {
+    console.log('this.reportId', this.reportId);
+    console.log('this.userId', this.userId);
     dashboard.render({
       vizzlyApiHost: 'https://staging.api.vizzly.co',
       dataSets: async () => {
@@ -96,8 +124,8 @@ export class VizzlyDashboard implements OnInit, AfterViewInit {
           throw 'Unknown data set.';
         }
       },
-      dasboardId: this.reportId,
-      identity: getIdentity(this.userId ?? 'new_user'),
+      dashboardId: this.reportId,
+      identity: getIdentity('123435'),
     });
   }
 }
