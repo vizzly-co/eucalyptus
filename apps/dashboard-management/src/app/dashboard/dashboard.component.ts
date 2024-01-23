@@ -49,15 +49,21 @@ export class VizzlyDashboard implements OnInit, AfterViewInit {
 
   constructor(private dashboardService: DashboardService) {}
 
+  // ngOnInit is called after Angular initializes the component's data-bound properties.
   ngOnInit() {
     this.dashboardService.getReportId().subscribe((id) => {
       this.reportId = id;
+      // Waits for the external 'dashboard' script to be loaded and ready.
+      // This is crucial because the external script might not be immediately available
+      // after the component is initialized, especially if it's loaded asynchronously.
       this.waitForDashboard().then(() => this.initializeDashboard());
     });
     const urlParams = new URLSearchParams(window.location.search);
     this.userId = urlParams.get('userId');
   }
 
+  // ngAfterViewInit is called after Angular fully initializes the component's view.
+  // This hook is often used for DOM manipulations or for operations that depend on the template rendering.
   ngAfterViewInit(): void {
     this.waitForDashboard().then(() => this.initializeDashboard());
   }
@@ -68,15 +74,23 @@ export class VizzlyDashboard implements OnInit, AfterViewInit {
     }
   }
 
+  // Waits for the external 'dashboard' script to load and be ready for use.
+  // Since external scripts are loaded asynchronously, this ensures that any attempt to use the
+  // 'dashboard' object only occurs after it has been fully loaded and defined.
   private waitForDashboard(): Promise<void> {
     return new Promise((resolve) => {
+      // Immediately resolves the promise if 'dashboard' is already available.
       if (typeof dashboard !== 'undefined' && dashboard.render) {
         resolve();
       } else {
+        // Sets up a MutationObserver to listen for changes in the DOM.
+        // This is useful if the 'dashboard' object is expected to be attached to the DOM
+        // as a result of the external script loading and executing.
         const observer = new MutationObserver((_, obs) => {
+          // Checks for the availability of 'dashboard' after any DOM change.
           if (typeof dashboard !== 'undefined' && dashboard.render) {
             resolve();
-            obs.disconnect();
+            obs.disconnect(); // Disconnects the observer once 'dashboard' is ready.
           }
         });
         observer.observe(document, { childList: true, subtree: true });
@@ -85,6 +99,7 @@ export class VizzlyDashboard implements OnInit, AfterViewInit {
   }
 
   private initializeDashboard() {
+    // Checks if the 'dashboard.render' method is defined before attempting to call it.
     if (dashboard.render !== undefined) {
       dashboard.render({
         vizzlyApiHost: 'https://staging.api.vizzly.co',
