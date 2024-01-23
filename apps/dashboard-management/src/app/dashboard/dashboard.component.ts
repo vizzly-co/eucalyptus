@@ -3,13 +3,26 @@ import {
   OnInit,
   CUSTOM_ELEMENTS_SCHEMA,
   AfterViewInit,
-  ChangeDetectorRef,
+  SimpleChanges,
 } from '@angular/core';
 import { getIdentity } from './getVizzlyIdentity';
 import { CommonModule } from '@angular/common';
 import { DashboardService } from './DashboardService';
+import { DataSet } from '@vizzly/services/dist/shared-logic/src/DataSet/types';
 
-declare var dashboard: any;
+type Dashboard = {
+  vizzlyApiHost: string;
+  dataSets: () => Promise<DataSet[]>;
+  data: (dataSet: {
+    id: string;
+  }) => Promise<{ [key: string]: string | number }[]>;
+  dashboardId: string | null;
+  identity: () => Promise<any>;
+};
+
+declare var dashboard: {
+  render?: (args: Dashboard) => void;
+};
 
 const ALLOWED_OPERATORS = [
   '=',
@@ -33,96 +46,100 @@ const ALLOWED_OPERATORS = [
 export class VizzlyDashboard implements OnInit, AfterViewInit {
   reportId: string | null = null; // Private property for reportId
   userId: string | null = null;
-  isViewInit: boolean = false;
-  maxRetries: number = 3;
 
-  constructor(
-    private dashboardService: DashboardService,
-    private cdr: ChangeDetectorRef
-  ) {}
+  constructor(private dashboardService: DashboardService) {}
 
   ngOnInit() {
     this.dashboardService.getReportId().subscribe((id) => {
       this.reportId = id;
-      this.tryInitializeDashboard();
+      this.waitForDashboard().then(() => this.initializeDashboard());
     });
     const urlParams = new URLSearchParams(window.location.search);
     this.userId = urlParams.get('userId');
   }
 
   ngAfterViewInit(): void {
-    this.isViewInit = true;
-    this.tryInitializeDashboard();
+    this.waitForDashboard().then(() => this.initializeDashboard());
   }
 
-  ngAfterViewChecked(): void {
-    this.tryInitializeDashboard();
-  }
-
-  private tryInitializeDashboard(retries = 0) {
-    if (this.reportId && this.isViewInit) {
-      if (typeof dashboard !== 'undefined' && dashboard.render) {
-        this.initializeDashboard();
-      } else if (retries < this.maxRetries) {
-        this.cdr.detectChanges();
-      }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['dashboard'] && changes['dashboard'].currentValue) {
+      this.waitForDashboard().then(() => this.initializeDashboard());
     }
   }
 
-  private initializeDashboard() {
-    dashboard.render({
-      vizzlyApiHost: 'https://staging.api.vizzly.co',
-      dataSets: async () => {
-        return DATASET;
-      },
-
-      data: async (dataSet: { id: string }) => {
-        if (dataSet.id == 'data_set_1') {
-          return [
-            {
-              fie_1: 16,
-              fie_2: 'Space invaders',
-              fie_3: 54,
-              fie_4: '2023-01-30T08:21:25.459Z',
-            },
-            {
-              fie_1: 12,
-              fie_2: 'Space invaders',
-              fie_3: 54,
-              fie_4: '2023-02-13T08:21:25.459Z',
-            },
-            {
-              fie_1: 9,
-              fie_2: 'Space invaders',
-              fie_3: 4,
-              fie_4: '2023-03-13T08:21:25.459Z',
-            },
-            {
-              fie_1: 19,
-              fie_2: 'Space invaders',
-              fie_3: 140,
-              fie_4: '2023-04-07T08:21:25.459Z',
-            },
-            {
-              fie_1: 90,
-              fie_2: 'Tetris',
-              fie_3: 7,
-              fie_4: '2023-03-13T08:21:25.459Z',
-            },
-            {
-              fie_1: 73,
-              fie_2: 'Tetris',
-              fie_3: 68,
-              fie_4: '2023-04-07T08:21:25.459Z',
-            },
-          ];
-        } else {
-          throw 'Unknown data set.';
-        }
-      },
-      dashboardId: this.reportId,
-      identity: getIdentity(this.userId ?? 'new_user'),
+  private waitForDashboard(): Promise<void> {
+    return new Promise((resolve) => {
+      if (typeof dashboard !== 'undefined' && dashboard.render) {
+        resolve();
+      } else {
+        const observer = new MutationObserver((_, obs) => {
+          if (typeof dashboard !== 'undefined' && dashboard.render) {
+            resolve();
+            obs.disconnect();
+          }
+        });
+        observer.observe(document, { childList: true, subtree: true });
+      }
     });
+  }
+
+  private initializeDashboard() {
+    if (dashboard.render !== undefined) {
+      dashboard.render({
+        vizzlyApiHost: 'https://staging.api.vizzly.co',
+        dataSets: async () => {
+          return DATASET;
+        },
+
+        data: async (dataSet: { id: string }) => {
+          if (dataSet.id == 'data_set_1') {
+            return [
+              {
+                fie_1: 16,
+                fie_2: 'Space invaders',
+                fie_3: 54,
+                fie_4: '2023-01-30T08:21:25.459Z',
+              },
+              {
+                fie_1: 12,
+                fie_2: 'Space invaders',
+                fie_3: 54,
+                fie_4: '2023-02-13T08:21:25.459Z',
+              },
+              {
+                fie_1: 9,
+                fie_2: 'Space invaders',
+                fie_3: 4,
+                fie_4: '2023-03-13T08:21:25.459Z',
+              },
+              {
+                fie_1: 19,
+                fie_2: 'Space invaders',
+                fie_3: 140,
+                fie_4: '2023-04-07T08:21:25.459Z',
+              },
+              {
+                fie_1: 90,
+                fie_2: 'Tetris',
+                fie_3: 7,
+                fie_4: '2023-03-13T08:21:25.459Z',
+              },
+              {
+                fie_1: 73,
+                fie_2: 'Tetris',
+                fie_3: 68,
+                fie_4: '2023-04-07T08:21:25.459Z',
+              },
+            ];
+          } else {
+            throw 'Unknown data set.';
+          }
+        },
+        dashboardId: this.reportId,
+        identity: getIdentity(this.userId ?? 'new_user'),
+      });
+    }
   }
 }
 
