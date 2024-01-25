@@ -35,3 +35,5 @@ jobs:
           aws ecs update-service --cluster example-koala --service dynamic-datasets-dashboard-qe2-Service-E69muRAsgqZk --force-new-deployment
 
           aws ecs update-service --cluster example-koala --service frontend-dynamic-remote-config-Service-yzsvYcCKusq8 --force-new-deployment
+
+          aws ecs update-service --cluster example-koala --service track-user-events-app-Service-2bc7Glsj2fLc --force-new-deployment
