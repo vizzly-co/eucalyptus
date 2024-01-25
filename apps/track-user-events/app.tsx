@@ -13,7 +13,7 @@ function App() {
 
   return (
     <>
-    {events.join(',')}
+    <p>USER EVENTS; {events.join(',')}</p>
     <Vizzly.Dashboard
         vizzlyApiHost="https://staging.api.vizzly.co"
         trackEvent={addEvent}
