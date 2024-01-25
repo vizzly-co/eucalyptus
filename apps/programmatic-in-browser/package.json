@@ -9,8 +9,8 @@
     "serve": "http-server ./www -p 9015"
   },
   "dependencies": {
-    "@vizzly/dashboard": "^0.6.4-dev-a3b0f6c2254a7b92d60be24fc7eb90c5d4ea2dd7",
-    "@vizzly/services": "^0.6.4-dev-a3b0f6c2254a7b92d60be24fc7eb90c5d4ea2dd7",
+    "@vizzly/dashboard": "*",
+    "@vizzly/services": "*",
     "esbuild": "^0.16.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
