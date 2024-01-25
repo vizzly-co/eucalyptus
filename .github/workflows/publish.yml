@@ -29,7 +29,8 @@ jobs:
             "in-browser-webcomponent",
             "dashboard-management",
             "dynamic-remote-config",
-            "upcasting-regression-testing"
+            "upcasting-regression-testing",
+            "track-user-events"
           ]
 
     steps:
