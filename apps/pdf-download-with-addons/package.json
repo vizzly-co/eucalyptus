@@ -4,9 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "esbuild app.tsx --bundle --serve=9009 --servedir=www/ --outdir=www/js --define:global=window",
+    "start": "esbuild app.tsx --bundle --serve=9024 --servedir=www/ --outdir=www/js --define:global=window",
     "build": "esbuild app.tsx --bundle --outdir=www/js --define:global=window",
-    "serve": "http-server ./www -p 9009"
+    "serve": "http-server ./www -p 9024"
   },
   "dependencies": {
     "@vizzly/dashboard": "*",
