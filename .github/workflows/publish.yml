@@ -30,8 +30,8 @@ jobs:
             "dashboard-management",
             "dynamic-remote-config",
             "upcasting-regression-testing",
-            "track-user-events"
-            "pdf-download-with-addons"
+            "track-user-events",
+            "pdf-download-with-addons",
             "pdf-download-with-no-addons"
           ]
 
