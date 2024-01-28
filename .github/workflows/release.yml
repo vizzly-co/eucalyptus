@@ -37,3 +37,7 @@ jobs:
           aws ecs update-service --cluster example-koala --service frontend-dynamic-remote-config-Service-yzsvYcCKusq8 --force-new-deployment
 
           aws ecs update-service --cluster example-koala --service track-user-events-app-Service-2bc7Glsj2fLc --force-new-deployment
+
+          aws ecs update-service --cluster example-koala --service eucalyptus-pdf-download-with-addons-Service-P0222pk1r2nX --force-new-deployment
+
+          aws ecs update-service --cluster example-koala --service eucalyptus-pdf-download-with-no-addons-Service-koTyCH25vvwm --force-new-deployment
