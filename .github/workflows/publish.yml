@@ -54,7 +54,7 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
           APP_NAME: eucalyptus-${{ matrix.app }}
         run: |
-          VERSION=${{ inputs.dashboard_version:-"dev" }}
+          VERSION=${inputs.dashboard_version:-"dev"}
           echo "Installing version @${{VERSION}"
 
           # Upgrade the dev package of the dashboard
