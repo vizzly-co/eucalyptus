@@ -54,11 +54,12 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
           APP_NAME: eucalyptus-${{ matrix.app }}
         run: |
-          echo "Installing version @${{inputs.dashboard_version || 'dev'}}"
+          VERSION=${{ inputs.dashboard_version:-"dev" }}
+          echo "Installing version @${{VERSION}"
 
           # Upgrade the dev package of the dashboard
-          yarn --cwd ./apps/${{ matrix.app }} add @vizzly/dashboard@${{inputs.dashboard_version || 'dev'}}
-          yarn --cwd ./apps/${{ matrix.app }} add @vizzly/services@${{inputs.dashboard_version || 'dev'}}
+          yarn --cwd ./apps/${{ matrix.app }} add @vizzly/dashboard@${{VERSION}
+          yarn --cwd ./apps/${{ matrix.app }} add @vizzly/services@${{VERSION}
 
           # Build the image with a tag that can be referenced.
           docker build -f ./apps/${{ matrix.app }}/Dockerfile ./apps/${{ matrix.app }} -t $APP_NAME\:latest
