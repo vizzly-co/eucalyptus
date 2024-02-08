@@ -24,6 +24,8 @@ jobs:
         run: |
           echo "Updating the running services..."
 
+          aws ecs update-service --cluster example-koala --service eucalyptus-sql-views-Service-xPWcD6r1VIos --force-new-deployment
+
           aws ecs update-service --cluster example-koala --service eucalyptus-in-browser3-Service-GaWKCxpo9sUe --force-new-deployment
           aws ecs update-service --cluster example-koala --service eucalyptus-node-smart-proxy-Service-287bUTqxB9rm --force-new-deployment
           aws ecs update-service --cluster example-koala --service eucalyptus-dynamic-datasets-dashboard-Service-Nfit6fQ4OzJQ --force-new-deployment
