@@ -10,6 +10,7 @@ function App() {
         // Hit dynamic query engine for remote configs
         queryEngineEndpoint="https://staging.api.vizzly.co/managed/mqe_2366962f5f354df3a6fce9ac1b68eb47"
         parentDashboardId="dsh_08d75fc72c4e4bcf970ce90d234f926d"
+        // featureToggles={{disableAutoSave: true}}
         identity={async () => {
           // Hit the auth app
           const response = await fetch('http://koala-tree.vizzly.co:9012/identity', {
@@ -22,7 +23,7 @@ function App() {
               projectId: 'prj_719ed637834e4605be0c19fe25a38ed5',
               secureFilters: {},
               dataSetIds: '*',
-              scope: 'read_write',
+              scope: 'read',
               userReference: window.location.hash || 'a user id - 2874924832'
             })
           });
