@@ -32,7 +32,8 @@ jobs:
             "upcasting-regression-testing",
             "track-user-events",
             "pdf-download-with-addons",
-            "pdf-download-with-no-addons"
+            "pdf-download-with-no-addons",
+            "sql-views"
           ]
 
     steps:
