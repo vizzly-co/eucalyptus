@@ -33,7 +33,8 @@ jobs:
             "track-user-events",
             "pdf-download-with-addons",
             "pdf-download-with-no-addons",
-            "sql-views"
+            "sql-views",
+            "microsoft-sql-server"
           ]
 
     steps:
