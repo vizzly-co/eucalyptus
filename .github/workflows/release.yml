@@ -3,7 +3,7 @@ name: Release the ECS services with the latest images...
 on:
   workflow_dispatch:
   schedule:
-    - cron: '30 8-21 * * *'
+    - cron: '30 8-19/3 * * *'
 
 jobs:
   publish-docker-image:
