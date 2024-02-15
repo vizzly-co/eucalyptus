@@ -42,3 +42,5 @@ jobs:
           aws ecs update-service --cluster example-koala --service eucalyptus-pdf-download-with-addons-Service-P0222pk1r2nX --force-new-deployment
 
           aws ecs update-service --cluster example-koala --service eucalyptus-pdf-download-with-no-addons-Service-koTyCH25vvwm --force-new-deployment
+
+          aws ecs update-service --cluster example-koala --service eucalyptus-microsoft-sql-server-2-Service-AE7gJhM9UIyE --force-new-deployment
