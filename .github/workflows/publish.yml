@@ -34,7 +34,8 @@ jobs:
             "pdf-download-with-addons",
             "pdf-download-with-no-addons",
             "sql-views",
-            "microsoft-sql-server"
+            "microsoft-sql-server",
+            "redshift",
           ]
 
     steps:
