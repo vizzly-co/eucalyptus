@@ -1,12 +1,12 @@
 {
-  "name": "redshift",
+  "name": "dashboard-external-filters",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "esbuild app.tsx --bundle --serve=2027 --servedir=www/ --outdir=www/js --define:global=window",
+    "start": "esbuild app.tsx --bundle --serve=2028 --servedir=www/ --outdir=www/js --define:global=window",
     "build": "esbuild app.tsx --bundle --outdir=www/js --define:global=window",
-    "serve": "http-server ./www -p 2027"
+    "serve": "http-server ./www -p 2028"
   },
   "dependencies": {
     "@vizzly/dashboard": "*",
