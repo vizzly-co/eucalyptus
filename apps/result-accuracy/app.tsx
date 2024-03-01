@@ -23,7 +23,7 @@ function App() {
               projectId: 'prj_c474157d00824a6cb304ab76f947355f',
               secureFilters: {},
               dataSetIds: '*',
-              scope: 'read_write',
+              scope: 'read',
               userReference: window.location.hash || 'a basic user'
             })
           });
