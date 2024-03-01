@@ -36,6 +36,7 @@ jobs:
             "sql-views",
             "microsoft-sql-server",
             "redshift",
+            "result-accuracy",
           ]
 
     steps:
