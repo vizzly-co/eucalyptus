@@ -39,10 +39,31 @@ Parameters:
   AppName:
     Description: Eucalyptus app name
     Type: String
-    AllowedValues : ["eucalyptus-in-browser", 'eucalyptus-node-smart-proxy', 'dynamic-datasets-dashboard', 'eucalyptus-identity', 'programmatic-in-browser', 'in-browser-encrypted-dashboards', 'in-browser-encrypted-dashboard-management', 'in-browser-webcomponent', 'dashboard-management', 'dynamic-remote-config', 'upcasting-regression-testing', 'track-user-events', 'pdf-download-with-addons', 'pdf-download-with-no-addons', 'sql-views', 'microsoft-sql-server', 'redshift', 'result-accuracy']
+    AllowedValues:
+      [
+        "eucalyptus-in-browser",
+        "eucalyptus-node-smart-proxy",
+        "dynamic-datasets-dashboard",
+        "eucalyptus-identity",
+        "programmatic-in-browser",
+        "in-browser-encrypted-dashboards",
+        "in-browser-encrypted-dashboard-management",
+        "in-browser-webcomponent",
+        "dashboard-management",
+        "dynamic-remote-config",
+        "upcasting-regression-testing",
+        "track-user-events",
+        "pdf-download-with-addons",
+        "pdf-download-with-no-addons",
+        "sql-views",
+        "microsoft-sql-server",
+        "redshift",
+        "result-accuracy",
+        "dashboard-external-filters",
+      ]
 
 Conditions:
-  ProvidedTaskRole: !Not [ !Equals [ !Ref TaskRoleArn, "" ] ]
+  ProvidedTaskRole: !Not [!Equals [!Ref TaskRoleArn, ""]]
 
 Resources:
   Service:
@@ -59,7 +80,7 @@ Resources:
     Type: AWS::ECS::TaskDefinition
     Properties:
       Family: !Sub ${Environment}-${AppName}
-      TaskRoleArn: !If [ ProvidedTaskRole, !Ref TaskRoleArn, !Ref "AWS::NoValue"]
+      TaskRoleArn: !If [ProvidedTaskRole, !Ref TaskRoleArn, !Ref "AWS::NoValue"]
       ExecutionRoleArn: !Ref TaskDefinitionExecutionRole
       ContainerDefinitions:
         - Name: !Sub ${Environment}-${AppName}
