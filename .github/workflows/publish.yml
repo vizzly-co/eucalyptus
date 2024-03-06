@@ -37,6 +37,7 @@ jobs:
             "microsoft-sql-server",
             "redshift",
             "result-accuracy",
+            "dashboard-external-filters",
           ]
 
     steps:
