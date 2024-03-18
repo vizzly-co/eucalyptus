@@ -47,6 +47,7 @@ function App() {
                   allowedGranularities: ["month", "year"],
                   allowedOperators: ALLOWED_OPERATORS
                 },
+                Vizzly.DataSetField.InBrowser.stringArray('fie_5', 'Arcades')
               ],
             },
           ];
@@ -65,30 +66,35 @@ function App() {
                 fie_2: "Space invaders",
                 fie_3: 54,
                 fie_4: "2023-02-13T08:21:25.459Z",
+                fie_5: ['Arcade 8', 'Arcade 2']
               },
               {
                 fie_1: 9,
                 fie_2: "Space invaders",
                 fie_3: 4,
                 fie_4: "2023-03-13T08:21:25.459Z",
+                fie_5: ['Arcade 8', 'Arcade 9']
               },
               {
                 fie_1: 19,
                 fie_2: "Space invaders",
                 fie_3: 140,
                 fie_4: "2023-04-07T08:21:25.459Z",
+                fie_5: ['Arcade 0']
               },
               {
                 fie_1: 90,
                 fie_2: "Tetris",
                 fie_3: 7,
                 fie_4: "2023-03-13T08:21:25.459Z",
+                fie_5: ['Arcade 98']
               },
               {
                 fie_1: 73,
                 fie_2: "Tetris",
                 fie_3: 68,
                 fie_4: "2023-04-07T08:21:25.459Z",
+                fie_5: ['Arcade abc']
               },
             ];
           } else {
