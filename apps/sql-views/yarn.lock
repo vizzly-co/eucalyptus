@@ -931,10 +931,10 @@
     "@visx/event" "2.17.0"
     prop-types "^15.6.2"
 
-"@vizzly/dashboard@*":
-  version "0.7.4"
-  resolved "https://registry.yarnpkg.com/@vizzly/dashboard/-/dashboard-0.7.4.tgz#14c6d929a7734742fdb24f42ab9fc450ab1f501f"
-  integrity sha512-R0QIGXHlJZ5L6TbTIiFV5W2kSRwLiAp6JjcuvTfJ5gzYpf9XePqHDG3NjpydBq2z0jF8/ktUyS3Q/7PGegdCdQ==
+"@vizzly/dashboard@0.9.1-dev-b7b3d7ead65bdd5379a7dcb2138ceb201f781ada":
+  version "0.9.1-dev-b7b3d7ead65bdd5379a7dcb2138ceb201f781ada"
+  resolved "https://registry.yarnpkg.com/@vizzly/dashboard/-/dashboard-0.9.1-dev-b7b3d7ead65bdd5379a7dcb2138ceb201f781ada.tgz#63866bb98764b0b7023883d24f6813af13221424"
+  integrity sha512-5Rzuppcr0/ANjzTTqz/R/KmYPRQp8488ZgYHZ0wmWGyZEUgvZWmXWaIZrHXzyCn151WzA31TsSAfhsJrXOrAEg==
   dependencies:
     "@emotion/cache" "^11.11.0"
     "@emotion/css" "^11.10.6"
@@ -955,7 +955,7 @@
     jspdf "^2.5.1"
     lodash "^4.17.21"
     lodash-es "^4.17.21"
-    react-dates-17 "22.0.4"
+    react-dates-17 "22.0.8"
     react-dnd "^15.1"
     react-dnd-html5-backend "^15.0.1"
     react-popper "^2.3.0"
@@ -2180,10 +2180,10 @@ raf@^3.4.1:
   dependencies:
     performance-now "^2.1.0"
 
-react-dates-17@22.0.4:
-  version "22.0.4"
-  resolved "https://registry.yarnpkg.com/react-dates-17/-/react-dates-17-22.0.4.tgz#3b736b90f7f3994967976b43ca53596cb17e9199"
-  integrity sha512-CEtK1Y4BO15HIhaFvjpiXMzNFNj3XlLXzLCC4iEwWYNsgnvx5gh24m6hPvVjbXw/hpF1oLkiXczhCcrrqL+dVA==
+react-dates-17@22.0.8:
+  version "22.0.8"
+  resolved "https://registry.yarnpkg.com/react-dates-17/-/react-dates-17-22.0.8.tgz#913dde06601f0740730321d14b671aa9db1e2fdc"
+  integrity sha512-dFeO0CUKxQUvnNfZg0LvAl0cQDujxIbsWe0vVY3x6W52y7MA2vqXGc59eDR+su3nmw3qjqaG9sYcmN/hE8KlaQ==
   dependencies:
     airbnb-prop-types "^2.16.0"
     color2k "~1.1.1"
