@@ -11,6 +11,7 @@ function App() {
         queryEngineEndpoint="https://staging.api.vizzly.co/managed/mqe_2366962f5f354df3a6fce9ac1b68eb47"
         parentDashboardId="dsh_08d75fc72c4e4bcf970ce90d234f926d"
         // featureToggles={{disableAutoSave: true}}
+        developerTools={{viewRawResults: true}}
         identity={async () => {
           // Hit the auth app
           const response = await fetch('http://koala-tree.vizzly.co:9012/identity', {
