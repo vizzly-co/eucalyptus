@@ -1,6 +1,9 @@
 import * as React from "react";
 import { createRoot } from "react-dom/client";
-import { useDashboardManager } from "@vizzly/dashboard";
+import { useVizzly } from "@vizzly/dashboard";
+import { Vizzly } from "@vizzly/services";
+
+const parentDashboardId = 'dsh_0ec51fad1014400da0665eb8bfce849b';
 
 const identity = async () => {
   const userReference = window.location.hash || 'default user';
@@ -15,6 +18,7 @@ const identity = async () => {
     body: JSON.stringify({
       projectId: 'prj_716b32cc83b74ccf834cc15265d235da',
       secureFilters: {},
+      parentDashboardIds: [parentDashboardId],
       dataSetIds: '*',
       userReference: userReference,
       scope: 'read_write'
@@ -24,20 +28,33 @@ const identity = async () => {
   const { accessTokens } = await response.json();
 
   return accessTokens;
-
 };
 
 function App() {
   const queryEngineEndpoint = 'https://staging.api.vizzly.co/managed/mqe_454b10ff78fc44a0be7efde4642004c4';
-  const parentDashboardId = 'dsh_0ec51fad1014400da0665eb8bfce849b';
-  const { dashboards, VizzlySDK, createDashboard, deleteDashboard, updateDashboardMeta } = useDashboardManager(identity, queryEngineEndpoint, parentDashboardId, {host: 'https://staging.api.vizzly.co'});
+  const vizzly = useVizzly(queryEngineEndpoint, identity, undefined, {apiHost: 'https://staging.api.vizzly.co'});
 
-  if(! VizzlySDK) return null;
+  if(vizzly.loading) return null;
+  const { dashboards, updateDashboard } = vizzly;
+
+  const deleteDashboard = async (dashboardId: string) => {
+    await updateDashboard({
+      dashboardId,
+      deleted: true
+    })
+  } 
+
+  const updateDashboardMeta = async (dashboardId: string, meta?: Object) => {
+    await updateDashboard({
+      dashboardId,
+      metadata: meta
+    })
+  }
 
   return (
     <>
       <button onClick={() => {
-          createDashboard({});
+          vizzly.createDashboard({parentDashboardId, definition: new Vizzly.Dashboard().build()});
       }} data-testid="create-empty-dashboard-btn">Create empty dashboard</button>
       <ul data-testid="dashboards-list">
         {dashboards.map((dashboard) => {
