@@ -1072,17 +1072,10 @@
     "@visx/event" "3.3.0"
     prop-types "^15.6.2"
 
-"@vizzly/api-client@0.0.19":
-  version "0.0.19"
-  resolved "https://registry.yarnpkg.com/@vizzly/api-client/-/api-client-0.0.19.tgz#5e0d634516a67665a9bc98cd4926ac25fadb2281"
-  integrity sha512-9YxemrGyUx7BNSYN+yM7z70Qe1PmeKtV6ZEPi4nSc8F0OUwiZxyQPuI/UpreKloCXy/Uhr+i/Aj1w4LQwJwJzg==
-  dependencies:
-    isomorphic-fetch "^3.0.0"
-
-"@vizzly/dashboard@0.11.0-dev-9c5c38d86047fe81a973256581c687de20c19edc":
-  version "0.11.0-dev-9c5c38d86047fe81a973256581c687de20c19edc"
-  resolved "https://registry.yarnpkg.com/@vizzly/dashboard/-/dashboard-0.11.0-dev-9c5c38d86047fe81a973256581c687de20c19edc.tgz#e20969f316eddd1f1d41146fbf31dc561ca2a038"
-  integrity sha512-lKOlJtIjulFbhlhPPmxRbMUtAhdOfW3p63PKyqBFLanQUhGXSiiYpRSsKqv2/Vkf+/G4aoKqFdla5jAM1qv5Cg==
+"@vizzly/dashboard@*":
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/@vizzly/dashboard/-/dashboard-0.11.0.tgz#2c7ea2716ef3abb59f8776604aacd659ebd7c1d3"
+  integrity sha512-wmkvOWBDm72QvgkM9vvMMg0wkCUA7nPfbEEB9a1iXprD7cOe9/yG2WRKFSLBT9+emqhP3ROI4hil9lq8odk71Q==
   dependencies:
     "@emotion/cache" "^11.11.0"
     "@emotion/css" "^11.10.6"
@@ -1092,7 +1085,6 @@
     "@popperjs/core" "^2.11.6"
     "@react-spring/web" "9.6.1"
     "@visx/visx" "^3.10.2"
-    "@vizzly/api-client" "0.0.19"
     "@vizzly/joi" "^17.7.0"
     chroma-js "^2.4.2"
     copy-to-clipboard "^3.3.3"
@@ -1125,10 +1117,10 @@
     "@hapi/tlds" "^1.0.2"
     "@hapi/topo" "^6.0.2"
 
-"@vizzly/services@^0.11.0-dev-1576f25c088348e5fd3c1ac0c9508b0c051520cb":
-  version "0.11.0-dev-1576f25c088348e5fd3c1ac0c9508b0c051520cb"
-  resolved "https://registry.yarnpkg.com/@vizzly/services/-/services-0.11.0-dev-1576f25c088348e5fd3c1ac0c9508b0c051520cb.tgz#b28ed2e8ebef67655ac5ded111970fe270b783c5"
-  integrity sha512-Ae26yWCJYWypVXQ7Cqsbd6yw3qcEdHGjjjIYNErbvNVyXMXqYFAcc1kf+4DHGgh86ZK3y7iIDC+hIn9V7fsRiw==
+"@vizzly/services@*":
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/@vizzly/services/-/services-0.11.0.tgz#79da79c9297c5ccd1d24cffff5592cc460d6d30a"
+  integrity sha512-rnbPlwx3HhUQOxW2UtC0+DvQPH4GCgN+GvUS3N7udW1ErQPc6EmbyDVUniHH8NPrq7YGz1YYHbzqEU04rJV2EA==
 
 airbnb-prop-types@^2.14.0, airbnb-prop-types@^2.15.0, airbnb-prop-types@^2.16.0:
   version "2.16.0"
