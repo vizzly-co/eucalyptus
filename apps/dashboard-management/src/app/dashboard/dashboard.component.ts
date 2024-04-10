@@ -4,6 +4,7 @@ import {
   CUSTOM_ELEMENTS_SCHEMA,
   AfterViewInit,
   SimpleChanges,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { getIdentity } from './getVizzlyIdentity';
 import { CommonModule } from '@angular/common';
@@ -18,6 +19,14 @@ type Dashboard = {
   }) => Promise<{ [key: string]: string | number }[]>;
   dashboardId: string | null;
   identity: () => Promise<any>;
+  onDashboardLoad: (dashboard: {
+    id: string;
+    metadata: {
+      name: string;
+    };
+    scope: string;
+    dataSets: DataSet[];
+  }) => void;
 };
 
 declare var dashboard: {
@@ -45,9 +54,13 @@ const ALLOWED_OPERATORS = [
 })
 export class VizzlyDashboard implements OnInit, AfterViewInit {
   reportId: string | null = null; // Private property for reportId
+  reportName: string | null = null;
   userId: string | null = null;
 
-  constructor(private dashboardService: DashboardService) {}
+  constructor(
+    private dashboardService: DashboardService,
+    private cdRef: ChangeDetectorRef
+  ) {}
 
   // ngOnInit is called after Angular initializes the component's data-bound properties.
   ngOnInit() {
@@ -106,7 +119,11 @@ export class VizzlyDashboard implements OnInit, AfterViewInit {
         dataSets: async () => {
           return DATASET;
         },
-
+        onDashboardLoad: (loadedDashboard) => {
+          this.reportId = loadedDashboard.id;
+          this.reportName = `bob ${loadedDashboard.scope}`; // Set the dashboard name here
+          this.cdRef.detectChanges(); // Trigger change detection
+        },
         data: async (dataSet: { id: string }) => {
           if (dataSet.id == 'data_set_1') {
             return [
