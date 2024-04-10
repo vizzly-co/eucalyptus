@@ -57,6 +57,10 @@ export class VizzlyDashboard implements OnInit, AfterViewInit {
   reportName: string | null = null;
   userId: string | null = null;
 
+  // Injecting dependencies for DashboardService and ChangeDetectorRef
+  // DashboardService is used for any service calls required by the dashboard component.
+  // ChangeDetectorRef is used for manually triggering change detection within Angular.
+  // This is particularly useful for updating the view when data changes occur outside of Angular's detection mechanisms.
   constructor(
     private dashboardService: DashboardService,
     private cdRef: ChangeDetectorRef
@@ -121,8 +125,12 @@ export class VizzlyDashboard implements OnInit, AfterViewInit {
         },
         onDashboardLoad: (loadedDashboard) => {
           this.reportId = loadedDashboard.id;
-          this.reportName = `bob ${loadedDashboard.scope}`; // Set the dashboard name here
-          this.cdRef.detectChanges(); // Trigger change detection
+          this.reportName = `bob ${loadedDashboard.scope}`;
+
+          // Manually trigger Angular's change detection to update the view with new data.
+          // This is necessary because the update to properties happen outside of Angular's usual detection cycle,
+          // such as an asynchronous callback or a DOM event handler.
+          this.cdRef.detectChanges();
         },
         data: async (dataSet: { id: string }) => {
           if (dataSet.id == 'data_set_1') {
