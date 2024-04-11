@@ -127,18 +127,21 @@ function App() {
     <>
       <h1>DASHBOARD ONE</h1>
       <p>dsh_219a89daff004526a42631d015a35b87</p>
-      <Vizzly.Dashboard
-        vizzlyApiHost="https://staging.api.vizzly.co"
-        parentDashboardId="dsh_219a89daff004526a42631d015a35b87"
-        theme={{rowLimit: 1}}
-        dataSets={dataSets}
-        data={data}
-        identity={identity}
-      />
+      <div id="dash_1">
+        <Vizzly.Dashboard
+          vizzlyApiHost="https://staging.api.vizzly.co"
+          parentDashboardId="dsh_219a89daff004526a42631d015a35b87"
+          theme={{rowLimit: 1}}
+          dataSets={dataSets}
+          data={data}
+          identity={identity}
+        />
+      </div>
     <hr /> <hr /> <hr /> <hr />
     <h1>DASHBOARD TWO</h1>
     <p>dsh_55e11612cf8f4b42bf29b3356dd60e11</p>
-    <Vizzly.Dashboard
+    <div id="dash_2">
+      <Vizzly.Dashboard
         vizzlyApiHost="https://staging.api.vizzly.co"
         parentDashboardId="dsh_55e11612cf8f4b42bf29b3356dd60e11"
         theme={{rowLimit: 1}}
@@ -146,6 +149,7 @@ function App() {
         data={data}
         identity={identity}
       />
+      </div>
     </>
   );
 }
