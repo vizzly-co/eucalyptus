@@ -3,12 +3,12 @@ FROM node:18-alpine as build
 # Set the working directory
 WORKDIR /app
 
-COPY package.json yarn.lock ./
+COPY package.json package-lock.json ./
 
-RUN yarn install
+RUN npm install
 COPY . .
 
-RUN yarn build
+RUN npm run build
 
 # Stage 2: Serve the application using Nginx
 FROM nginx:alpine
