@@ -59,7 +59,7 @@ function App() {
           vizzly.createDashboard({parentDashboardId, definition: new Vizzly.Dashboard().build()});
       }} data-testid="create-empty-dashboard-btn">Create empty dashboard</button>
       <ul data-testid="dashboards-list">
-        {dashboards.map((dashboard) => {
+        {dashboards.filter(d => d.parentDashboardId != null).map((dashboard) => {
           return (
             <li data-testid="dashboards-list-item" style={{ marginBottom: '20px' }}>
               <pre>META: {JSON.stringify(dashboard.metadata)}</pre>
