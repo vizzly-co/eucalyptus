@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <script src="https://static.app.vizzly.co/services/0.11.0-dev-694b3dda0cc3e2ae8db6f8b5114cd5ec066e6c39/vizzly.umd.js"></script>
+  </head>
+  <body>
+    <script>
+      async function fetchDashboards() {
+        const v = Vizzly.use();
+        const dashboards = await v.getDashboards();
+
+        document.getElementById('data').innerHTML = JSON.stringify(dashboards, null, 2);
+      }
+      Vizzly.load({
+        queryEngine: 'in-browser',
+        dataSets: () => ([]),
+        identity: async () => {
+          // Hit the auth app
+          const response = await fetch('http://koala-tree.vizzly.co:9012/identity', {
+            method: 'post',
+            headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+            },
+            body: JSON.stringify({
+              projectId: 'prj_844c4a7bc80e43c586f453a02b8da32d',
+              secureFilters: {},
+              dataSetIds: '*',
+              userReference: 'load everything using just JS and umd',
+              scope: 'read',
+              accessType: 'standard'
+            })
+          });
+
+          const { accessTokens } = await response.json();
+
+          return accessTokens;
+        }
+      }, {apiHost: 'https://staging.api.vizzly.co'})
+    </script>
+
+    <button onClick="fetchDashboards()">load</button>
+    <pre id="data"></pre>
+  </body>
+</html>
