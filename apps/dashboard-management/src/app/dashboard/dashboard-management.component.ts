@@ -6,7 +6,11 @@ import { v4 as uuidv4 } from 'uuid';
 import { CommonModule } from '@angular/common';
 import { DashboardService } from './DashboardService';
 
-VizzlyServices.load('in-browser');
+VizzlyServices.load({
+  queryEngine: 'in-browser',
+  identity: getIdentity(new URLSearchParams(window.location.search).get('userId') ?? 'new_user'),
+  dataSets: async () => ([])
+}, {apiHost: 'https://staging.api.vizzly.co'});
 
 @Component({
   selector: 'app-dashboard-management',
@@ -17,7 +21,6 @@ VizzlyServices.load('in-browser');
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class VizzlyDashboardManagement implements OnInit {
-  api: any;
   dashboards: { version: number; id: string }[] | undefined;
   loading = false;
   userId: string | null = null;
@@ -26,22 +29,23 @@ export class VizzlyDashboardManagement implements OnInit {
     const urlParams = new URLSearchParams(window.location.search);
     const userId = urlParams.get('userId');
     this.userId = userId;
-    this.api = new VizzlyServices.API(getIdentity(userId ?? 'new_user'), {
-      parentDashboardId: 'dsh_19544ac518ce402bb98564d0db639211',
-      vizzlyAPIConfig: { host: 'https://staging.api.vizzly.co' },
-    });
   }
 
   ngOnInit(): void {
-    this.getDashboards();
+    setTimeout(() => {
+      this.getDashboards();
+    }, 2_500)
   }
 
   async getDashboards(): Promise<void> {
     this.loading = true;
+    const api = VizzlyServices.use();
+
     try {
-      const response = await this.api.getAllChildDashboards();
+      const response = (await api.getDashboards()).filter(d => d.parentDashboardId !== null);
 
       if (response) {
+        // @ts-ignore
         this.dashboards = response
           .slice(0, 5)
           .map((dashboard: { metadata: { version: number } }) => {
@@ -57,10 +61,12 @@ export class VizzlyDashboardManagement implements OnInit {
   }
 
   async createReport(): Promise<void> {
+    const api = VizzlyServices.use();
     try {
       const definition = buildDefaultDashboard(this.userId ?? 'new_user');
 
-      await this.api.createDashboard({
+      await api.createDashboard({
+        parentDashboardId: 'dsh_19544ac518ce402bb98564d0db639211',
         definition,
         metadata: { version: 1 },
       });
@@ -72,9 +78,10 @@ export class VizzlyDashboardManagement implements OnInit {
   }
 
   async updateVersion(reportId: string, version: number) {
+    const api = VizzlyServices.use();
     try {
       const metadata = { version: version + 1 };
-      await this.api.updateDashboard(reportId, { metadata });
+      await api.updateDashboard({dashboardId: reportId, metadata });
       await this.getDashboards();
     } catch (error) {
       console.error('Error updating dashboard:', error);
@@ -82,8 +89,9 @@ export class VizzlyDashboardManagement implements OnInit {
   }
 
   async deleteReport(reportId: string) {
+    const api = VizzlyServices.use();
     try {
-      await this.api.deleteDashboard(reportId);
+      await api.updateDashboard({dashboardId: reportId, deleted: true});
       await this.getDashboards();
     } catch (error) {
       console.error('Error deleting dashboard:', error);
@@ -99,7 +107,7 @@ export class VizzlyDashboardManagement implements OnInit {
 function buildDefaultDashboard(userId: string) {
   const id = uuidv4();
   const dashboard = new VizzlyServices.Dashboard(`dsh_${id}`);
-  const barChart = new VizzlyServices.BarChart(DATASET[0]);
+  const barChart = new VizzlyServices.BarChart({dataSetId: DATASET[0].id});
 
   barChart.updateAttributes({
     dimension: [{ field: 'fie_2', function: 'none', pivot: 'x' }],
