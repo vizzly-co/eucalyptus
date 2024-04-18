@@ -32,7 +32,7 @@ const identity = async () => {
 
 function App() {
   const queryEngineEndpoint = 'https://staging.api.vizzly.co/managed/mqe_454b10ff78fc44a0be7efde4642004c4';
-  const vizzly = useVizzly(queryEngineEndpoint, identity, undefined, {apiHost: 'https://staging.api.vizzly.co'});
+  const vizzly = useVizzly(queryEngineEndpoint, identity, undefined, undefined, {apiHost: 'https://staging.api.vizzly.co'});
 
   if(vizzly.loading) return null;
   const { dashboards, updateDashboard } = vizzly;
