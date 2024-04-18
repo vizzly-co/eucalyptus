@@ -21,28 +21,26 @@ jobs:
           aws-region: eu-west-2
 
       - name: Release the images to the ECS services
+        env:
+          IMAGE_TAG: ${{ github.sha }}
         run: |
-          echo "Updating the running services..."
+          echo "Updating the running services to version $IMAGE_TAG..."
 
-          aws ecs update-service --cluster example-koala --service eucalyptus-sql-views-Service-xPWcD6r1VIos --force-new-deployment
+          sh ./update_koala_service.sh "example-dashboard-management" "eucalyptus-sql-views-Service-xPWcD6r1VIos" "ghcr.io/vizzly-co/eucalyptus-dashboard-management:$IMAGE_TAG"
 
-          aws ecs update-service --cluster example-koala --service eucalyptus-in-browser3-Service-GaWKCxpo9sUe --force-new-deployment
-          aws ecs update-service --cluster example-koala --service eucalyptus-node-smart-proxy-Service-287bUTqxB9rm --force-new-deployment
-          aws ecs update-service --cluster example-koala --service eucalyptus-dynamic-datasets-dashboard-Service-Nfit6fQ4OzJQ --force-new-deployment
-          aws ecs update-service --cluster example-koala --service programmatic-in-browser-Service-qzekUB3FUuSG --force-new-deployment
-          aws ecs update-service --cluster example-koala --service in-browser-encrypted-dashboard-management-Service-HY5j1OQK45ns --force-new-deployment
-          aws ecs update-service --cluster example-koala --service in-browser-webcomponent-Service-W6pcgXLZkXSM --force-new-deployment
+          sh ./update_koala_service.sh "example-eucalyptus-in-browser" "eucalyptus-in-browser3-Service-GaWKCxpo9sUe" "ghcr.io/vizzly-co/eucalyptus-in-browser:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-eucalyptus-node-smart-proxy" "eucalyptus-node-smart-proxy-Service-287bUTqxB9rm" "ghcr.io/vizzly-co/eucalyptus-node-smart-proxy:$IMAGE_TAG"
 
-          aws ecs update-service --cluster example-koala --service dynamic-datasets-dashboard-qe2-Service-E69muRAsgqZk --force-new-deployment
+          sh ./update_koala_service.sh "example-dynamic-datasets-dashboard" "eucalyptus-dynamic-datasets-dashboard-Service-Nfit6fQ4OzJQ" "ghcr.io/vizzly-co/eucalyptus-dynamic-datasets-dashboard:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-programmatic-in-browser" "programmatic-in-browser-Service-qzekUB3FUuSG" "ghcr.io/vizzly-co/eucalyptus-programmatic-in-browser:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-in-browser-encrypted-dashboard-management" "in-browser-encrypted-dashboard-management-Service-HY5j1OQK45ns" "ghcr.io/vizzly-co/eucalyptus-in-browser-encrypted-dashboard-management:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-in-browser-webcomponent" "in-browser-webcomponent-Service-W6pcgXLZkXSM" "ghcr.io/vizzly-co/eucalyptus-in-browser-webcomponent:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-dynamic-remote-config" "frontend-dynamic-remote-config-Service-yzsvYcCKusq8" "ghcr.io/vizzly-co/eucalyptus-dynamic-remote-config:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-track-user-events" "track-user-events-app-Service-2bc7Glsj2fLc" "ghcr.io/vizzly-co/eucalyptus-track-user-events:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-pdf-download-with-addons" "eucalyptus-pdf-download-with-addons-Service-P0222pk1r2nX" "ghcr.io/vizzly-co/eucalyptus-pdf-download-with-addons:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-pdf-download-with-no-addons" "eucalyptus-pdf-download-with-no-addons-Service-koTyCH25vvwm" "ghcr.io/vizzly-co/eucalyptus-pdf-download-with-no-addons:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-microsoft-sql-server" "eucalyptus-microsoft-sql-server-2-Service-AE7gJhM9UIyE" "ghcr.io/vizzly-co/eucalyptus-microsoft-sql-server:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-result-accuracy" "eucalyptus-result-accuracy-Service-ufu2togI6QMZ" "ghcr.io/vizzly-co/eucalyptus-result-accuracy:$IMAGE_TAG"
 
-          aws ecs update-service --cluster example-koala --service frontend-dynamic-remote-config-Service-yzsvYcCKusq8 --force-new-deployment
-
-          aws ecs update-service --cluster example-koala --service track-user-events-app-Service-2bc7Glsj2fLc --force-new-deployment
-
-          aws ecs update-service --cluster example-koala --service eucalyptus-pdf-download-with-addons-Service-P0222pk1r2nX --force-new-deployment
-
-          aws ecs update-service --cluster example-koala --service eucalyptus-pdf-download-with-no-addons-Service-koTyCH25vvwm --force-new-deployment
-
-          aws ecs update-service --cluster example-koala --service eucalyptus-microsoft-sql-server-2-Service-AE7gJhM9UIyE --force-new-deployment
-
-          aws ecs update-service --cluster example-koala --service eucalyptus-result-accuracy-Service-ufu2togI6QMZ --force-new-deployment
+          # sh ./update_koala_service.sh "example-QE-dynamic-datasets-dashboard" "dynamic-datasets-dashboard-qe2-Service-E69muRAsgqZk" "ghcr.io/vizzly-co/query-engine-dev:$IMAGE_TAG"
+          # sh ./update_koala_service.sh "<< task definition name >>" "<< service name >>" "<< image >>:$IMAGE_TAG"

@@ -6,7 +6,7 @@ NEW_TAG="$1"
 
 # Check if prefix and new tag are provided
 if [ -z "$PREFIX" ] || [ -z "$NEW_TAG" ]; then
-  echo "Usage: $0 <prefix> <new_tag>"
+  echo "Usage: $0 <new_tag>"
   exit 1
 fi
 
