@@ -29,14 +29,12 @@ export class VizzlyDashboardManagement implements OnInit {
     const urlParams = new URLSearchParams(window.location.search);
     const userId = urlParams.get('userId');
     this.userId = userId;
-    // this.api = new VizzlyServices.API(getIdentity(userId ?? 'new_user'), {
-    //   parentDashboardId: 'dsh_19544ac518ce402bb98564d0db639211',
-    //   vizzlyAPIConfig: { host: 'https://staging.api.vizzly.co' },
-    // });
   }
 
-  async ngOnInit(): Promise<void> {
-    await this.getDashboards();
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.getDashboards();
+    }, 2_500)
   }
 
   async getDashboards(): Promise<void> {
