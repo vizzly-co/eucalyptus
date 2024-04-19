@@ -60,7 +60,8 @@ Parameters:
         "redshift",
         "result-accuracy",
         "dashboard-external-filters",
-        "in-browser-global-library"
+        "in-browser-global-library",
+        "js-services-only"
       ]
 
 Conditions:
