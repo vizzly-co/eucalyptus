@@ -1,6 +1,7 @@
 <html>
   <head>
-    <script src="https://static.app.vizzly.co/services/0.11.0-dev-694b3dda0cc3e2ae8db6f8b5114cd5ec066e6c39/vizzly.umd.js"></script>
+    <script src="https://static.app.vizzly.co/services/{{ VERSION }}/vizzly.umd.js"></script>
+    <!-- <script src="https://static.app.vizzly.co/services/0.11.0-dev-694b3dda0cc3e2ae8db6f8b5114cd5ec066e6c39/vizzly.umd.js"></script> -->
   </head>
   <body>
     <script>
@@ -22,7 +23,8 @@
               Accept: 'application/json',
             },
             body: JSON.stringify({
-              projectId: 'prj_844c4a7bc80e43c586f453a02b8da32d',
+              projectId: 'prj_ec295322f04b4305bbcbcb7f2f3dbd3a',
+              parentDashboardIds: ['dsh_4be63396a504459db8827f936eb7df3e'],
               secureFilters: {},
               dataSetIds: '*',
               userReference: 'load everything using just JS and umd',
