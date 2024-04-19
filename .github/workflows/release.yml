@@ -48,5 +48,7 @@ jobs:
 
           sh ./update_koala_service.sh "example-upcasting-regression-testing" "frontend-upcasting-regression-testing-Service-D0EBFePIUaZp" "ghcr.io/vizzly-co/eucalyptus-upcasting-regression-testing:$IMAGE_TAG"
 
+          sh ./update_koala_service.sh "example-js-services-only" "eucalyptus-js-services-only-Service-Ni8ULQx4ASPH" "ghcr.io/vizzly-co/eucalyptus-js-services-only:$IMAGE_TAG"
+
           # sh ./update_koala_service.sh "example-QE-dynamic-datasets-dashboard" "dynamic-datasets-dashboard-qe2-Service-E69muRAsgqZk" "ghcr.io/vizzly-co/query-engine-dev:$IMAGE_TAG"
           # sh ./update_koala_service.sh "<< task definition name >>" "<< service name >>" "<< image >>:$IMAGE_TAG"
