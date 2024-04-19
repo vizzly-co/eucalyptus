@@ -21,7 +21,7 @@
     "@angular/platform-browser": "^17.0.0",
     "@angular/platform-browser-dynamic": "^17.0.0",
     "@angular/router": "^17.0.0",
-    "@vizzly/services": "0.11.0-dev-9202e54f34040621aec0087ec6390af66e6a40cf",
+    "@vizzly/services": "0.11.0-dev-0a1635276c3c7eb04a84a5a55a40ef21b1b91d1f",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "uuid": "^9.0.1",
