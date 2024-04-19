@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "build": "sh ./build.sh",
-    "serve": "http-server ./dist -p 9019"
+    "serve": "http-server ./dist -p 2032"
   },
   "devDependencies": {
     "http-server": "^14.1.1"
