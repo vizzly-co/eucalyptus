@@ -1,6 +1,6 @@
 import * as React from "react";
 import { createRoot } from "react-dom/client";
-import Vizzly, { vizzlyState } from "@vizzly/dashboard";
+import Vizzly, { VizzlyState } from "@vizzly/dashboard";
 import fetch from "isomorphic-fetch";
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
     <>
       <button
         onClick={() =>
-          vizzlyState.set("dashboard-id", {
+          VizzlyState.set("dashboard-id", {
             updateFilter: {
               properties: {
                 value: "San Antonio",
