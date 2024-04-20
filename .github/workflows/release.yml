@@ -33,6 +33,8 @@ jobs:
 
           sh ./update_koala_service.sh "example-in-browser-encrypted-dashboards" "in-browser-encrypted-dashboards-Service-oY32H56z60j6" "ghcr.io/vizzly-co/eucalyptus-in-browser-encrypted-dashboards:$IMAGE_TAG"
 
+          sh ./update_koala_service.sh "example-dashboard-external-filters" "eucalyptus-dashboard-external-filters-Service-1ql5fekhwyi6" "ghcr.io/vizzly-co/eucalyptus-dashboard-external-filters:$IMAGE_TAG"
+
           sh ./update_koala_service.sh "example-dynamic-datasets-dashboard" "eucalyptus-dynamic-datasets-dashboard-Service-Nfit6fQ4OzJQ" "ghcr.io/vizzly-co/eucalyptus-dynamic-datasets-dashboard:$IMAGE_TAG"
           sh ./update_koala_service.sh "example-programmatic-in-browser" "programmatic-in-browser-Service-qzekUB3FUuSG" "ghcr.io/vizzly-co/eucalyptus-programmatic-in-browser:$IMAGE_TAG"
           sh ./update_koala_service.sh "example-in-browser-encrypted-dashboard-management" "in-browser-encrypted-dashboard-management-Service-HY5j1OQK45ns" "ghcr.io/vizzly-co/eucalyptus-in-browser-encrypted-dashboard-management:$IMAGE_TAG"
