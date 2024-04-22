@@ -40,8 +40,8 @@ jobs:
             "redshift",
             "result-accuracy",
             "dashboard-external-filters",
-            "in-browser-global-library",,
-            "js-services-only"
+            "in-browser-global-library",
+            "js-services-only",
           ]
 
     steps:
