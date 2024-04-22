@@ -26,6 +26,7 @@ jobs:
             "identity",
             "programmatic-in-browser",
             "in-browser-encrypted-dashboards",
+            "global-library-with-editor",
             "in-browser-encrypted-dashboard-management",
             "in-browser-webcomponent",
             "dashboard-management",
@@ -39,7 +40,7 @@ jobs:
             "redshift",
             "result-accuracy",
             "dashboard-external-filters",
-            "in-browser-global-library",
+            "in-browser-global-library",,
             "js-services-only"
           ]
 

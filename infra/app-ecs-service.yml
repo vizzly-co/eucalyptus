@@ -47,6 +47,7 @@ Parameters:
         "eucalyptus-identity",
         "programmatic-in-browser",
         "in-browser-encrypted-dashboards",
+        "global-library-with-editor",
         "in-browser-encrypted-dashboard-management",
         "in-browser-webcomponent",
         "dashboard-management",
@@ -61,7 +62,6 @@ Parameters:
         "result-accuracy",
         "dashboard-external-filters",
         "in-browser-global-library",
-        "js-services-only"
       ]
 
 Conditions:
