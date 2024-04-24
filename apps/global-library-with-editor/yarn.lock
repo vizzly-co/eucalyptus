@@ -985,10 +985,10 @@
   dependencies:
     isomorphic-fetch "^3.0.0"
 
-"@vizzly/dashboard@0.12.0-dev-b7b069b2ab8423b3f3b28b97c072f3d6678386d6":
-  version "0.12.0-dev-b7b069b2ab8423b3f3b28b97c072f3d6678386d6"
-  resolved "https://registry.yarnpkg.com/@vizzly/dashboard/-/dashboard-0.12.0-dev-b7b069b2ab8423b3f3b28b97c072f3d6678386d6.tgz#aeb90cbc5f0a29bc5d7bde71c2ef119ce9f1b64f"
-  integrity sha512-yp/JWF6XakmxI/bpjn9HqzLOnKMaCaOHl13Ghl2aPa1JUJhKteaEXaiSgApGCXoBDIt6LrNISKtcT3j9WzyhEw==
+"@vizzly/dashboard@0.12.1-dev-9855b84e9aeaf96caab1b3a1aee8ae8c2c61c034":
+  version "0.12.1-dev-9855b84e9aeaf96caab1b3a1aee8ae8c2c61c034"
+  resolved "https://registry.yarnpkg.com/@vizzly/dashboard/-/dashboard-0.12.1-dev-9855b84e9aeaf96caab1b3a1aee8ae8c2c61c034.tgz#5f93e0f3703cf6566c8930f1bdea809d34e4aa97"
+  integrity sha512-mwvk50tsShFhSaxHQbzSYpsh6LEn0FIm6JdqJ2/ryZndhsXClHZu1xPgWAjnz+DYg2Xs4XPSfMEqm/+RCB7E/g==
   dependencies:
     "@emotion/cache" "^11.11.0"
     "@emotion/css" "^11.10.6"

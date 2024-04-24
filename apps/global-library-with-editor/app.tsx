@@ -109,31 +109,41 @@ const data = async (dataSet) => {
   }
 };
 
-const identity = async () => {
-  // Hit the auth app
-  const response = await fetch("http://koala-tree.vizzly.co:9012/identity", {
-    method: "post",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify({
-      projectId: "prj_8d2f3aef91e74b57ace56843eff11332",
-      secureFilters: {},
-      dataSetIds: "*",
-      userReference: "user_1",
-      scope: "read_write",
-      accessType: "standard",
-    }),
-  });
+function getUserIdFromURL(url: string): string | null {
+  // Create a URL object from the provided string
+  const urlObj = new URL(url);
 
-  const { accessTokens } = await response.json();
+  // Use URLSearchParams to extract the 'userid' query parameter
+  const params = new URLSearchParams(urlObj.search);
 
-  return accessTokens;
-};
+  // Return the value of 'userid' or null if it's not found
+  return params.get("userid");
+}
 
 function App() {
   const [libraryView, setLibraryView] = React.useState<Component | null>(null);
+
+  const identity = async () => {
+    const response = await fetch("http://koala-tree.vizzly.co:9012/identity", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        projectId: "prj_8d2f3aef91e74b57ace56843eff11332",
+        secureFilters: {},
+        dataSetIds: "*",
+        userReference: getUserIdFromURL(window.location.href),
+        scope: "read_write",
+        accessType: "standard",
+      }),
+    });
+
+    const { accessTokens } = await response.json();
+
+    return accessTokens;
+  };
 
   const { loading, globalLibraries } = useVizzly(
     {
@@ -180,12 +190,43 @@ function App() {
         <div style={{ flex: 1 }}>
           <Vizzly.Editor
             vizzlyApiHost="https://staging.api.vizzly.co"
-            theme={{ rowLimit: 1 }}
             dataSets={dataSets}
             data={data}
             identity={identity}
             view={libraryView}
-            onSave={(view) => console.log(view)}
+            theme={{
+              detail: "minimal",
+              rowLimit: 6,
+              forms: {
+                input: {
+                  color: "rgb(55, 65, 81)",
+                },
+              },
+              section: {
+                panel: {
+                  background: "rgb(255, 255, 255)",
+                  padding: "0.5rem 1rem 1rem",
+                  border: "1px solid rgb(229, 231, 235)",
+                  borderRadius: 4,
+                },
+                title: {
+                  fontWeight: "500",
+                },
+              },
+              editor: {
+                settings: {
+                  border: "1px solid rgb(229, 231, 235)",
+                  padding: "1rem 0",
+                  borderRadius: 4,
+                },
+                gap: "1.5rem",
+                component: {
+                  border: "1px solid rgb(229, 231, 235)",
+                  borderRadius: 4,
+                  background: "rgb(255, 255, 255)",
+                },
+              },
+            }}
           />
         </div>
       </div>
