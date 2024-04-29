@@ -136,7 +136,7 @@ function App() {
         dataSetIds: "*",
         userReference: getUserIdFromURL(window.location.href),
         scope: "read_write",
-        accessType: "standard",
+        accessType: "admin",
       }),
     });
 
@@ -157,25 +157,25 @@ function App() {
   );
 
   const selectLibraryItem = (index: number) => {
-    if (globalLibraries[1].library.views) {
-      setLibraryView(globalLibraries[1].library.views[index]);
+    if (globalLibraries[0].library.views) {
+      setLibraryView(globalLibraries[0].library.views[index]);
     }
   };
   return (
     <>
       <div style={{ display: "flex" }}>
-        <div style={{ width: 420 }}>
+        <div style={{ width: 320 }}>
           {loading && <p>Loading...</p>}
           {globalLibraries && (
             <ul>
-              {globalLibraries[1]?.library?.views?.map((view, index) => {
+              {globalLibraries[0]?.library?.views?.map((view, index) => {
                 return (
                   <li key={index} onClick={() => selectLibraryItem(index)}>
                     {view?.attributes.displayTitle}
                   </li>
                 );
               })}
-              {globalLibraries[1]?.library?.views?.length === 0 && (
+              {globalLibraries[0]?.library?.views?.length === 0 && (
                 <p>No views found</p>
               )}
             </ul>
@@ -193,7 +193,7 @@ function App() {
             dataSets={dataSets}
             data={data}
             identity={identity}
-            view={libraryView}
+            view={async () => libraryView}
             theme={{
               detail: "minimal",
               rowLimit: 6,
