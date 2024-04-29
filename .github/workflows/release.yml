@@ -3,7 +3,7 @@ name: Release the ECS services with the latest images...
 on:
   workflow_dispatch:
   schedule:
-    - cron: '30 8-19/3 * * *'
+    - cron: "30 8-19/3 * * *"
 
 jobs:
   publish-docker-image:
@@ -54,6 +54,7 @@ jobs:
 
           sh ./update_koala_service.sh "example-js-services-only" "eucalyptus-js-services-only-Service-Ni8ULQx4ASPH" "ghcr.io/vizzly-co/eucalyptus-js-services-only:$IMAGE_TAG"
 
+          sh ./update_koala_service.sh "example-editor-webcomponent" "eucalyptus-editor-webcomponent-Service-Ni8ULQx4ASPH" "ghcr.io/vizzly-co/eucalyptus-editor-webcomponent:$IMAGE_TAG"
           sh ./update_koala_service.sh "example-global-library-with-editor" "global-library-with-editor-Service-6AZx3xxi8OPQ" "ghcr.io/vizzly-co/eucalyptus-global-library-with-editor:$IMAGE_TAG"
 
           # sh ./update_koala_service.sh "example-QE-dynamic-datasets-dashboard" "dynamic-datasets-dashboard-qe2-Service-E69muRAsgqZk" "ghcr.io/vizzly-co/query-engine-dev:$IMAGE_TAG"

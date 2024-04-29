@@ -42,6 +42,7 @@ jobs:
             "dashboard-external-filters",
             "in-browser-global-library",
             "js-services-only",
+            "editor-webcomponent",
           ]
 
     steps:
