@@ -1,0 +1,64 @@
+<html>
+  <head>
+    <!-- DO NOT REMOVE {{ VERSION }} from the below script. It is used in the build step -->
+    <script src="https://static.app.vizzly.co/embedded/0.12.1-dev-0209321035f3512064f79c090adab1c2e92dbc9d/bundle.js"></script>
+    <script src="https://static.app.vizzly.co/services/0.12.1-dev-0209321035f3512064f79c090adab1c2e92dbc9d/vizzly.umd.js"></script>
+  </head>
+  <body>
+    <script>
+      async function fetchGlobalLibraries() {
+        const v = Vizzly.use();
+        const libraries = await v.getGlobalLibraries();
+
+        document.getElementById("data").innerHTML = JSON.stringify(
+          libraries,
+          null,
+          2
+        );
+      }
+      function getUserIdFromURL(url) {
+        const urlObj = new URL(url);
+        const params = new URLSearchParams(urlObj.search);
+        return params.get("userid");
+      }
+
+      const identity = async () => {
+        // Hit the auth app
+        const response = await fetch(
+          "http://koala-tree.vizzly.co:9012/identity",
+          {
+            method: "post",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify({
+              projectId: "prj_2df421ca47a042f093b2e9472aae5d50",
+              secureFilters: {},
+              dataSetIds: "*",
+              userReference: getUserIdFromURL(window.location.href),
+              scope: "read_write",
+              accessType: "admin",
+            }),
+          }
+        );
+
+        const { accessTokens } = await response.json();
+
+        return accessTokens;
+      };
+
+      Vizzly.load(
+        {
+          queryEngine: "in-browser",
+          dataSets: () => [],
+          identity: identity,
+        },
+        { apiHost: "https://staging.api.vizzly.co" }
+      );
+    </script>
+
+    <button onClick="fetchGlobalLibraries()">load</button>
+    <pre id="data"></pre>
+  </body>
+</html>
