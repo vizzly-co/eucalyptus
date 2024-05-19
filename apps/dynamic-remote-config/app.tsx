@@ -8,7 +8,12 @@ function App() {
     <Vizzly.Dashboard
         vizzlyApiHost="https://staging.api.vizzly.co"
         // Hit dynamic query engine for remote configs
-        queryEngineEndpoint="http://koala-tree.vizzly.co:9021"
+        queryEngineEndpoint={{
+          endpoint: "http://koala-tree.vizzly.co:9021",
+          customHeaders: () => ({
+            'Auth-Remote-Config-Token': 'xyz'
+          })
+        }}
         parentDashboardId="dsh_10ccd531d5d949deaec6183740df468e"
         identity={async () => {
           // Hit the auth app
