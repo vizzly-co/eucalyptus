@@ -43,6 +43,7 @@ jobs:
             "in-browser-global-library",
             "js-services-only",
             "editor-webcomponent",
+            "remote-config-endpoint"
           ]
 
     steps:
