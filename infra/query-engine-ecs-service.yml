@@ -42,7 +42,8 @@ Parameters:
         "in-browser-encrypted-dashboards",
         "dynamic-remote-config",
         "global-library-with-editor",
-        "manatal-qe-replica"
+        "manatal-qe-replica",
+        "remote-config-endpoint"
       ]
 
 Conditions:
