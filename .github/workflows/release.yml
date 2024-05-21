@@ -60,5 +60,7 @@ jobs:
           sh ./update_koala_service.sh "example-editor-webcomponent" "editor-webcomponent-Service-zrKHDGJrkCAH" "ghcr.io/vizzly-co/eucalyptus-editor-webcomponent:$IMAGE_TAG"
           sh ./update_koala_service.sh "example-global-library-with-editor" "global-library-with-editor-Service-6AZx3xxi8OPQ" "ghcr.io/vizzly-co/eucalyptus-global-library-with-editor:$IMAGE_TAG"
 
+          sh ./update_koala_service.sh "example-remote-config-endpoint" "eucalyptus-remote-config-endpoint-Service-2G1lV7iR5KTg" "ghcr.io/vizzly-co/eucalyptus-remote-config-endpoint:$IMAGE_TAG"
+
           # sh ./update_koala_service.sh "example-QE-dynamic-datasets-dashboard" "dynamic-datasets-dashboard-qe2-Service-E69muRAsgqZk" "ghcr.io/vizzly-co/query-engine-dev:$IMAGE_TAG"
           # sh ./update_koala_service.sh "<< task definition name >>" "<< service name >>" "<< image >>:$IMAGE_TAG"
