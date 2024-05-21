@@ -14,8 +14,7 @@ const USER_ID_TO_DATA_SET: { [userId: string]: Object[] } = {
         {
           id: "fie_1",
           dataType: "TEXT",
-          table: "shop_customers",
-          name: "country",
+          address: ['_', 'shop_customers', 'country'],
           publicName: "Home Country",
         },
         {
@@ -36,22 +35,31 @@ const USER_ID_TO_DATA_SET: { [userId: string]: Object[] } = {
         {
           id: "fie_1",
           dataType: "TEXT",
-          table: "shop_customers",
-          name: "country",
+          address: ['_', 'shop_customers', 'country'],
           publicName: "Home Country",
         },
         {
           id: "fie_2",
           dataType: "BIGINT",
-          table: "shop_customers",
-          name: "price",
+          address: ['_', 'shop_customers', 'price'],
           publicName: "Price in $",
+        },
+        {
+          id: "fie_3",
+          dataType: "BIGINT",
+          address: ['_', 'shop_customers', 'customerid'],
         },
         {
           id: "fie_3 - SQL field example",
           dataType: "TEXT",
           sql: "(ProductDetails->>'brand')",
           publicName: "Product brand",
+        }
+      ],
+      secureFilterGuards: [
+        {
+          fieldId: 'fie_3',
+          op: '=',
         },
       ],
     },
@@ -64,8 +72,7 @@ const USER_ID_TO_DATA_SET: { [userId: string]: Object[] } = {
         {
           id: "fie_99",
           dataType: "TEXT",
-          table: "shop_customers",
-          name: "country",
+          address: ['_', 'shop_customers', 'country'],
           publicName: "Home Country",
         },
       ],
@@ -75,7 +82,7 @@ const USER_ID_TO_DATA_SET: { [userId: string]: Object[] } = {
 };
 
 export const buildConfigForUser = (userId: string, includeCredentialsFor?: string) => {
-  if(includeCredentialsFor && includeCredentialsFor === 'postgres') {
+  if (includeCredentialsFor && includeCredentialsFor === 'postgres') {
     return {
       version: 1,
       connections: {
@@ -85,7 +92,7 @@ export const buildConfigForUser = (userId: string, includeCredentialsFor?: strin
         }
       },
       dataSets: (USER_ID_TO_DATA_SET[userId] || USER_ID_TO_DATA_SET["default"]).map(dS => {
-        return {...dS, connectionId: '_custom_dynamic_postgres_'}
+        return { ...dS, connectionId: '_custom_dynamic_postgres_' }
       }),
     }
   };
