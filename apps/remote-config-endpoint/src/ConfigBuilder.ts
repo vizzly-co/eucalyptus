@@ -5,7 +5,7 @@
  * your database for each user.
  */
 
-const USER_ID_TO_DATA_SET: { [userId: string]: Object } = {
+const USER_ID_TO_DATA_SET: { [userId: string]: Object[] } = {
   "1": [
     {
       id: "das_dynamic",
@@ -74,7 +74,22 @@ const USER_ID_TO_DATA_SET: { [userId: string]: Object } = {
   ],
 };
 
-export const buildConfigForUser = (userId: string) => {
+export const buildConfigForUser = (userId: string, includeCredentialsFor?: string) => {
+  if(includeCredentialsFor && includeCredentialsFor === 'postgres') {
+    return {
+      version: 1,
+      connections: {
+        '_custom_dynamic_postgres_': {
+          client: 'postgres',
+          encryptedCredentials: '1fa53f7b6a9f9c6cd35a0136549dbe72:::dfa190cbdd353df3f7e3878bf6819e3596415747ab95718e14cd8ce3c1f3f1e4bb3cfc05c2f35b5b15f55d161bcc7fa6599f432760ac13b9314001d4fa5a0b490ce2a59af356d824136db4806a7f31c0dfe7026164e5ecfa17af68203bab7cf16d9f3d208070cecded4f17e2a5a07b5a'
+        }
+      },
+      dataSets: (USER_ID_TO_DATA_SET[userId] || USER_ID_TO_DATA_SET["default"]).map(dS => {
+        return {...dS, connectionId: '_custom_dynamic_postgres_'}
+      }),
+    }
+  };
+
   return {
     connection: {
       client: "postgres",
