@@ -43,7 +43,8 @@ Parameters:
         "dynamic-remote-config",
         "global-library-with-editor",
         "manatal-qe-replica",
-        "remote-config-endpoint"
+        "remote-config-endpoint",
+        "qe-using-ohio-api"
       ]
 
 Conditions:
