@@ -63,7 +63,7 @@ jobs:
           sh ./update_koala_service.sh "example-remote-config-endpoint" "eucalyptus-remote-config-endpoint-Service-2G1lV7iR5KTg" "ghcr.io/vizzly-co/eucalyptus-remote-config-endpoint:$IMAGE_TAG"
 
           sh ./update_koala_service.sh "example-redshift" "eucalyptus-redshift-Service-IxBnnpw5REte" "ghcr.io/vizzly-co/eucalyptus-redshift:$IMAGE_TAG"
-          sh ./update_koala_service.sh "custom-components" "custom-components-Service-"<< service name id >>" "ghcr.io/vizzly-co/custom-components:$IMAGE_TAG"
+          sh ./update_koala_service.sh "custom-components" "custom-components-Service-LrMK1HGoDK7p" "ghcr.io/vizzly-co/custom-components:$IMAGE_TAG"
 
           # sh ./update_koala_service.sh "example-QE-dynamic-datasets-dashboard" "dynamic-datasets-dashboard-qe2-Service-E69muRAsgqZk" "ghcr.io/vizzly-co/query-engine-dev:$IMAGE_TAG"
           # sh ./update_koala_service.sh "<< task definition name >>" "<< service name >>" "<< image >>:$IMAGE_TAG"
