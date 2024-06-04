@@ -27,6 +27,7 @@ function App() {
       </button>
       <Vizzly.Dashboard
         id="dashboard-id"
+        featureToggles={{ disableAutoSave: true }}
         vizzlyApiHost="https://staging.api.vizzly.co"
         // Hit dynamic query engine for remote configs
         queryEngineEndpoint="https://staging.api.vizzly.co/managed/mqe_c5d1bee83f1a464fa84522ed60097901"
