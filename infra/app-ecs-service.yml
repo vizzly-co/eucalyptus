@@ -64,7 +64,8 @@ Parameters:
         "in-browser-global-library",
         "js-services-only",
         "editor-webcomponent",
-        "remote-config-endpoint"
+        "remote-config-endpoint",
+        "custom-components",
       ]
 
 Conditions:
