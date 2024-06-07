@@ -141,14 +141,13 @@
         });
       }
 
-      function getUserIdFromURL(url) {
-        const urlObj = new URL(url);
+      function getFromURL(param) {
+        const urlObj = new URL(window.location.href);
         const params = new URLSearchParams(urlObj.search);
-        return params.get("userid");
+        return params.get(param);
       }
 
       const identity = async () => {
-        // Hit the auth app
         const response = await fetch(
           "http://koala-tree.vizzly.co:9012/identity",
           {
@@ -161,9 +160,9 @@
               projectId: "prj_2df421ca47a042f093b2e9472aae5d50",
               secureFilters: {},
               dataSetIds: "*",
-              userReference: getUserIdFromURL(window.location.href),
-              scope: "read_write",
-              accessType: "admin",
+              userReference: getFromURL("userid"),
+              scope: getFromURL("scope") ?? "read_write",
+              accessType: getFromURL("accessType") ?? "admin",
             }),
           }
         );
