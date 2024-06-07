@@ -109,15 +109,15 @@ const data = async (dataSet) => {
   }
 };
 
-function getUserIdFromURL(url: string): string | null {
+function getFromURL(param:  "userid" | "scope" | "accessType"): string | null {
   // Create a URL object from the provided string
-  const urlObj = new URL(url);
+  const urlObj = new URL(window.location.href);
 
   // Use URLSearchParams to extract the 'userid' query parameter
   const params = new URLSearchParams(urlObj.search);
 
   // Return the value of 'userid' or null if it's not found
-  return params.get("userid");
+  return params.get(param);
 }
 
 function App() {
@@ -134,9 +134,9 @@ function App() {
         projectId: "prj_8d2f3aef91e74b57ace56843eff11332",
         secureFilters: {},
         dataSetIds: "*",
-        userReference: getUserIdFromURL(window.location.href),
-        scope: "read_write",
-        accessType: "admin",
+        userReference: getFromURL("userid"),
+        scope: getFromURL("scope") ?? "read_write",
+        accessType: getFromURL("accessType") ?? "admin",
       }),
     });
 
