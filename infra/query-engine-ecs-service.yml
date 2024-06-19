@@ -44,7 +44,8 @@ Parameters:
         "global-library-with-editor",
         "manatal-qe-replica",
         "remote-config-endpoint",
-        "qe-using-ohio-api"
+        "qe-using-ohio-api",
+        "qe-with-broken-connection"
       ]
 
 Conditions:
