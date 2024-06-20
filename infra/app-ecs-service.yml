@@ -41,11 +41,6 @@ Parameters:
     Type: String
     Default: arn:aws:elasticloadbalancing:eu-west-2:463194597663:loadbalancer/app/example-load-balancer/88c4eab0ace67f6a
 
-  TargetGroupArn:
-    Description: ARN of the example target group
-    Type: String
-    Default: arn:aws:elasticloadbalancing:eu-west-2:463194597663:targetgroup/vizzl-AppTa-72OXAOUAMS20/294e3e13d715612d
-
   CertificateArn:
     Description: ARN of the certificate
     Type: String
@@ -99,6 +94,10 @@ Resources:
       PlacementStrategy:
         - field: instanceId
           type: spread
+      LoadBalancers:
+        - ContainerName: !Ref AppName
+          ContainerPort: !Ref HostPort
+          TargetGroupArn: !Ref TargetGroup
 
   TaskDefinition:
     Type: AWS::ECS::TaskDefinition
@@ -154,6 +153,20 @@ Resources:
               - "*"
             Effect: "Allow"
 
+  TargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      VpcId: !Ref VPC
+      Port: !Ref HostPort
+      Protocol: HTTP
+      Matcher:
+        HttpCode: 200-299
+      HealthCheckIntervalSeconds: 10
+      HealthCheckPath: /
+      HealthCheckProtocol: HTTP
+      HealthCheckTimeoutSeconds: 5
+      HealthyThresholdCount: 2
+
   LoadBalancerListener:
     Type: AWS::ElasticLoadBalancingV2::Listener
     Properties:
@@ -164,4 +177,4 @@ Resources:
         - CertificateArn: !Ref CertificateArn
       DefaultActions:
         - Type: forward
-          TargetGroupArn: !Ref TargetGroupArn
+          TargetGroupArn: !Ref TargetGroup
