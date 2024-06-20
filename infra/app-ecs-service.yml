@@ -13,7 +13,7 @@ Parameters:
   DesiredCount:
     Description: How many instances of this task should we run across our cluster?
     Type: Number
-    Default: 1
+    Default: 2
 
   ECRDockerImage:
     Description: Docker image url of the app
@@ -93,7 +93,7 @@ Resources:
       Cluster: !Sub arn:aws:ecs:eu-west-2:463194597663:cluster/example-koala
       DeploymentConfiguration:
         MaximumPercent: 100
-        MinimumHealthyPercent: 0
+        MinimumHealthyPercent: 50
       DesiredCount: !Ref DesiredCount
       TaskDefinition: !Ref TaskDefinition
       PlacementStrategy:
