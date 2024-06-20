@@ -36,6 +36,21 @@ Parameters:
     Description: (OPTIONAL) The ARN of the role that grants containers in the task permission to call AWS APIs on your behalf
     Type: String
 
+  LoadBalancerArn:
+    Description: ARN of the example load balancer
+    Type: String
+    Default: arn:aws:elasticloadbalancing:eu-west-2:463194597663:loadbalancer/app/example-load-balancer/88c4eab0ace67f6a
+
+  TargetGroupArn:
+    Description: ARN of the example target group
+    Type: String
+    Default: arn:aws:elasticloadbalancing:eu-west-2:463194597663:targetgroup/vizzl-AppTa-72OXAOUAMS20/294e3e13d715612d
+
+  CertificateArn:
+    Description: ARN of the certificate
+    Type: String
+    Default: arn:aws:acm:eu-west-2:463194597663:certificate/aff25fc1-d398-45c1-98bd-e163daa9bce3
+
   AppName:
     Description: Eucalyptus app name
     Type: String
@@ -138,3 +153,15 @@ Resources:
             Resource:
               - "*"
             Effect: "Allow"
+
+  LoadBalancerListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      LoadBalancerArn: !Ref LoadBalancerArn
+      Port: !Ref HostPort
+      Protocol: HTTPS
+      Certificates:
+        - CertificateArn: !Ref CertificateArn
+      DefaultActions:
+        - Type: forward
+          TargetGroupArn: !Ref TargetGroupArn
