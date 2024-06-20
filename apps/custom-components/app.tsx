@@ -74,8 +74,8 @@ const Component = () => {
   return (
     <React.StrictMode>
       <p>
-        This app tests the <code>customViews</code> and{" "}
-        <code>customOverrides</code> properties.
+        This app tests the <code>customViews</code>, <code>customOverrides</code>{" "}
+        and drilldown features.
       </p>
       <Vizzly.Dashboard
         featureToggles={{ disableAutoSave: true }}
@@ -84,7 +84,8 @@ const Component = () => {
         parentDashboardId="dsh_0c23c9f4146745118fcfaabf5aab5184"
         developerTools={{ viewRawResults: true, viewRawAttributes: true }}
         identity={getIdentity("new_user")}
-        renderDownloadIcon={(props) => <div>Download</div>}
+        renderDownloadIcon={(props) => <div>JSX Download Icon</div>}
+        renderResetIcon={(props) => `<div>string Reset Icon</div>`}
         customViews={[
           {
             id: "string",
