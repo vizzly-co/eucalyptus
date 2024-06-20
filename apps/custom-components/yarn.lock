@@ -990,10 +990,10 @@
   dependencies:
     isomorphic-fetch "^3.0.0"
 
-"@vizzly/dashboard@0.12.8-dev-5ebc034b1d5ef2c6fb575bac2ec9ccd22d86a43c":
-  version "0.12.8-dev-5ebc034b1d5ef2c6fb575bac2ec9ccd22d86a43c"
-  resolved "https://registry.yarnpkg.com/@vizzly/dashboard/-/dashboard-0.12.8-dev-5ebc034b1d5ef2c6fb575bac2ec9ccd22d86a43c.tgz#1984da86f51ab349291a23cf99b6c0db8ed9539d"
-  integrity sha512-pEgg3cV5PynLmH3fzWvVxBFhxqS48PFZPKN7ypEqHgY1XesyH+Xx6apHptT87Tg/xLDpjHHKkqGh0/JCGdzEjg==
+"@vizzly/dashboard@0.12.8-dev-21205e242fc899d7e80e7df3574033fd591dad6e":
+  version "0.12.8-dev-21205e242fc899d7e80e7df3574033fd591dad6e"
+  resolved "https://registry.yarnpkg.com/@vizzly/dashboard/-/dashboard-0.12.8-dev-21205e242fc899d7e80e7df3574033fd591dad6e.tgz#686b016db19eecbd1ddb288dcac624351600421b"
+  integrity sha512-vnsoIzZCk+JCe+iXnBsoxAD00Vjr7S8UJBuJBXankqreIjIu9gEjOIpb+TSH+3BLhDKyK9XyO/w9BAVAXkoCMw==
   dependencies:
     "@emotion/cache" "^11.11.0"
     "@emotion/css" "^11.10.6"
@@ -1050,10 +1050,10 @@
   resolved "https://registry.yarnpkg.com/@vizzly/semantic-layer-public/-/semantic-layer-public-0.0.76.tgz#c5afd25ba459f49cbbf56de61b8c37a918dc4138"
   integrity sha512-U0iGm6P9D3v8WHvcg2qsfgYErLFNljbZ/tDCB8h+kW7udvRnMxFqgG9hmr5VO1gkKcW/hZUbNjbCbjxfdR6M9A==
 
-"@vizzly/services@0.12.8-dev-5ebc034b1d5ef2c6fb575bac2ec9ccd22d86a43c":
-  version "0.12.8-dev-5ebc034b1d5ef2c6fb575bac2ec9ccd22d86a43c"
-  resolved "https://registry.yarnpkg.com/@vizzly/services/-/services-0.12.8-dev-5ebc034b1d5ef2c6fb575bac2ec9ccd22d86a43c.tgz#7de111208d321118a71989ddd1e4c342d542858d"
-  integrity sha512-O57Jo3AWdpWBLWEPzFtTQ3s4GRpHzNhB0MHguzU7fentJvEdANl8uTD3G7KzoeI/3IIXa86remAdzxQnJEswFA==
+"@vizzly/services@0.12.8-dev-21205e242fc899d7e80e7df3574033fd591dad6e":
+  version "0.12.8-dev-21205e242fc899d7e80e7df3574033fd591dad6e"
+  resolved "https://registry.yarnpkg.com/@vizzly/services/-/services-0.12.8-dev-21205e242fc899d7e80e7df3574033fd591dad6e.tgz#57915d8b125bcd46b871ae7d0a3c6e0b11198b3f"
+  integrity sha512-4rkTvH0W1bGhYGhocz1z2bUjbjCKJbicm8SbRZkf3IIbP0RAqYQo9cZluNmIALZlTK+lNzPGai+KdM9P+I6rcA==
   dependencies:
     "@vizzly/api-client" "0.0.35"
     "@vizzly/joi" "^17.11.0"
