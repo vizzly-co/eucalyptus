@@ -81,6 +81,9 @@ Resources:
         MinimumHealthyPercent: 0
       DesiredCount: !Ref DesiredCount
       TaskDefinition: !Ref TaskDefinition
+      PlacementStrategy:
+        - field: instanceId
+          type: spread
 
   TaskDefinition:
     Type: AWS::ECS::TaskDefinition
