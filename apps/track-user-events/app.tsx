@@ -107,7 +107,7 @@ function App() {
         parentDashboardId="dsh_df3a1e4ef5174ac1a8a803deba173788"
         identity={async () => {
           // Hit the auth app
-          const response = await fetch('http://koala-tree.vizzly.co:9012/identity', {
+          const response = await fetch('https://example.vizzly.co:9012/identity', {
             method: 'post',
             headers: {
               'Content-Type': 'application/json',

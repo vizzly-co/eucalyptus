@@ -21,7 +21,7 @@ tScr9CSIWn5Ov0Zya/CzF4XjfOSMKfaodpFtjYZ0MC4BjmVuYlrixXSrQg==
 -----END PUBLIC KEY-----
 ```
 3. Create the parent dashboards required in the project.
-4. Build out the `identity` function of the dashboard by sending a POST request with the access token claims to `http://koala-tree.vizzly.co:9012/identity`
+4. Build out the `identity` function of the dashboard by sending a POST request with the access token claims to `https://example.vizzly.co:9012/identity`
 
 ### Setting up a query engine
 As each app will be an independent project, each will need its own query engine if that is the implementation type required.

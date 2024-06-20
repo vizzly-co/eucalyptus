@@ -52,6 +52,10 @@ app.all("/identity", async (req, res) => {
   }
 });
 
+app.all('/*', async (req, res) => {
+  res.status(200).json({})
+});
+
 app.listen(9012, () => {
   console.log("Listening on :9012");
 });

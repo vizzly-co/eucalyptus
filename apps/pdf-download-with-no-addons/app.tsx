@@ -108,7 +108,7 @@ function App() {
       identity={async () => {
         // Hit the auth app
         const response = await fetch(
-          "http://koala-tree.vizzly.co:9012/identity",
+          "https://example.vizzly.co:9012/identity",
           {
             method: "post",
             headers: {
