@@ -91,11 +91,11 @@ Resources:
         MinimumHealthyPercent: 50
       DesiredCount: !Ref DesiredCount
       TaskDefinition: !Ref TaskDefinition
-      PlacementStrategy:
+      PlacementStrategies:
         - field: instanceId
           type: spread
       LoadBalancers:
-        - ContainerName: !Ref AppName
+        - ContainerName: !Sub ${Environment}-${AppName}
           ContainerPort: !Ref HostPort
           TargetGroupArn: !Ref TargetGroup
 
@@ -166,6 +166,7 @@ Resources:
       HealthCheckProtocol: HTTP
       HealthCheckTimeoutSeconds: 5
       HealthyThresholdCount: 2
+      HealthCheckPort: !Ref HostPort
 
   LoadBalancerListener:
     Type: AWS::ElasticLoadBalancingV2::Listener
