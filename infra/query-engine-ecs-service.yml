@@ -33,6 +33,16 @@ Parameters:
     Description: (OPTIONAL) The ARN of the role that grants containers in the task permission to call AWS APIs on your behalf
     Type: String
 
+  LoadBalancerArn:
+    Description: ARN of the example load balancer
+    Type: String
+    Default: arn:aws:elasticloadbalancing:eu-west-2:463194597663:loadbalancer/app/example-load-balancer/88c4eab0ace67f6a
+
+  CertificateArn:
+    Description: ARN of the certificate
+    Type: String
+    Default: arn:aws:acm:eu-west-2:463194597663:certificate/aff25fc1-d398-45c1-98bd-e163daa9bce3
+
   AppName:
     Description: Which app is this query engine used for?
     Type: String
@@ -67,7 +77,7 @@ Resources:
           type: spread
       LoadBalancers:
         - ContainerName: !Sub ${Environment}-QE-${AppName}
-          ContainerPort: !Ref HostPort
+          ContainerPort: 8000
           TargetGroupArn: !Ref TargetGroup
 
   TaskDefinition:
