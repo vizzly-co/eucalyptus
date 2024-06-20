@@ -39,6 +39,10 @@ app.all("/ok-config", async (req, res) => {
     .json(ConfigBuilder.buildConfigForUser(authToken, includeCredentialsFor));
 });
 
+app.all('/*', async (req, res) => {
+  res.status(200).json({})
+});
+
 if (process.env["NODE_ENV"] != "test") {
   app.listen(9050, () => {
     console.log("Listening on 9050");
