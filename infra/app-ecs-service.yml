@@ -91,6 +91,7 @@ Resources:
         MinimumHealthyPercent: 50
       DesiredCount: !Ref DesiredCount
       TaskDefinition: !Ref TaskDefinition
+      HealthCheckGracePeriodSeconds: 15
       PlacementStrategies:
         - field: instanceId
           type: spread
