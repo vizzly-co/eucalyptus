@@ -13,7 +13,7 @@ Parameters:
   DesiredCount:
     Description: How many instances of this task should we run across our cluster?
     Type: Number
-    Default: 1
+    Default: 2
 
   ECRDockerImage:
     Description: Docker image url of the query engine
@@ -61,6 +61,14 @@ Resources:
         MinimumHealthyPercent: 0
       DesiredCount: !Ref DesiredCount
       TaskDefinition: !Ref TaskDefinition
+      HealthCheckGracePeriodSeconds: 15
+      PlacementStrategies:
+        - field: instanceId
+          type: spread
+      LoadBalancers:
+        - ContainerName: !Sub ${Environment}-QE-${AppName}
+          ContainerPort: !Ref HostPort
+          TargetGroupArn: !Ref TargetGroup
 
   TaskDefinition:
     Type: AWS::ECS::TaskDefinition
@@ -128,3 +136,30 @@ Resources:
               - !Sub arn:aws:s3:::${Environment}-eucalyptus-qe-envs
               - !Sub arn:aws:s3:::${Environment}-eucalyptus-qe-envs/${AppName}.env
             Effect: "Allow"
+
+  TargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      VpcId: !Ref VPC
+      Port: !Ref HostPort
+      Protocol: HTTP
+      Matcher:
+        HttpCode: 200-299
+      HealthCheckIntervalSeconds: 10
+      HealthCheckPath: /api/health
+      HealthCheckProtocol: HTTP
+      HealthCheckTimeoutSeconds: 5
+      HealthyThresholdCount: 2
+      HealthCheckPort: !Ref HostPort
+
+  LoadBalancerListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      LoadBalancerArn: !Ref LoadBalancerArn
+      Port: !Ref HostPort
+      Protocol: HTTPS
+      Certificates:
+        - CertificateArn: !Ref CertificateArn
+      DefaultActions:
+        - Type: forward
+          TargetGroupArn: !Ref TargetGroup
