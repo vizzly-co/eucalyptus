@@ -101,7 +101,7 @@ const data = async (dataSet) => {
 
 const identity = async () => {
   // Hit the auth app
-  const response = await fetch('http://koala-tree.vizzly.co:9012/identity', {
+  const response = await fetch('https://example.vizzly.co:9012/identity', {
     method: 'post',
     headers: {
       'Content-Type': 'application/json',

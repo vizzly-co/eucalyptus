@@ -124,7 +124,7 @@ function App() {
   const [libraryView, setLibraryView] = React.useState<Component | null>(null);
 
   const identity = async () => {
-    const response = await fetch("http://koala-tree.vizzly.co:9012/identity", {
+    const response = await fetch("https://example.vizzly.co:9012/identity", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
