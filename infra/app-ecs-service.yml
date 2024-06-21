@@ -98,7 +98,7 @@ Resources:
           type: spread
       LoadBalancers:
         - ContainerName: !Sub ${Environment}-${AppName}
-          ContainerPort: !Ref HostPort
+          ContainerPort: !Ref AppPort
           TargetGroupArn: !Ref TargetGroup
 
   TaskDefinition:
