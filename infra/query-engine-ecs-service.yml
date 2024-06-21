@@ -13,7 +13,7 @@ Parameters:
   DesiredCount:
     Description: How many instances of this task should we run across our cluster?
     Type: Number
-    Default: 1
+    Default: 2
 
   ECRDockerImage:
     Description: Docker image url of the query engine
@@ -32,6 +32,16 @@ Parameters:
   TaskRoleArn:
     Description: (OPTIONAL) The ARN of the role that grants containers in the task permission to call AWS APIs on your behalf
     Type: String
+
+  LoadBalancerArn:
+    Description: ARN of the example load balancer
+    Type: String
+    Default: arn:aws:elasticloadbalancing:eu-west-2:463194597663:loadbalancer/app/example-load-balancer/88c4eab0ace67f6a
+
+  CertificateArn:
+    Description: ARN of the certificate
+    Type: String
+    Default: arn:aws:acm:eu-west-2:463194597663:certificate/aff25fc1-d398-45c1-98bd-e163daa9bce3
 
   AppName:
     Description: Which app is this query engine used for?
@@ -61,6 +71,14 @@ Resources:
         MinimumHealthyPercent: 50
       DesiredCount: !Ref DesiredCount
       TaskDefinition: !Ref TaskDefinition
+      HealthCheckGracePeriodSeconds: 15
+      PlacementStrategies:
+        - field: instanceId
+          type: spread
+      LoadBalancers:
+        - ContainerName: !Sub ${Environment}-QE-${AppName}
+          ContainerPort: 8000
+          TargetGroupArn: !Ref TargetGroup
 
   TaskDefinition:
     Type: AWS::ECS::TaskDefinition
@@ -128,3 +146,30 @@ Resources:
               - !Sub arn:aws:s3:::${Environment}-eucalyptus-qe-envs
               - !Sub arn:aws:s3:::${Environment}-eucalyptus-qe-envs/${AppName}.env
             Effect: "Allow"
+
+  TargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      VpcId: !Ref VPC
+      Port: !Ref HostPort
+      Protocol: HTTP
+      Matcher:
+        HttpCode: 200-299
+      HealthCheckIntervalSeconds: 10
+      HealthCheckPath: /api/health
+      HealthCheckProtocol: HTTP
+      HealthCheckTimeoutSeconds: 5
+      HealthyThresholdCount: 2
+      HealthCheckPort: !Ref HostPort
+
+  LoadBalancerListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      LoadBalancerArn: !Ref LoadBalancerArn
+      Port: !Ref HostPort
+      Protocol: HTTPS
+      Certificates:
+        - CertificateArn: !Ref CertificateArn
+      DefaultActions:
+        - Type: forward
+          TargetGroupArn: !Ref TargetGroup
