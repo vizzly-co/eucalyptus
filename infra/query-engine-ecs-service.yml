@@ -72,7 +72,7 @@ Resources:
         MinimumHealthyPercent: 50
       DesiredCount: !Ref DesiredCount
       TaskDefinition: !Ref TaskDefinition
-      HealthCheckGracePeriodSeconds: 15
+      HealthCheckGracePeriodSeconds: 45
       PlacementStrategies:
         - field: instanceId
           type: spread
@@ -161,6 +161,7 @@ Resources:
       HealthCheckProtocol: HTTP
       HealthCheckTimeoutSeconds: 5
       HealthyThresholdCount: 2
+      UnhealthyThresholdCount: 5
       HealthCheckPort: !Ref HostPort
 
   LoadBalancerListener:

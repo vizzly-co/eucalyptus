@@ -84,6 +84,7 @@ Conditions:
 Resources:
   Service:
     Type: AWS::ECS::Service
+    DependsOn: TargetGroup
     Properties:
       Cluster: !Sub arn:aws:ecs:eu-west-2:463194597663:cluster/example-koala
       DeploymentConfiguration:
