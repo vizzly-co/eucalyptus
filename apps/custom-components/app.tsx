@@ -97,7 +97,7 @@ const Component = () => {
                   })
                 }
               >
-                Drill to date
+                timeDimension to timeDimension
               </button>
             </li>
             <li>
@@ -111,13 +111,13 @@ const Component = () => {
                       value: "2015-01-01T00:00:00.000Z",
                     },
                     newField: {
-                      field: "vizzly_field_13blvsg",
+                      field: "vizzly_field_1i21bbz",
                       function: "none",
                     },
                   })
                 }
               >
-                Drill to dimension
+                timeDimension to dimension
               </button>
             </li>
             <li>
@@ -129,9 +129,9 @@ const Component = () => {
                   VizzlyState.drilldown("dashboard-id", {
                     viewId: "view_ebb7aba6-af15-4a5c-82e7-384d2ed9df9f",
                     existingField: {
-                      field: "vizzly_field_13blvsg",
+                      field: "vizzly_field_6ufsfs",
                       function: "none",
-                      value: "Engineering",
+                      value: "HR Manager",
                     },
                     newField: {
                       field: "vizzly_field_1ko27d",
@@ -140,7 +140,7 @@ const Component = () => {
                   })
                 }
               >
-                Drill to date
+                dimension to timeDimension
               </button>
             </li>
             <li>
@@ -149,9 +149,9 @@ const Component = () => {
                   VizzlyState.drilldown("dashboard-id", {
                     viewId: "view_ebb7aba6-af15-4a5c-82e7-384d2ed9df9f",
                     existingField: {
-                      field: "vizzly_field_13blvsg",
+                      field: "vizzly_field_6ufsfs",
                       function: "none",
-                      value: "Engineering",
+                      value: "HR Manager",
                     },
                     newField: {
                       field: "vizzly_field_1i21bbz",
@@ -160,7 +160,7 @@ const Component = () => {
                   })
                 }
               >
-                Drill to dimension
+                dimension to dimension
               </button>
             </li>
           </ul>
@@ -172,7 +172,7 @@ const Component = () => {
           </h3>
           <Vizzly.Dashboard
             id="dashboard-id"
-            // featureToggles={{ disableAutoSave: true }}
+            featureToggles={{ disableAutoSave: true }}
             vizzlyApiHost="https://staging.api.vizzly.co"
             queryEngineEndpoint="https://staging.api.vizzly.co/managed/mqe_f69a3d3ad797479492e2f91a25d3add2"
             parentDashboardId="dsh_0c23c9f4146745118fcfaabf5aab5184"
