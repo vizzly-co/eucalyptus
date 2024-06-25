@@ -53,7 +53,7 @@ jobs:
 
           sh ./update_koala_service.sh "example-in-browser-global-library" "in-browser-global-library-Service-9ZJsmQKkF7bp" "ghcr.io/vizzly-co/eucalyptus-in-browser-global-library:$IMAGE_TAG"
 
-          sh ./update_koala_service.sh "example-upcasting-regression-testing" "frontend-upcasting-regression-testing-Service-D0EBFePIUaZp" "ghcr.io/vizzly-co/eucalyptus-upcasting-regression-testing:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-upcasting-regression-testing" "upcasting-regression-testing-2-Service-RWvxOyl0yzfE" "ghcr.io/vizzly-co/eucalyptus-upcasting-regression-testing:$IMAGE_TAG"
 
           sh ./update_koala_service.sh "example-js-services-only" "eucalyptus-js-services-only-Service-Ni8ULQx4ASPH" "ghcr.io/vizzly-co/eucalyptus-js-services-only:$IMAGE_TAG"
 
