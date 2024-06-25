@@ -8,7 +8,7 @@ function App() {
   return (
     <Vizzly.Dashboard
         // Endpoint of the query engine used just to encrypt the dashboards!
-        queryEngineEndpoint="http://koala-tree.vizzly.co:9016"
+        queryEngineEndpoint="https://example.vizzly.co:9016"
         parentDashboardId="dsh_ed4e6b81279c4f208443e51c751386eb"
         dataSets={async () => {
           return [

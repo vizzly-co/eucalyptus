@@ -9,7 +9,7 @@ function App() {
         vizzlyApiHost="https://staging.api.vizzly.co"
         // Hit dynamic query engine for remote configs
         queryEngineEndpoint={{
-          endpoint: "http://koala-tree.vizzly.co:2121",
+          endpoint: "https://example.vizzly.co:2121",
           customHeaders: () => ({
             'Auth-Remote-Config-Token': '1'
           })

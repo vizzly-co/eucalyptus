@@ -8,7 +8,7 @@ function App() {
     <Vizzly.Dashboard
         vizzlyApiHost="https://staging.api.vizzly.co"
         // Hit the node-smart-proxy app
-        queryEngineEndpoint="http://koala-tree.vizzly.co:9010"
+        queryEngineEndpoint="https://example.vizzly.co:9010"
         parentDashboardId="dsh_7a675e99ce7b40f1a35fd87f04565803"
         identity={async () => {
           // Hit the auth app
