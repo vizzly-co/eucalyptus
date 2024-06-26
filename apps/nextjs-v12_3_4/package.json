@@ -1,0 +1,30 @@
+{
+  "name": "nextjs-v12_3_4",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "nodemon",
+    "build": "next build && tsc --project tsconfig.server.json",
+    "start": "cross-env NODE_ENV=production node dist/server.js"
+  },
+  "dependencies": {
+    "@vizzly/dashboard": "0.12.9-dev-a785bac184df34c9c06d8ed40bf68619d1207182",
+    "cross-env": "^7.0.3",
+    "next": "12.3.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "20.14.9",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "18.2.0",
+    "eslint": "9.5.0",
+    "eslint-config-next": "14.2.4",
+    "nodemon": "^2.0.20",
+    "ts-node": "^10.9.1",
+    "typescript": "5.5.2"
+  },
+  "resolutions": {
+    "@types/react": "^18.2.0"
+  }
+}
