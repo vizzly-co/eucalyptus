@@ -10,4 +10,4 @@ COPY . .
 RUN yarn install
 RUN yarn build
 
-ENTRYPOINT [ "yarn", "serve" ]
+ENTRYPOINT [ "yarn", "start" ]

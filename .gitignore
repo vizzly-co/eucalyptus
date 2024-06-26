@@ -4,3 +4,4 @@ node_modules
 static-build-outputs/**
 !static-build-outputs/.gitkeep
 dist
+.next
