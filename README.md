@@ -47,47 +47,47 @@ WyItLS0tLUJFR0lOIFBVQkxJQyBLRVktLS0tLVxyXG5NRmt3RXdZSEtvWkl6ajBDQVFZSUtvWkl6ajBE
 
 ### Query Engines
 
-#### /query-engine/*
+#### /query-engine
 ```
 target group: vizzl-Vizzl-SGVAZMRO699O
 log group: example-koala
 ecs service: example-vizzly-service-Service-i41X8yR5XVYO
 ```
 
-#### /mariadb/*
+#### /mariadb
 ```
 target group: mariad-Vizzl-7TQ9FAQHQSQ4
-log group: 
+log group: example-mariadb-qe
 ```
 
-#### /mysql/*
+#### /mysql
 ```
 target group: mysql-Vizzl-AXGXJXN6PRM5
-log group: 
+log group: example-mysql-query-engine
 ```
 
-#### /snowflake/*
+#### /snowflake
 ```
 target group: snowfl-Vizzl-YKZWWDZHRZVR
 log group: example-snowflake-query-engine
 ```
 
-#### /vizzly-backed-config/*
+#### /vizzly-backed-config
 ```
 target group: vizzly-Vizzl-1F0EYQVF5VNT
-log group: 
+log group: example-vizzly-backed-config
 ```
 
-#### /dynamic/*
+#### /dynamic
 ```
 target group: dynami-Vizzl-QWJLX2T6D2DV
-log group: 
+log group: example-dynamic-query-engine
 ```
 
-#### /staging-api-backed/*
+#### /staging-api-backed
 ```
 target group: stagin-Vizzl-LY84YDX3018U
-log group: 
+log group: example-query-engine-staging-backed-api
 ```
 
 
