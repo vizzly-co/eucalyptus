@@ -37,6 +37,7 @@ jobs:
             "pdf-download-with-no-addons",
             "sql-views",
             "microsoft-sql-server",
+            "nextjs-v12_3_4",
             "redshift",
             "result-accuracy",
             "dashboard-external-filters",
