@@ -42,3 +42,53 @@ WyItLS0tLUJFR0lOIFBVQkxJQyBLRVktLS0tLVxyXG5NRmt3RXdZSEtvWkl6ajBDQVFZSUtvWkl6ajBE
 ```
 4. Upload the env file to the S3 bucket; `{{environment}}-eucalyptus-qe-envs` and save as `{{app-folder-name}}.env`
 5. Run the CloudFormation script (query-engine-ecs-service.yml) to create a query engine on a specific port of the koala tree
+
+## Finding example projects
+
+### Query Engines
+
+#### /query-engine/*
+```
+target group: vizzl-Vizzl-SGVAZMRO699O
+log group: example-koala
+ecs service: example-vizzly-service-Service-i41X8yR5XVYO
+```
+
+#### /mariadb/*
+```
+target group: mariad-Vizzl-7TQ9FAQHQSQ4
+log group: 
+```
+
+#### /mysql/*
+```
+target group: mysql-Vizzl-AXGXJXN6PRM5
+log group: 
+```
+
+#### /snowflake/*
+```
+target group: snowfl-Vizzl-YKZWWDZHRZVR
+log group: example-snowflake-query-engine
+```
+
+#### /vizzly-backed-config/*
+```
+target group: vizzly-Vizzl-1F0EYQVF5VNT
+log group: 
+```
+
+#### /dynamic/*
+```
+target group: dynami-Vizzl-QWJLX2T6D2DV
+log group: 
+```
+
+#### /staging-api-backed/*
+```
+target group: stagin-Vizzl-LY84YDX3018U
+log group: 
+```
+
+
+### Dashboards
