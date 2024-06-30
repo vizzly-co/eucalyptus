@@ -1,0 +1,66 @@
+Description: >
+  This template contains the security groups required by our entire stack.
+Parameters:
+  Environment:
+    Description: An environment name that will be prefixed to resource names
+    Type: String
+
+  VPC:
+    Type: AWS::EC2::VPC::Id
+    Description: Choose which VPC the security groups should be deployed to
+
+Resources:
+  DatabaseSecurityGroup:
+    Type: "AWS::EC2::SecurityGroup"
+    Properties:
+      GroupDescription: "Security group for RDS DB Instance."
+      SecurityGroupEgress:
+        - IpProtocol: "-1"
+          CidrIp: "0.0.0.0/0"
+      SecurityGroupIngress:
+        - FromPort: "5432"
+          IpProtocol: "tcp"
+          SourceSecurityGroupId: !Ref VizzlyQueryEngineECSHostSecurityGroup
+          ToPort: "5432"
+      VpcId: !Ref VPC
+
+  VizzlyQueryEngineECSHostSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      VpcId: !Ref VPC
+      GroupDescription: Access to the API container cluster.
+      SecurityGroupIngress:
+        - SourceSecurityGroupId: !Ref LoadBalancerSecurityGroup
+          IpProtocol: -1
+        - FromPort: 22
+          ToPort: 22
+          IpProtocol: "tcp"
+          CidrIp: "0.0.0.0/0"
+      Tags:
+        - Key: Environment
+          Value: !Sub ${Environment}-ECS-API-Hosts
+
+  LoadBalancerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      VpcId: !Ref VPC
+      GroupDescription: Access to the load balancer that accepts traffic from the internet.
+      SecurityGroupIngress:
+        - CidrIp: 0.0.0.0/0
+          IpProtocol: -1
+      Tags:
+        - Key: Environment
+          Value: !Sub ${Environment}
+
+Outputs:
+  VizzlyQueryEngineECSHostSecurityGroup:
+    Description: A reference to the security group for EC2 running the API container cluster.
+    Value: !Ref VizzlyQueryEngineECSHostSecurityGroup
+
+  LoadBalancerSecurityGroup:
+    Description: A reference to the security group for load balancers
+    Value: !Ref LoadBalancerSecurityGroup
+
+  DatabaseSecurityGroup:
+    Description: A reference to the security group for the database
+    Value: !Ref DatabaseSecurityGroup

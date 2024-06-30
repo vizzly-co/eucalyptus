@@ -1,0 +1,42 @@
+Description: >
+  Sets up the permissions for the API.
+
+Parameters:
+  AppName:
+    Type: String
+    Description: App name that the config is used for.
+
+  Environment:
+    Description: Environment identifier
+    Type: String
+
+Resources:
+  VizzlyQueryEngineTaskDefinitionRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      Path: "/"
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action:
+              - sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service:
+                - ecs-tasks.amazonaws.com
+ 
+  VizzlyQueryEngineTaskDefinitionRolePolicy:
+    Type: "AWS::IAM::Policy"
+    Properties:
+      PolicyName: VizzlyQueryEngineTaskDefinitionRolePolicy
+      Roles:
+        - Ref: VizzlyQueryEngineTaskDefinitionRole
+      PolicyDocument:
+        Statement:
+          - Action:
+              - s3:GetObject
+              - s3:GetBucketLocation
+              - s3:ListBucket
+            Resource:
+              - !Sub arn:aws:s3:::${Environment}-vizzly-${AppName}-secure-config
+              - !Sub arn:aws:s3:::${Environment}-vizzly-${AppName}-secure-config/*
+            Effect: "Allow"
