@@ -1,0 +1,125 @@
+Description: >
+  AWS ECS service and task definition to run the Vizzly Query Engine
+Parameters:
+  VPC:
+    Description: The VPC that the ECS cluster is deployed to
+    Type: AWS::EC2::VPC::Id
+
+  Environment:
+    Description: Environment identifier
+    Type: String
+
+  DesiredCount:
+    Description: How many instances of this task should we run across our cluster?
+    Type: Number
+    Default: 1
+
+  DockerImage:
+    Description: Docker image url of the app
+    Type: String
+    Default: ghcr.io/vizzly-co/mysql-db:latest
+
+  DatabasePort:
+    Description: Port the container runs on
+    Type: Number
+    Default: 3306
+
+  ContainerName:
+    Description: Name of this service
+    Type: String
+    Default: ephemeral-mysql-container
+
+  ContainerMemory:
+    Description: Container memory allocation
+    Type: Number
+    Default: 256
+
+  TaskDefinitionRoleArn:
+    Description: The ARN of the role that grants containers in the task permission to call AWS APIs on your behalf
+    Type: String
+
+  AppName:
+    Description: Name of the app
+    Type: String
+    Default: ephemeral-mysql-db
+
+  ClusterArn:
+    Description: Arn of the ECS cluster to run the image on
+    Type: String
+
+Conditions:
+  ProvidedTaskRole: !Not [ !Equals [ !Ref TaskDefinitionRoleArn, "" ] ]
+
+Resources:
+  Service:
+    Type: AWS::ECS::Service
+    Properties:
+      Cluster: !Ref ClusterArn
+      DesiredCount: !Ref DesiredCount
+      TaskDefinition: !Ref TaskDefinition
+
+  TaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: !Ref ContainerName
+      TaskRoleArn: !If [ ProvidedTaskRole, !Ref TaskDefinitionRoleArn, !Ref "AWS::NoValue"]
+      ExecutionRoleArn: !Ref TaskDefinitionExecutionRole
+      ContainerDefinitions:
+        - Name: !Ref ContainerName
+          Essential: true
+          Image: !Ref DockerImage
+          Memory: !Ref ContainerMemory
+          PortMappings:
+            - ContainerPort: !Ref DatabasePort
+              HostPort: !Ref DatabasePort
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Ref CloudWatchLogsGroup
+              awslogs-region: !Ref AWS::Region
+
+  CloudWatchLogsGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub ${Environment}-${AppName}
+      RetentionInDays: 30
+
+  TaskDefinitionExecutionRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      Path: "/"
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action:
+              - sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service:
+                - ecs-tasks.amazonaws.com
+
+  TaskDefinitionExecutionRolePolicy:
+    Type: "AWS::IAM::Policy"
+    Properties:
+      PolicyName: TaskDefinitionExecutionRolePolicy
+      Roles:
+        - Ref: TaskDefinitionExecutionRole
+      PolicyDocument:
+        Statement:
+          - Action:
+              - cloudwatch:*
+              - logs:*
+            Resource:
+              - "*"
+            Effect: "Allow"
+          - Action:
+              - ecr:GetAuthorizationToken
+              - ecr:DescribeImages
+              - ecr:DescribeRepositories
+              - ecr:GetDownloadUrlForLayer
+              - ecr:BatchGetImage
+              - ecr:BatchCheckLayerAvailability
+            Resource:
+              - "*"
+              - !Sub arn:aws:ecr:${AWS::Region}:${AWS::AccountId}:repository/vizzly-${AppName}
+              - !Sub arn:aws:ecr:${AWS::Region}:${AWS::AccountId}:repository/vizzly-${AppName}/*
+            Effect: "Allow"

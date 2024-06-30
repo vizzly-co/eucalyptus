@@ -1,0 +1,59 @@
+Description: >
+  This template deploys a new rule-matcher on the load balancer for new query engines.
+
+Parameters:
+  VPC:
+    Type: AWS::EC2::VPC::Id
+    Description: Choose which VPC the Application Load Balancer should be deployed to
+
+  VizzlyQueryEngineBasePath:
+    Type: String
+    Description: Base path of the Vizzly Query Engine (if provided, then prefix with /, but no trailing /) e.g /query-engine
+    Default: ''
+
+  HTTPSLoadBalancerListener:
+    Type: String
+    Description: ARN of the load balancer
+    Default: arn:aws:elasticloadbalancing:eu-west-2:463194597663:listener/app/example-load-balancer/88c4eab0ace67f6a/4521fd2c6722d526
+
+  RouteMatcherPriority:
+    Type: Number
+    Description: Priority of the route matcher
+
+
+Resources:
+  QueryEngineListenerRule:
+    Type: AWS::ElasticLoadBalancingV2::ListenerRule
+    Properties:
+      Actions:
+        - Type: forward
+          TargetGroupArn: !Ref VizzlyQueryEngineTargetGroup
+      Conditions:
+        - Field: path-pattern
+          Values:
+            - !Sub ${VizzlyQueryEngineBasePath}/*
+      ListenerArn: !Ref HTTPSLoadBalancerListener
+      Priority: !Ref RouteMatcherPriority
+
+  VizzlyQueryEngineTargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      VpcId: !Ref VPC
+      Port: 80
+      Protocol: HTTP
+      Matcher:
+        HttpCode: 200-299
+      HealthCheckIntervalSeconds: 10
+      HealthCheckPath: !Sub ${VizzlyQueryEngineBasePath}/api/status
+      HealthCheckProtocol: HTTP
+      HealthCheckTimeoutSeconds: 5
+      HealthyThresholdCount: 2
+
+Outputs:
+  QueryEngineListenerRule:
+    Description: Listener rule
+    Value: !Ref QueryEngineListenerRule
+
+  VizzlyQueryEngineTargetGroup:
+    Description: Target group
+    Value: !Ref VizzlyQueryEngineTargetGroup

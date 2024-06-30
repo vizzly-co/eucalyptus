@@ -1,0 +1,30 @@
+---
+AWSTemplateFormatVersion: "2010-09-09"
+Parameters:
+  AppName:
+    Type: String
+    Description: App name that the config is used for.
+
+  Environment:
+    Type: String
+    Description: Environment
+
+Resources:
+  SecureConfigBucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: "Retain"
+    Properties:
+      BucketName: !Sub ${Environment}-vizzly-${AppName}-secure-config
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+Outputs:
+  SecureConfigBucket:
+    Description: A reference to the created secure config
+    Value: !Sub arn:aws:s3:::${SecureConfigBucket}

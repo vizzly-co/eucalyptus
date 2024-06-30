@@ -1,0 +1,185 @@
+Description: >
+  AWS ECS service and task definition to run the Vizzly Query Engine
+Parameters:
+  VPC:
+    Description: The VPC that the ECS cluster is deployed to
+    Type: AWS::EC2::VPC::Id
+
+  Environment:
+    Description: Environment identifier
+    Type: String
+    Default: example
+
+  DesiredCount:
+    Description: How many instances of this task should we run across our cluster?
+    Type: Number
+    Default: 1
+
+  DockerImage:
+    Description: Docker image url of the app
+    Type: String
+    Default: ghcr.io/vizzly-co/query-engine:latest
+
+  ContainerPort:
+    Description: Port the container runs on
+    Type: Number
+    Default: 8000
+
+  ContainerName:
+    Description: Name of this service
+    Type: String
+
+  ContainerMemory:
+    Description: Container memory allocation
+    Type: Number
+    Default: 256
+
+  VizzlyQueryEngineTaskDefinitionRoleArn:
+    Description: The ARN of the role that grants containers in the task permission to call AWS APIs on your behalf
+    Type: String
+
+  TargetGroup:
+    Description: ARN of the target group that points to this service
+    Type: String
+
+  AppName:
+    Description: Name of the app
+    Type: String
+
+  VizzlyQueryEngineBasePath:
+    Description: Base path of the query engine endpoint. Either empty string or prefixed with a / but no trailing /
+    Type: String
+    Default: '/dynamic'
+
+Conditions:
+  ProvidedTaskRole: !Not [ !Equals [ !Ref VizzlyQueryEngineTaskDefinitionRoleArn, "" ] ]
+
+Resources:
+  Service:
+    Type: AWS::ECS::Service
+    Properties:
+      Cluster: !Sub arn:aws:ecs:${AWS::Region}:${AWS::AccountId}:cluster/${Environment}-koala
+      Role: !Ref ServiceRoleForLoadBalancer
+      DesiredCount: !Ref DesiredCount
+      TaskDefinition: !Ref TaskDefinition
+      LoadBalancers:
+        - ContainerName: !Ref ContainerName
+          ContainerPort: !Ref ContainerPort
+          TargetGroupArn: !Ref TargetGroup
+
+  TaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: !Ref ContainerName
+      TaskRoleArn: !If [ ProvidedTaskRole, !Ref VizzlyQueryEngineTaskDefinitionRoleArn, !Ref "AWS::NoValue"]
+      ExecutionRoleArn: !Ref TaskDefinitionExecutionRole
+      ContainerDefinitions:
+        - Name: !Ref ContainerName
+          Essential: true
+          Image: !Ref DockerImage
+          Memory: !Ref ContainerMemory
+          PortMappings:
+            - ContainerPort: !Ref ContainerPort
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Ref CloudWatchLogsGroup
+              awslogs-region: !Ref AWS::Region
+          Environment:
+            - name: VIZZLY_BASE_PATH
+              value: !Ref VizzlyQueryEngineBasePath
+
+  CloudWatchLogsGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub ${Environment}-${AppName}
+      RetentionInDays: 30
+
+  # This IAM Role grants the service access to register/unregister with the
+  # Application Load Balancer (ALB). It is based on the default documented here:
+  # http://docs.aws.amazon.com/AmazonECS/latest/developerguide/service_IAM_role.html
+  ServiceRoleForLoadBalancer:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub ecs-service-${Environment}-${AppName}
+      Path: /
+      AssumeRolePolicyDocument: |
+        {
+            "Statement": [{
+                "Effect": "Allow",
+                "Principal": { "Service": [ "ecs.amazonaws.com" ]},
+                "Action": [ "sts:AssumeRole" ]
+            }]
+        }
+      Policies:
+        - PolicyName: !Sub ecs-service-${Environment}-${AppName}
+          PolicyDocument:
+            {
+              "Version": "2012-10-17",
+              "Statement":
+                [
+                  {
+                    "Effect": "Allow",
+                    "Action":
+                      [
+                        "ec2:AuthorizeSecurityGroupIngress",
+                        "ec2:Describe*",
+                        "elasticloadbalancing:DeregisterInstancesFromLoadBalancer",
+                        "elasticloadbalancing:Describe*",
+                        "elasticloadbalancing:RegisterInstancesWithLoadBalancer",
+                        "elasticloadbalancing:DeregisterTargets",
+                        "elasticloadbalancing:DescribeTargetGroups",
+                        "elasticloadbalancing:DescribeTargetHealth",
+                        "elasticloadbalancing:RegisterTargets",
+                      ],
+                    "Resource": "*",
+                  },
+                ],
+            }
+
+  TaskDefinitionExecutionRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      Path: "/"
+      AssumeRolePolicyDocument:
+        Statement:
+          - Action:
+              - sts:AssumeRole
+            Effect: Allow
+            Principal:
+              Service:
+                - ecs-tasks.amazonaws.com
+
+  TaskDefinitionExecutionRolePolicy:
+    Type: "AWS::IAM::Policy"
+    Properties:
+      PolicyName: TaskDefinitionExecutionRolePolicy
+      Roles:
+        - Ref: TaskDefinitionExecutionRole
+      PolicyDocument:
+        Statement:
+          - Action:
+              - cloudwatch:*
+              - logs:*
+            Resource:
+              - "*"
+            Effect: "Allow"
+          - Action:
+              - ecr:GetAuthorizationToken
+              - ecr:DescribeImages
+              - ecr:DescribeRepositories
+              - ecr:GetDownloadUrlForLayer
+              - ecr:BatchGetImage
+              - ecr:BatchCheckLayerAvailability
+            Resource:
+              - "*"
+              - !Sub arn:aws:ecr:${AWS::Region}:${AWS::AccountId}:repository/vizzly-${AppName}
+              - !Sub arn:aws:ecr:${AWS::Region}:${AWS::AccountId}:repository/vizzly-${AppName}/*
+            Effect: "Allow"
+          - Action:
+              - s3:GetObject
+              - s3:GetBucketLocation
+            Resource:
+              - !Sub arn:aws:s3:::${Environment}-vizzly-koala-secure-config
+              - !Sub arn:aws:s3:::${Environment}-vizzly-koala-secure-config/*
+            Effect: "Allow"

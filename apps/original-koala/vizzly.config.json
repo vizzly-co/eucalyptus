@@ -1,0 +1,327 @@
+{
+  "connection": {
+    "client": "postgres",
+    "debug": false,
+    "connection": {
+      "password": "customer",
+      "database": "my_database",
+      "user": "customer",
+      "host": "172.17.0.1",
+      "port": 5432
+    }
+  },
+  "dataSets": [
+    {
+      "id": "data_set_1",
+      "name": "Employment - sample",
+      "joins": [],
+      "fields": [
+        {
+          "id": "fie_1",
+          "publicName": "Employee ID",
+          "table": "hr_payroll",
+          "name": "employee_id",
+          "dataType": "number",
+          "canBeDimension": true,
+          "canBeMeasure": false
+        },
+        {
+          "id": "fie_2",
+          "publicName": "Name",
+          "table": "hr_payroll",
+          "name": "name",
+          "dataType": "string",
+          "canBeDimension": true,
+          "canBeMeasure": false
+        },
+        {
+          "id": "fie_3",
+          "publicName": "Gender",
+          "table": "hr_payroll",
+          "name": "gender",
+          "dataType": "string",
+          "canBeDimension": true,
+          "canBeMeasure": false
+        },
+        {
+          "id": "fie_4",
+          "publicName": "Date of Birth",
+          "table": "hr_payroll",
+          "name": "date_of_birth",
+          "dataType": "date_time",
+          "canBeDimension": true,
+          "canBeMeasure": false
+        },
+        {
+          "id": "fie_5",
+          "publicName": "Date of Hire",
+          "table": "hr_payroll",
+          "name": "date_of_hire",
+          "dataType": "date_time",
+          "canBeDimension": true,
+          "canBeMeasure": false
+        },
+        {
+          "id": "fie_6",
+          "publicName": "Department",
+          "table": "hr_payroll",
+          "name": "department",
+          "dataType": "string",
+          "canBeDimension": true,
+          "canBeMeasure": false
+        },
+        {
+          "id": "fie_7",
+          "publicName": "Job Title",
+          "table": "hr_payroll",
+          "name": "job_title",
+          "dataType": "string",
+          "canBeDimension": true,
+          "canBeMeasure": false
+        },
+        {
+          "id": "fie_8",
+          "publicName": "Salary",
+          "table": "hr_payroll",
+          "name": "salary",
+          "dataType": "number",
+          "canBeDimension": false,
+          "canBeMeasure": true
+        },
+        {
+          "id": "fie_9",
+          "publicName": "Satisfaction Score",
+          "table": "hr_payroll",
+          "name": "employee_satisfaction_score",
+          "dataType": "number",
+          "canBeDimension": true,
+          "canBeMeasure": true
+        },
+        {
+          "id": "fie_10",
+          "publicName": "Tenure",
+          "table": "hr_payroll",
+          "name": "tenure",
+          "dataType": "number",
+          "canBeDimension": true,
+          "canBeMeasure": true
+        },
+        {
+          "id": "fie_11",
+          "publicName": "Nationality",
+          "table": "hr_payroll",
+          "name": "nationality",
+          "dataType": "string",
+          "canBeDimension": true,
+          "canBeMeasure": false
+        }
+      ]
+    },
+    {
+      "id": "data_set_2",
+      "name": "Online retail sales - sample",
+      "joins": [],
+      "fields": [
+        {
+          "id": "fie_1",
+          "publicName": "Order ID",
+          "dataType": "number",
+          "canBeDimension": false,
+          "canBeMeasure": true,
+          "name": "order_id",
+          "table": "ecommerce_sales_data"
+        },
+        {
+          "id": "fie_2",
+          "publicName": "Order Date",
+          "dataType": "date_time",
+          "canBeDimension": true,
+          "canBeMeasure": false,
+          "name": "order_date",
+          "table": "ecommerce_sales_data"
+        },
+        {
+          "id": "fie_3",
+          "publicName": "Status",
+          "dataType": "string",
+          "canBeDimension": true,
+          "canBeMeasure": false,
+          "name": "status",
+          "table": "ecommerce_sales_data"
+        },
+        {
+          "id": "fie_4",
+          "publicName": "Item ID",
+          "dataType": "number",
+          "canBeDimension": true,
+          "canBeMeasure": false,
+          "name": "item_id",
+          "table": "ecommerce_sales_data"
+        },
+        {
+          "id": "fie_5",
+          "publicName": "Quantity Ordered",
+          "dataType": "number",
+          "canBeDimension": true,
+          "canBeMeasure": false,
+          "name": "quantity_ordered",
+          "table": "ecommerce_sales_data"
+        },
+        {
+          "id": "fie_6",
+          "publicName": "Price",
+          "dataType": "number",
+          "canBeDimension": false,
+          "canBeMeasure": true,
+          "name": "price",
+          "table": "ecommerce_sales_data"
+        },
+        {
+          "id": "fie_7",
+          "publicName": "Value",
+          "dataType": "number",
+          "canBeDimension": false,
+          "canBeMeasure": true,
+          "name": "value",
+          "table": "ecommerce_sales_data"
+        },
+        {
+          "id": "fie_8",
+          "publicName": "Discount Amount",
+          "dataType": "number",
+          "canBeDimension": false,
+          "canBeMeasure": true,
+          "name": "discount_amount",
+          "table": "ecommerce_sales_data"
+        },
+        {
+          "id": "fie_9",
+          "publicName": "Total",
+          "dataType": "number",
+          "canBeDimension": false,
+          "canBeMeasure": true,
+          "name": "total",
+          "table": "ecommerce_sales_data"
+        },
+        {
+          "id": "fie_10",
+          "publicName": "Category",
+          "dataType": "string",
+          "canBeDimension": true,
+          "canBeMeasure": true,
+          "name": "category",
+          "table": "ecommerce_sales_data"
+        },
+        {
+          "id": "fie_11",
+          "publicName": "Payment Method",
+          "dataType": "string",
+          "canBeDimension": true,
+          "canBeMeasure": false,
+          "name": "payment_method",
+          "table": "ecommerce_sales_data"
+        },
+        {
+          "id": "fie_12",
+          "publicName": "Customer ID",
+          "dataType": "number",
+          "canBeDimension": true,
+          "canBeMeasure": false,
+          "name": "customer_id",
+          "table": "ecommerce_sales_data"
+        },
+        {
+          "id": "fie_13",
+          "publicName": "County",
+          "dataType": "string",
+          "canBeDimension": true,
+          "canBeMeasure": false,
+          "name": "county",
+          "table": "ecommerce_sales_data"
+        },
+        {
+          "id": "fie_14",
+          "publicName": "City",
+          "dataType": "string",
+          "canBeDimension": true,
+          "canBeMeasure": false,
+          "name": "city",
+          "table": "ecommerce_sales_data"
+        },
+        {
+          "id": "fie_15",
+          "publicName": "State",
+          "dataType": "string",
+          "canBeDimension": true,
+          "canBeMeasure": false,
+          "name": "state",
+          "table": "ecommerce_sales_data"
+        },
+        {
+          "id": "fie_16",
+          "publicName": "Region",
+          "dataType": "string",
+          "canBeDimension": true,
+          "canBeMeasure": false,
+          "name": "region",
+          "table": "ecommerce_sales_data"
+        },
+        {
+          "id": "fie_17",
+          "publicName": "Discount Percentage",
+          "dataType": "number",
+          "canBeDimension": false,
+          "canBeMeasure": true,
+          "name": "discount_percentage",
+          "table": "ecommerce_sales_data"
+        }
+      ]
+    },
+    {
+      "id": "custom-stock-data",
+      "name": "Stock data",
+      "fields": [
+        {
+          "name": "date",
+          "dataType": "date_time",
+          "id": "fie_1",
+          "publicName": "Date",
+          "table": "stocks"
+        },
+        {
+          "name": "open",
+          "dataType": "number",
+          "id": "fie_2",
+          "publicName": "Open",
+          "table": "stocks"
+        },
+        {
+          "name": "high",
+          "dataType": "number",
+          "id": "fie_3",
+          "publicName": "High",
+          "table": "stocks"
+        },
+        {
+          "name": "low",
+          "dataType": "number",
+          "id": "fie_4",
+          "publicName": "Low",
+          "table": "stocks"
+        },
+        {
+          "name": "name",
+          "dataType": "string",
+          "id": "fie_5",
+          "publicName": "Name",
+          "table": "stocks"
+        }
+      ],
+      "joins": []
+    }
+  ],
+  "publicKeyCertificates": [
+    "-----BEGIN PUBLIC KEY-----\r\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEpSGuqzScAczaF/SCObpB/UTlgUdL\r\ntQ+izNyl0l5CzetFvH9b0aSh6y+t80st62NsmV5Hzc1CFJXiuTLrjrrB5A==\r\n-----END PUBLIC KEY-----\r\n",
+    "-----BEGIN PUBLIC KEY-----\r\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEx32NYg1giY5kCzwS1ZCLSbs/bsr5\r\nJyoEjhQp2dPLqRy4Xd72+JdCiI0Ftq3rly6zMmiOQ19fjVzZIRNuTKnFXg==\r\n-----END PUBLIC KEY-----\r\n"
+  ]
+}
