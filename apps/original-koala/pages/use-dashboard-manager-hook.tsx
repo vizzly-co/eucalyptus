@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import type { NextPage } from 'next'
-import Vizzly from '@vizzly/dashboard';
+import {useVizzly, Dashboard as VizzlyDashboard} from '@vizzly/dashboard';
 
 const PARENT_DASHBOARD_ONE = 'dsh_f6021680dc4d44189c21825616682814';
 const PARENT_DASHBOARD_TWO = 'dsh_4da877a0b4204eb581912eda124bf56d';
@@ -27,30 +27,39 @@ const Dashboard: NextPage = () => {
 
   const [parentDashboardId, setParentDashboardId] = useState<string>()
   const [dashboardId, setDashboardId] = useState<string | undefined>(undefined);
-  const dashboardManager = Vizzly.useDashboardManager(identityFn, QUERY_ENGINE_ENDPOINT, parentDashboardId, {host: STAGING_VIZZLY_API_HOST});
+
+  const dashboardManager = useVizzly({
+    identity: identityFn,
+    queryEngine: QUERY_ENGINE_ENDPOINT,
+  }, {
+    apiHost: STAGING_VIZZLY_API_HOST
+  });
+
+  const parentDashboards = dashboardManager.loading ? [] : dashboardManager.filterDashboards(dashboardManager.dashboards, {onlyParentDashboards: true});
+  const childDashboards = dashboardManager.loading ? [] : dashboardManager.filterDashboards(dashboardManager.dashboards, {onlyChildDashboards: true});
 
   return (
     <>
       <header style={{background: "#174082", position: "relative", width: "100%", height: "50px"}} />
       <h2>Parent dashboards</h2>
       <ul>
-        {dashboardManager.parentDashboards.map(parentDashboard => (
+        {parentDashboards.map(parentDashboard => (
           <li key={`parent_${parentDashboard.id}`} onClick={() => setParentDashboardId(parentDashboard.id)}>PARENT {parentDashboard.id}</li>
         ))}
       </ul>
 
       <h2>Child dashboards</h2>
       <ul>
-        {dashboardManager.allChildDashboards.map(childDashboard => (
+        {childDashboards.map(childDashboard => (
           <li key={`child_${childDashboard.id}`} onClick={() => setDashboardId(childDashboard.id)}>CHILD {childDashboard.id}</li>
         ))}
       </ul>
       <h2>The dashboard</h2>
-      <p>default parent on the hook: {dashboardManager.defaultParentDashboardId}</p>
       <p>child: {dashboardId === undefined ? 'undefined' : dashboardId}</p>
-      <p>isAdmin: {dashboardManager.isAdmin ? 'YES' : 'NO'}</p>
+      <p>isAdmin: {dashboardManager.accessType === 'admin' ? 'YES' : 'NO'}</p>
       <br />
-      <Vizzly.Dashboard
+      {/* @ts-ignore */}
+      <VizzlyDashboard
         vizzlyApiHost={STAGING_VIZZLY_API_HOST}
         parentDashboardId={parentDashboardId}
         dashboardId={dashboardId}

@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@vizzly/auth": "^0.2.2",
-    "@vizzly/dashboard": "^0.6.3-49fa58dbcbaed54bd4e41710f33f81b45f1627b6",
+    "@vizzly/dashboard": "*",
     "cookie": "^0.5.0",
     "next": "12.3.1",
     "react": "18.2.0",
