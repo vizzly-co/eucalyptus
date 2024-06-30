@@ -46,6 +46,7 @@ jobs:
             "editor-webcomponent",
             "remote-config-endpoint",
             "custom-components",
+            "original-koala"
           ]
 
     steps:
