@@ -55,7 +55,8 @@ Parameters:
         "manatal-qe-replica",
         "remote-config-endpoint",
         "qe-using-ohio-api",
-        "qe-with-broken-connection"
+        "qe-with-broken-connection",
+        "qe-kusto"
       ]
 
 Conditions:
