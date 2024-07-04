@@ -48,7 +48,8 @@ jobs:
             "custom-components",
             "original-koala",
             "cra",
-            "cra-programmatic"
+            "cra-programmatic",
+            "webcomponent"
           ]
 
     steps:

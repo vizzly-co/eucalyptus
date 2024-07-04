@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <script src="https://static.app.vizzly.co/embedded/{{ VERSION }}/bundle.js"></script>
+  </head>
+  <body>
+    <script type="module">
+      // this could also load from a locally built .mjs file, if there is a webserver
+      // that serves the file. This avoids needing to publish first
+      dashboard.render({
+        queryEngineEndpoint: 'https://example.vizzly.co/query-engine',
+
+        identity: async () => {
+          let identityEndpoint = 'https://example.vizzly.co/api/identity';
+          const userId = window.location.hash.slice(1);
+
+          if (window.location.hash) {
+            identityEndpoint = `${identityEndpoint}?userId=${userId}`;
+          }
+
+          const response = await fetch(identityEndpoint, {
+            method: 'get',
+          });
+
+          if (response.ok) {
+            const tokens = await response.json();
+
+            return tokens.liveTokens;
+          }
+
+          return null;
+        },
+      });
+    </script>
+    <vizzly-dashboard id="dashboard" />
+  </body>
+</html>
