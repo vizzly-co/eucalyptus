@@ -47,7 +47,8 @@ jobs:
             "remote-config-endpoint",
             "custom-components",
             "original-koala",
-            "cra"
+            "cra",
+            "cra-programmatic"
           ]
 
     steps:
