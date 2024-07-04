@@ -8,6 +8,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@vizzly/dashboard": "0.12.1-dev-9701fb412ffca4241674ca05071ed06ddfaa2b9d",
+    "http-server": "^14.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
@@ -15,6 +16,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "serve": "http-server ./build -p 2034",
     "start": "PORT=2034 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
