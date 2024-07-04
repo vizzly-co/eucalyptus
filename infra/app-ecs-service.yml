@@ -77,7 +77,8 @@ Parameters:
         "editor-webcomponent",
         "remote-config-endpoint",
         "custom-components",
-        "original-cra"
+        "original-cra",
+        "cra-programmatic"
       ]
 
 Conditions:
