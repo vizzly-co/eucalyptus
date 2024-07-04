@@ -65,4 +65,6 @@ jobs:
           sh ./update_koala_service.sh "example-redshift" "eucalyptus-redshift-Service-IxBnnpw5REte" "ghcr.io/vizzly-co/eucalyptus-redshift:$IMAGE_TAG"
           sh ./update_koala_service.sh "example-custom-components" "eucalyptus-custom-components-Service-LrMK1HGoDK7p" "ghcr.io/vizzly-co/eucalyptus-custom-components:$IMAGE_TAG"
 
+          sh ./update_koala_service.sh "example-nextjs-v12_3_4" "eucalyptus-nextjs-v12-3-4-Service-8PuIlq2TdY0Z" "ghcr.io/vizzly-co/eucalyptus-nextjs-v12_3_4:$IMAGE_TAG"
+
           # sh ./update_koala_service.sh "example-QE-dynamic-datasets-dashboard" "dynamic-datasets-dashboard-qe2-Service-E69muRAsgqZk" "ghcr.io/vizzly-co/query-engine-dev:$IMAGE_TAG"
