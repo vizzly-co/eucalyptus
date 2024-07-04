@@ -8,7 +8,7 @@
     "start": "next start -p 9027",
     "lint": "next lint"
   },
-  "dependencies": {
+  "dependencies": { "isomorphic-fetch": "^3.0.0",
     "@vizzly/dashboard": "0.12.9-dev-a785bac184df34c9c06d8ed40bf68619d1207182",
     "next": "12.3.4",
     "react": "18.2.0",

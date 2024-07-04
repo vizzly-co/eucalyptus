@@ -8,7 +8,7 @@
     "build": "esbuild app.tsx --bundle --outdir=www/js --define:global=window",
     "serve": "http-server ./www -p 2030"
   },
-  "dependencies": {
+  "dependencies": { "isomorphic-fetch": "^3.0.0",
     "@vizzly/dashboard": "0.8.3-dev-9018d76af9c0c19787061b50ea64003378135378",
     "esbuild": "^0.16.10",
     "react": "^18.2.0",
