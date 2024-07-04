@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap');
+
+.v.vizzly_empty-cell,
+.v.vizzly_populated-cell {
+  border: 0;
+  border-radius: 0;
+  padding: .75rem 2rem;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1),0 1px 2px 0 rgba(0,0,0,0.06);
+}
+
+/*
+Format the table in the data set preview modal.
+*/
+.v.vizzly_data-set-preview thead tr {
+  color: #1b1b1d;
+  font-size: 14px;
+  font-variant: tabular-nums;
+  line-height: 1.5715;
+  margin: 0;
+  font-weight: 700;
+}
+
+.v.vizzly_data-set-preview thead tr td {
+  letter-spacing: -.01em;
+}
+
+.v.vizzly_data-set-preview tbody tr {
+  border-top: 1px solid #ecedef;
+}
+
+.v.vizzly_data-set-preview tbody > tr > td {
+  padding: 8px;
+  color: #1b1b1d;
+  font-size: 14px;
+  vertical-align: top;
+  line-height: 1.5715;
+}
+
+.v.vizzly_data-set-preview tbody tr:hover {
+  background: rgb(248,248,248);
+}
+
+.v.vizzly_empty-cell > span {
+  display: visible !important;
+}
