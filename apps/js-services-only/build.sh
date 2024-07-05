@@ -1,4 +1,4 @@
-latestversion=$(npm view @vizzly/dashboard version)
+latestversion=$(npm view @vizzly/dashboard@dev version)
 
 echo "Building with dashboard version ${latestversion}"
 
