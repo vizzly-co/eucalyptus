@@ -1,0 +1,22 @@
+{
+  "name": "any-managed-euc-cloud",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "esbuild app.tsx --bundle --serve=9040 --servedir=www/ --outdir=www/js --define:global=window",
+    "build": "esbuild app.tsx --bundle --outdir=www/js --define:global=window",
+    "serve": "http-server ./www -p 9040"
+  },
+  "dependencies": { "isomorphic-fetch": "^3.0.0",
+    "@vizzly/dashboard": "0.9.1-dev-b7b3d7ead65bdd5379a7dcb2138ceb201f781ada",
+    "esbuild": "^0.16.10",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.9",
+    "http-server": "^14.1.1"
+  }
+}

@@ -80,7 +80,8 @@ Parameters:
         "original-cra",
         "cra-programmatic",
         "webcomponent",
-        "original-koala"
+        "original-koala",
+        "any-managed-euc-cloud"
       ]
 
 Conditions:
