@@ -11,6 +11,8 @@ function App() {
   const managedQueryEngineId = getQueryParam('managedQueryEngineId');
   const parentDashboardId = getQueryParam('parentDashboardId');
   const projectId = getQueryParam('projectId');
+  const userReference = getQueryParam('userReference', 'default');
+  const scope = getQueryParam('scope', 'read_write');
 
   return (
     <Vizzly.Dashboard
@@ -30,8 +32,8 @@ function App() {
             projectId,
             secureFilters: {},
             dataSetIds: '*',
-            scope: 'read_write',
-            userReference: window.location.hash || 'a basic user',
+            scope,
+            userReference
           }),
         });
 
