@@ -1,6 +1,13 @@
 # eucalyptus
 Apps that run on the koala tree for Vizzly E2E testing
 
+## In a hurry?
+To get a dashboard connected to a managed query engine quickly, simply;
+
+1. Create a managed cloud project on https://staging.app.vizzly.co 
+2. Run `Vizz.Office.SetManagedKeyPairForEucalyptus.run("<< managed query engine id >>")`
+3. Visit https://example.vizzly.co:9040?parentDashboardId=...&projectId=...&managedQueryEngineId=...
+
 ### Adding a new app
 
 1. Build a new project under the `apps` directory.
