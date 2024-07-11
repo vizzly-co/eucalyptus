@@ -79,7 +79,8 @@ Parameters:
         "custom-components",
         "original-cra",
         "cra-programmatic",
-        "webcomponent"
+        "webcomponent",
+        "original-koala"
       ]
 
 Conditions:
