@@ -81,7 +81,8 @@ Parameters:
         "cra-programmatic",
         "webcomponent",
         "original-koala",
-        "any-managed-euc-cloud"
+        "any-managed-euc-cloud",
+        "origin-simulator"
       ]
 
 Conditions:
