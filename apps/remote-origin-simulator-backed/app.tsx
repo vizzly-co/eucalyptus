@@ -8,6 +8,8 @@ function App() {
     return new URLSearchParams(window.location.search).get(name) ?? defaultValue;
   };
 
+  // EXAMPLE ENDPOINT: /?projectId=prj_add0100d8e7b42df8eaa00c86cadab27&parentDashboardId=dsh_4c616b59f4fe41419364722c0b833f32&authToken=abc
+
   const parentDashboardId = getQueryParam('parentDashboardId');
   const projectId = getQueryParam('projectId');
   const userReference = getQueryParam('userReference', 'default');
