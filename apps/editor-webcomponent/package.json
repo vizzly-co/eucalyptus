@@ -5,7 +5,7 @@
   "scripts": {
     "build": "sh ./build.sh",
     "serve": "http-server ./dist -p 9030",
-    "serve-local": "http-server ./www -p 9030"
+    "serve-local": "http-server ./www -c-1 -p 9030"
   },
   "devDependencies": {
     "http-server": "^14.1.1"

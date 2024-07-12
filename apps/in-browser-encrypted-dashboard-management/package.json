@@ -6,7 +6,7 @@
   "scripts": {
     "start": "esbuild app.tsx --bundle --serve=9018 --servedir=www/ --outdir=www/js --define:global=window",
     "build": "esbuild app.tsx --bundle --outdir=www/js --define:global=window",
-    "serve": "http-server ./www -p 9018"
+    "serve": "http-server ./www -c-1 -p 9018"
   },
   "dependencies": { "isomorphic-fetch": "^3.0.0",
     "@vizzly/dashboard": "*",

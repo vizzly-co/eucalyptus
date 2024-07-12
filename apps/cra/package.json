@@ -16,7 +16,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "serve": "http-server ./build -p 2034",
+    "serve": "http-server ./build -p 2034 -c-1",
     "start": "PORT=2034 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
