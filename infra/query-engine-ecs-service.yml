@@ -56,7 +56,8 @@ Parameters:
         "remote-config-endpoint",
         "qe-using-ohio-api",
         "qe-with-broken-connection",
-        "qe-kusto"
+        "qe-kusto",
+        "qe-origin-simulator-backed"
       ]
 
 Conditions:
