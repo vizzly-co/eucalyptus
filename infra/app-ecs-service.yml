@@ -82,7 +82,8 @@ Parameters:
         "webcomponent",
         "original-koala",
         "any-managed-euc-cloud",
-        "origin-simulator"
+        "origin-simulator",
+        "remote-origin-simulator-backed"
       ]
 
 Conditions:
