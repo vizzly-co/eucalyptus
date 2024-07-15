@@ -77,6 +77,6 @@ jobs:
 
           sh ./update_koala_service.sh "example-original-koala" "original-koala-2039-Service-f14ACjRbLCiC" "ghcr.io/vizzly-co/eucalyptus-original-koala:$IMAGE_TAG"
 
-          sh ./update_koala_service.sh "example-remote-origin-simulator-backed" "dash-4002-remote-origin-simulator-backed-Service-bipR3jkcq2Rt" "ghcr.io/vizzly-co/ghcr.io/vizzly-co/eucalyptus-remote-origin-simulator-backed:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-remote-origin-simulator-backed" "dash-4002-remote-origin-simulator-backed-Service-bipR3jkcq2Rt" "ghcr.io/vizzly-co/eucalyptus-remote-origin-simulator-backed:$IMAGE_TAG"
 
           # sh ./update_koala_service.sh "example-QE-dynamic-datasets-dashboard" "dynamic-datasets-dashboard-qe2-Service-E69muRAsgqZk" "ghcr.io/vizzly-co/query-engine-dev:$IMAGE_TAG"
