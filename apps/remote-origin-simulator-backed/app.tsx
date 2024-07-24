@@ -15,6 +15,7 @@ function App() {
   const userReference = getQueryParam('userReference', 'default');
   const scope = getQueryParam('scope', 'read_write');
   const authToken = getQueryParam('authToken');
+  const timeZone = getQueryParam('timeZone');
 
   return (
     <Vizzly.Dashboard
@@ -25,6 +26,7 @@ function App() {
           'Auth-Remote-Config-Token': authToken
         }) : undefined,
       }}
+      timeZone={timeZone}
       parentDashboardId={parentDashboardId}
       developerTools={{ viewRawResults: true, viewRawAttributes: true }}
       identity={async () => {
