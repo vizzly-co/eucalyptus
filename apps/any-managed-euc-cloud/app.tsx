@@ -11,6 +11,7 @@ function App() {
   const managedQueryEngineId = getQueryParam('managedQueryEngineId');
   const parentDashboardId = getQueryParam('parentDashboardId');
   const projectId = getQueryParam('projectId');
+  const timeZone = getQueryParam('timeZone');
   const userReference = getQueryParam('userReference', 'default');
   const scope = getQueryParam('scope', 'read_write');
 
@@ -20,6 +21,7 @@ function App() {
       queryEngineEndpoint={`https://staging.api.vizzly.co/managed/${managedQueryEngineId}`}
       parentDashboardId={parentDashboardId}
       developerTools={{ viewRawResults: true, viewRawAttributes: true }}
+      timeZone={timeZone}
       identity={async () => {
         // Hit the auth app
         const response = await fetch('https://example.vizzly.co:9012/identity', {
