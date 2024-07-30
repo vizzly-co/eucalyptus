@@ -88,7 +88,7 @@ const Component = () => {
                     existingField: {
                       field: "vizzly_field_1ko27d",
                       function: "year",
-                      value: "2015-01-01T00:00:00.000Z",
+                      value: "2015-01-01T00:00:00.000",
                     },
                     newField: {
                       field: "vizzly_field_1ko27d",
@@ -99,6 +99,9 @@ const Component = () => {
               >
                 timeDimension to timeDimension
               </button>
+              <span style={{ fontSize: "0.65rem" }}>
+                Change TimeDimension Chart: Date of hire = '2015' {">"} Date of hire (Monthly)
+              </span>
             </li>
             <li>
               <button
@@ -108,7 +111,7 @@ const Component = () => {
                     existingField: {
                       field: "vizzly_field_1ko27d",
                       function: "year",
-                      value: "2015-01-01T00:00:00.000Z",
+                      value: "2015-01-01T00:00:00.000",
                     },
                     newField: {
                       field: "vizzly_field_1i21bbz",
@@ -119,8 +122,12 @@ const Component = () => {
               >
                 timeDimension to dimension
               </button>
+              <span style={{ fontSize: "0.65rem" }}>
+                Change TimeDimension Chart: Date of hire = '2015' {">"} Gender
+              </span>
             </li>
             <li>
+              <hr />
               <b>Dimension Chart</b>
             </li>
             <li>
@@ -142,6 +149,9 @@ const Component = () => {
               >
                 dimension to timeDimension
               </button>
+              <span style={{ fontSize: "0.65rem" }}>
+                Change Dimension Chart: Job title = 'HR Manager' {">"} Date of hire (Monthly)
+              </span>
             </li>
             <li>
               <button
@@ -162,6 +172,9 @@ const Component = () => {
               >
                 dimension to dimension
               </button>
+              <span style={{ fontSize: "0.65rem" }}>
+                Change Dimension Chart: Job title = 'HR Manager' {">"} Gender
+              </span>
             </li>
           </ul>
         </div>
