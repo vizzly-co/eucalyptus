@@ -78,9 +78,6 @@ const Component = () => {
           <h3>Actions</h3>
           <ul>
             <li>
-              <b>TimeDimension Chart</b>
-            </li>
-            <li>
               <button
                 onClick={() =>
                   VizzlyState.drilldown("dashboard-id", {
@@ -100,7 +97,7 @@ const Component = () => {
                 timeDimension to timeDimension
               </button>
               <span style={{ fontSize: "0.65rem" }}>
-                Change TimeDimension Chart: Date of hire = '2015' {">"} Date of hire (Monthly)
+                Changes TimeDimension Chart
               </span>
             </li>
             <li>
@@ -123,12 +120,11 @@ const Component = () => {
                 timeDimension to dimension
               </button>
               <span style={{ fontSize: "0.65rem" }}>
-                Change TimeDimension Chart: Date of hire = '2015' {">"} Gender
+                Change TimeDimension Chart
               </span>
             </li>
             <li>
               <hr />
-              <b>Dimension Chart</b>
             </li>
             <li>
               <button
@@ -150,7 +146,7 @@ const Component = () => {
                 dimension to timeDimension
               </button>
               <span style={{ fontSize: "0.65rem" }}>
-                Change Dimension Chart: Job title = 'HR Manager' {">"} Date of hire (Monthly)
+                Change Dimension Chart
               </span>
             </li>
             <li>
@@ -173,7 +169,7 @@ const Component = () => {
                 dimension to dimension
               </button>
               <span style={{ fontSize: "0.65rem" }}>
-                Change Dimension Chart: Job title = 'HR Manager' {">"} Gender
+                Change Dimension Chart
               </span>
             </li>
           </ul>
