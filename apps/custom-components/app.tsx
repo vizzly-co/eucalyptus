@@ -8,7 +8,6 @@ import { QueryResponse, Vizzly as VizzlyServices } from "@vizzly/services";
 
 const App = () => {
   const [vizzlyLoaded, setVizzlyLoaded] = useState<boolean>(false);
-
   useEffect(() => {
     async function initializeVizzly() {
       try {
@@ -16,7 +15,7 @@ const App = () => {
           {
             queryEngine:
               "https://staging.api.vizzly.co/managed/mqe_f69a3d3ad797479492e2f91a25d3add2",
-            identity: getIdentity("new_user"),
+            identity: getIdentity(getQueryVariable("user") ?? "new_user"),
           },
           { apiHost: "https://staging.api.vizzly.co" }
         );
@@ -40,6 +39,7 @@ const App = () => {
 const Component = () => {
   const [componentResponse, setComponentResponse] =
     useState<QueryResponse | null>(null);
+  const [clickEvent, setClickEvent] = useState<any>(undefined);
 
   useEffect(() => {
     const doSomething = async () => {
@@ -78,6 +78,9 @@ const Component = () => {
           <h3>Actions</h3>
           <ul>
             <li>
+              <span style={{ fontSize: "0.65rem" }}>
+                Changes TimeDimension Chart
+              </span>
               <button
                 onClick={() =>
                   VizzlyState.drilldown("dashboard-id", {
@@ -96,11 +99,11 @@ const Component = () => {
               >
                 timeDimension to timeDimension
               </button>
+            </li>
+            <li>
               <span style={{ fontSize: "0.65rem" }}>
                 Changes TimeDimension Chart
               </span>
-            </li>
-            <li>
               <button
                 onClick={() =>
                   VizzlyState.drilldown("dashboard-id", {
@@ -119,14 +122,12 @@ const Component = () => {
               >
                 timeDimension to dimension
               </button>
+            </li>
+            <hr />
+            <li>
               <span style={{ fontSize: "0.65rem" }}>
-                Change TimeDimension Chart
+                Changes Dimension Chart
               </span>
-            </li>
-            <li>
-              <hr />
-            </li>
-            <li>
               <button
                 onClick={() =>
                   VizzlyState.drilldown("dashboard-id", {
@@ -145,11 +146,11 @@ const Component = () => {
               >
                 dimension to timeDimension
               </button>
-              <span style={{ fontSize: "0.65rem" }}>
-                Change Dimension Chart
-              </span>
             </li>
             <li>
+              <span style={{ fontSize: "0.65rem" }}>
+                Changes Dimension Chart
+              </span>
               <button
                 onClick={() =>
                   VizzlyState.drilldown("dashboard-id", {
@@ -168,9 +169,6 @@ const Component = () => {
               >
                 dimension to dimension
               </button>
-              <span style={{ fontSize: "0.65rem" }}>
-                Change Dimension Chart
-              </span>
             </li>
           </ul>
         </div>
@@ -186,9 +184,13 @@ const Component = () => {
             queryEngineEndpoint="https://staging.api.vizzly.co/managed/mqe_f69a3d3ad797479492e2f91a25d3add2"
             parentDashboardId="dsh_0c23c9f4146745118fcfaabf5aab5184"
             developerTools={{ viewRawResults: true, viewRawAttributes: true }}
-            identity={getIdentity("new_user")}
+            identity={getIdentity(getQueryVariable("user") ?? "new_user")}
             renderDownloadIcon={(props) => <div>JSX Download Icon</div>}
             renderResetIcon={(props) => `<div>string Reset Icon</div>`}
+            onViewClick={(clickEvent) => {
+              setClickEvent(clickEvent);
+              console.log("Received click event", clickEvent);
+            }}
             customViews={[
               {
                 id: "string",
@@ -285,12 +287,16 @@ const Component = () => {
           />
         </div>
       </div>
+      <div>
+        {clickEvent && <p>Click event: {JSON.stringify(clickEvent)}</p>}
+      </div>
     </React.StrictMode>
   );
 };
 
 export function getIdentity(userReference: string) {
   return async () => {
+    const scope = getQueryVariable("scope") ?? "read_write";
     // Hit the auth app
     const response = await fetch("https://example.vizzly.co:9012/identity", {
       method: "post",
@@ -302,7 +308,7 @@ export function getIdentity(userReference: string) {
         projectId: "prj_c474157d00824a6cb304ab76f947355f",
         secureFilters: {},
         dataSetIds: "*",
-        scope: "read_write",
+        scope,
         userReference,
       }),
     });
@@ -311,6 +317,17 @@ export function getIdentity(userReference: string) {
 
     return accessTokens;
   };
+}
+
+function getQueryVariable(variable) {
+  var query = window.location.search.substring(1);
+  var vars = query.split("&");
+  for (var i = 0; i < vars.length; i++) {
+    var pair = vars[i].split("=");
+    if (decodeURIComponent(pair[0]) === variable) {
+      return decodeURIComponent(pair[1]);
+    }
+  }
 }
 
 const container = document.getElementById("root");
