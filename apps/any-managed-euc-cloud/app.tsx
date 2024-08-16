@@ -14,6 +14,7 @@ function App() {
   const timeZone = getQueryParam('timeZone');
   const userReference = getQueryParam('userReference', 'default');
   const scope = getQueryParam('scope', 'read_write');
+  const accessType = getQueryParam('accessType', 'standard');
 
   return (
     <Vizzly.Dashboard
@@ -35,7 +36,8 @@ function App() {
             secureFilters: {},
             dataSetIds: '*',
             scope,
-            userReference
+            userReference,
+            accessType
           }),
         });
 
