@@ -1183,10 +1183,10 @@
   dependencies:
     cross-fetch "^4.0.0"
 
-"@vizzly/dashboard@0.12.11-dev-57f0c62c1f9d773e8aec1e663773d209e7575b29":
-  version "0.12.11-dev-57f0c62c1f9d773e8aec1e663773d209e7575b29"
-  resolved "https://registry.yarnpkg.com/@vizzly/dashboard/-/dashboard-0.12.11-dev-57f0c62c1f9d773e8aec1e663773d209e7575b29.tgz#1eff4df16e6c6d14b650b9aa290e42f24ceb9d7a"
-  integrity sha512-s4KnEUqzlZOnY+cUZUFWQgtg0ceDRrDnmkDgZLbAMzh/RyaZzt6i8mIYDnfJ7o7ph021a0XKb03ebSiCAf1weA==
+"@vizzly/dashboard@0.12.13-dev-17345eecf9746d3ff5cf749f05a6ccdd4e74d0c3":
+  version "0.12.13-dev-17345eecf9746d3ff5cf749f05a6ccdd4e74d0c3"
+  resolved "https://registry.yarnpkg.com/@vizzly/dashboard/-/dashboard-0.12.13-dev-17345eecf9746d3ff5cf749f05a6ccdd4e74d0c3.tgz#d14b31e17b594e109b4c6cb0f3cb5194eaa775b3"
+  integrity sha512-RmsOvUNATJYq97WVhdkOb7/0KZtelj7Zels8+O8dTH8IXwJ/Yw0C4G6r/Eo01dpNumkyf+sj30bmizwCEPE6lg==
   dependencies:
     "@emotion/cache" "^11.11.0"
     "@emotion/css" "^11.10.6"
@@ -1205,8 +1205,8 @@
     "@vizzly/api-client" "0.0.38"
     "@vizzly/dnd-backend" "0.0.4"
     "@vizzly/joi" "^17.7.0"
-    "@vizzly/semantic-layer-public" "0.0.105"
-    "@vizzly/sqlbuilder-public" "0.1.1"
+    "@vizzly/semantic-layer-public" "0.0.201"
+    "@vizzly/sqlbuilder-public" "0.1.11"
     chroma-js "^2.4.2"
     copy-to-clipboard "^3.3.3"
     cross-fetch "^4.0.0"
@@ -1245,15 +1245,15 @@
     "@hapi/tlds" "^1.0.2"
     "@hapi/topo" "^6.0.2"
 
-"@vizzly/semantic-layer-public@0.0.105":
-  version "0.0.105"
-  resolved "https://registry.yarnpkg.com/@vizzly/semantic-layer-public/-/semantic-layer-public-0.0.105.tgz#9e263f8980c05e147ec7846f685b41636e295b5f"
-  integrity sha512-wUqwmHBbcNmGOpU2a8jqW3kVQhM/4EziYGhhATReAxaxrSVsWjIZLh5cjI5kda+81vePWiS/dTvDUwGB0xoG2w==
+"@vizzly/semantic-layer-public@0.0.201":
+  version "0.0.201"
+  resolved "https://registry.yarnpkg.com/@vizzly/semantic-layer-public/-/semantic-layer-public-0.0.201.tgz#55949f4d06de8db3e1dba03a5d1bf7d29702c61c"
+  integrity sha512-IbA5EXJMURyhgrFs8kRCNRHVgGM1job21MBS/JdjuTTMeSOIB92ul7HAbJNTKGcgp8mTa0RR6OtxHKCD5SLdIg==
 
-"@vizzly/sqlbuilder-public@0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@vizzly/sqlbuilder-public/-/sqlbuilder-public-0.1.1.tgz#122eb78ee2c78367ce2eec2060793abc5b844377"
-  integrity sha512-ki0bi5cjD1DNltZdC9f3tUS8KRpcooG4JTUf1ez4ySoFUBnFv/FSJkTzaTM3UJLYuxqRWXil1uAgsr+S/mROOg==
+"@vizzly/sqlbuilder-public@0.1.11":
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/@vizzly/sqlbuilder-public/-/sqlbuilder-public-0.1.11.tgz#69587b96355609977239871c156e3e305d3dc187"
+  integrity sha512-+rXCNUnHO6cTnh9o3wpjtsnRlExCkB6BIm0L4EpBzcCbsk//FRpGIUez9zv7hUVKWsLZes464746P79SGzbwsQ==
 
 airbnb-prop-types@^2.14.0, airbnb-prop-types@^2.15.0, airbnb-prop-types@^2.16.0:
   version "2.16.0"
