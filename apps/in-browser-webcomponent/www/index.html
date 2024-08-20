@@ -1,7 +1,10 @@
 <html>
   <head>
     <!-- DO NOT REMOVE {{ VERSION }} from the below script. It is used in the build step -->
-    <script src="https://static.app.vizzly.co/embedded/{{ VERSION }}/bundle.js"></script>
+    <script src="https://static.app.vizzly.co/embedded/0.12.13/bundle.js"></script>
+
+    <script src="https://static.app.vizzly.co/query-engine/0.8.20/vizzly-in-memory-db.umd.js"></script>
+    <!-- <script src="https://static.app.vizzly.co/embedded/0.12.13/bundle.js"></script> -->
   </head>
   <body>
     <script type="module">
@@ -14,88 +17,214 @@
         dataSets: async () => {
           return [
             {
-              id: "data_set_1",
-              name: "My first data set",
+              id: 'das_1',
+              name: `A data set for das_1.`,
               fields: [
-                {
-                  dataType: "number",
-                  publicName: "Player age",
-                  id: "fie_1",
-                  canBeDimension: false,
-                  canBeMeasure: true,
-                  allowedOperators: ALLOWED_OPERATORS
-                },
-                {
-                  dataType: "string",
-                  publicName: "Game",
-                  id: "fie_2",
-                  canBeDimension: true,
-                  canBeMeasure: false,
-                  allowedOperators: ALLOWED_OPERATORS
-                },
-                {
-                  dataType: "number",
-                  publicName: "Score",
-                  id: "fie_3",
-                  canBeDimension: false,
-                  canBeMeasure: true,
-                  allowedOperators: ALLOWED_OPERATORS
-                },
-                {
-                  dataType: "date_time",
-                  publicName: "Recorded at",
-                  id: "fie_4",
-                  canBeDimension: false,
-                  canBeMeasure: true,
-                  allowedGranularities: ["month", "year"],
-                  allowedOperators: ALLOWED_OPERATORS
-                },
+                { id: 'fie_1', dataType: 'number', publicName: 'Age' },
+                { id: 'fie_2', dataType: 'string', publicName: 'Game' },
+                { id: 'fie_3', dataType: 'number', publicName: 'Score' },
+                { id: 'fie_4', dataType: 'date_time', publicName: 'Date' },
+                { id: 'fie_5', dataType: 'string[]', publicName: 'Arcade' },
               ],
             },
           ];
+
+          /*
+            {
+              "id": 12322,
+              "title": null,
+              "email": "rene@bizimply.com",
+              "phone_number": "",
+              "date_of_birth": null,
+              "age": null,
+              "start_date": null,
+              "finish_date": "2019-06-09",
+              "passport_expiry": null,
+              "visa_expiry": null,
+              "deleted": true,
+              "Name": "Rene Ryan",
+              "address_line_1": "",
+              "address_line_2": "",
+              "address_line_3": null,
+              "post_code": "",
+              "country": "IE",
+              "ethnicity": "White",
+              "gender": "male",
+              "nationality": "Polish",
+              "marital_status": "Single",
+              "pin": "4098",
+              "store": "Washington",
+              "stores": [
+                "Washington"
+              ],
+              "schedules": [
+                "RESTAURANT",
+                null
+              ],
+              "positions": [
+                "Manager",
+                "Manager"
+              ],
+              "primary_position": "Manager",
+              "main_schedule": null,
+              "payroll_department": "Hourly",
+              "national_identifier": null,
+              "hourly_pay_rate": "10.0",
+              "weekly_pay_rate": null,
+              "contracted_hours": null,
+              "labour_costing": "Hourly"
+            },
+          */
+          // return [
+          //   {
+          //     id: 'employees',
+          //     name: 'Employees',
+          //     fields: [
+          //       { id: 'title', publicName: 'title', dataType: 'string' },
+          //       { id: 'email', publicName: 'email', dataType: 'string' },
+          //       { id: 'phone_number', publicName: 'phone_number', dataType: 'string' },
+          //       { id: 'date_of_birth', publicName: 'date_of_birth', dataType: 'date_time' },
+          //       { id: 'age', publicName: 'age', dataType: 'number' },
+          //       { id: 'start_date', publicName: 'start_date', dataType: 'date_time' },
+          //       { id: 'finish_date', publicName: 'finish_date', dataType: 'date_time' },
+          //       { id: 'passport_expiry', publicName: 'passport_expiry', dataType: 'date_time' },
+          //       { id: 'visa_expiry', publicName: 'visa_expiry', dataType: 'date_time' },
+          //       { id: 'deleted', publicName: 'deleted', dataType: 'boolean' },
+          //       { id: 'Name', publicName: 'Name', dataType: 'string' },
+          //       { id: 'address_line_1', publicName: 'address_line_1', dataType: 'string' },
+          //       { id: 'address_line_2', publicName: 'address_line_2', dataType: 'string' },
+          //       { id: 'address_line_3', publicName: 'address_line_3', dataType: 'string' },
+          //       { id: 'post_code', publicName: 'post_code', dataType: 'string' },
+          //       { id: 'country', publicName: 'country', dataType: 'string' },
+          //       { id: 'ethnicity', publicName: 'ethnicity', dataType: 'string' },
+          //       { id: 'gender', publicName: 'gender', dataType: 'string' },
+          //       { id: 'nationality', publicName: 'nationality', dataType: 'string' },
+          //       { id: 'marital_status', publicName: 'marital_status', dataType: 'string' },
+          //       { id: 'pin', publicName: 'pin', dataType: 'string' },
+          //       { id: 'store', publicName: 'store', dataType: 'string' },
+          //       { id: 'stores', publicName: 'stores', dataType: 'string[]' },
+          //       { id: 'schedules', publicName: 'schedules', dataType: 'string[]' },
+          //       { id: 'positions', publicName: 'positions', dataType: 'string[]' },
+          //       { id: 'primary_position', publicName: 'primary_position', dataType: 'string' },
+          //       { id: 'main_schedule', publicName: 'main_schedule', dataType: 'string' },
+          //       { id: 'payroll_department', publicName: 'payroll_department', dataType: 'string' },
+          //       { id: 'national_identifier', publicName: 'national_identifier', dataType: 'string' },
+          //       { id: 'hourly_pay_rate', publicName: 'hourly_pay_rate', dataType: 'number' },
+          //       { id: 'weekly_pay_rate', publicName: 'weekly_pay_rate', dataType: 'number' },
+          //       { id: 'contracted_hours', publicName: 'contracted_hours', dataType: 'number' },
+          //       { id: 'labour_costing', publicName: 'labour_costing', dataType: 'number' },
+          //     ],
+          //   },
+          // ];
         },
+        
         data: async (dataSet) => {
-          if (dataSet.id == "data_set_1") {
+          if (dataSet.id == 'das_1') {
+            // return require('../data.json').data;
+            // return [
+            //   ...Array(150_000).fill({
+            //     fie_1: 16,
+            //     fie_2: 'Space invaders',
+            //     fie_3: 54,
+            //     fie_4: '2023-01-30T08:21:25.459Z',
+            //     fie_5: ['arc_1', 'arc_2'],
+            //   }),
+            //   ...Array(150_000).fill({
+            //     fie_1: 16,
+            //     fie_2: 'Space invaders 2',
+            //     fie_3: 54,
+            //     fie_4: '2023-01-30T08:23:25.459Z',
+            //     fie_5: ['arc_1', 'arc_2', 'arc_5'],
+            //   }),
+            // ];
             return [
               {
                 fie_1: 16,
-                fie_2: "Space invaders",
+                fie_2: 'Space invaders',
                 fie_3: 54,
-                fie_4: "2023-01-30T08:21:25.459Z",
+                fie_4: '2023-01-30T08:21:25.459Z',
+                fie_5: ['arc_1', 'arc_2'],
               },
               {
                 fie_1: 12,
-                fie_2: "Space invaders",
+                fie_2: 'Space invaders',
                 fie_3: 54,
-                fie_4: "2023-02-13T08:21:25.459Z",
+                fie_4: '2023-02-13T08:21:25.459Z',
+                fie_5: ['arc_1', 'arc_2'],
               },
               {
                 fie_1: 9,
-                fie_2: "Space invaders",
+                fie_2: 'Space invaders',
                 fie_3: 4,
-                fie_4: "2023-03-13T08:21:25.459Z",
+                fie_4: '2023-03-13T08:21:25.459Z',
+                fie_5: ['arc_1', 'arc_2'],
               },
               {
                 fie_1: 19,
-                fie_2: "Space invaders",
+                fie_2: 'Space invaders',
                 fie_3: 140,
-                fie_4: "2023-04-07T08:21:25.459Z",
+                fie_4: '2023-04-07T08:21:25.459Z',
+                fie_5: ['arc_1', 'arc_2'],
               },
               {
-                fie_1: 90,
-                fie_2: "Tetris",
-                fie_3: 7,
-                fie_4: "2023-03-13T08:21:25.459Z",
+                fie_1: 9,
+                fie_2: 'Space invaders',
+                fie_3: 340,
+                fie_4: '1996-02-07T08:21:25.459Z',
+                fie_5: ['arc_1', 'arc_2'],
               },
               {
-                fie_1: 73,
-                fie_2: "Tetris",
-                fie_3: 68,
-                fie_4: "2023-04-07T08:21:25.459Z",
+                fie_1: 2,
+                fie_2: 'Space invaders',
+                fie_3: 40,
+                fie_4: '1996-09-07T08:21:25.459Z',
+                fie_5: ['arc_1'],
+              },
+              {
+                fie_1: 2,
+                fie_2: 'Space invaders',
+                fie_3: 40,
+                fie_4: '1996-09-07T08:21:25.459Z',
+                fie_5: ['arc_1'],
+              },
+              {
+                fie_1: 2,
+                fie_2: 'Space invaders',
+                fie_3: 40,
+                fie_4: '1996-09-07T08:21:25.459Z',
+                fie_5: ['arc_1'],
+              },
+              {
+                fie_1: 2,
+                fie_2: 'Space invaders',
+                fie_3: 40,
+                fie_4: '1996-09-07T08:21:25.459Z',
+                fie_5: ['arc_1'],
+              },
+              {
+                fie_1: 2,
+                fie_2: 'Space invaders',
+                fie_3: 40,
+                fie_4: '1996-09-05T08:21:25.459Z',
+                fie_5: ['arc_1'],
+              },
+              {
+                fie_1: 2,
+                fie_2: 'Space invaders',
+                fie_3: 40,
+                fie_4: '1996-09-09T08:21:25.459Z',
+                fie_5: ['arc_1'],
+              },
+              {
+                fie_1: 2,
+                fie_2: 'Space invaders',
+                fie_3: 40,
+                fie_4: '1996-09-08T08:21:25.459Z',
+                fie_5: ['arc_1'],
               },
             ];
           } else {
-            throw "Unknown data set.";
+            throw 'Unknown data set.';
           }
         },
         identity: async () => {
