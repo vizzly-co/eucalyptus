@@ -5,3 +5,4 @@ static-build-outputs/**
 !static-build-outputs/.gitkeep
 dist
 .next
+yarn.lock
