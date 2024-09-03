@@ -1,0 +1,20 @@
+{
+  "name": "sql-views",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "esbuild app.tsx --bundle --serve=2065 --servedir=www/ --outdir=www/js --define:global=window",
+    "build": "esbuild app.tsx --bundle --outdir=www/js --define:global=window",
+    "serve": "http-server ./www -c-1 -p 2065"
+  },
+  "dependencies": { "isomorphic-fetch": "^3.0.0",
+    "@vizzly/dashboard": "0.12.15-dev-ea2bb993d1f57e48ad76a8140d20d08551b509cd",
+    "esbuild": "^0.16.10",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

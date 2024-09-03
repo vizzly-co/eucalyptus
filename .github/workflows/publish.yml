@@ -51,7 +51,8 @@ jobs:
             "cra-programmatic",
             "webcomponent",
             "any-managed-euc-cloud",
-            "remote-origin-simulator-backed"
+            "remote-origin-simulator-backed",
+            "www-react-17"
           ]
 
     steps:
