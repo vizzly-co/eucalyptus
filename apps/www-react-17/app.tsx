@@ -26,7 +26,7 @@ function App() {
               secureFilters: {},
               dataSetIds: '*',
               scope: 'read',
-              userReference: window.location.hash || 'a user id - 2874924839'
+              userReference: window.location.hash || 'a user id - 2874924832'
             })
           });
 
