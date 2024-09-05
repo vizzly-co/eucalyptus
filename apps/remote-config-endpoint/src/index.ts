@@ -39,6 +39,30 @@ app.all("/ok-config", async (req, res) => {
     .json(ConfigBuilder.buildConfigForUser(authToken, includeCredentialsFor));
 });
 
+/**
+ *
+ * Make it possible to send a request with auth header, and
+ * return a dynamically set response from the QE for testing.
+ * 
+ * */
+app.all("/auth-token-header-to-origin-simulator-path", async (req, res) => {
+  const statusCode = parseInt(req.query['statusCode'] as string || '200');
+  const authToken = (req.headers['authorization'] || '').replace('Bearer ', '');
+
+  const url = `https://example.vizzly.co:4000/${authToken}`;
+
+  console.log('Hitting URL', url);
+
+  const response = await fetch(url);
+
+  return res.status(statusCode)
+    .setHeader('Access-Control-Allow-Headers', '*')
+    .setHeader('Access-Control-Allow-Origin', '*')
+    .setHeader('Access-Control-Allow-Methods', '*')
+    .setHeader('Content-Type', response.headers.get('content-type') || '')
+    .send(await response.text());
+});
+
 app.all('/*', async (req, res) => {
   res.status(200).json({})
 });
