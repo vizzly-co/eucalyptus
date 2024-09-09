@@ -65,10 +65,10 @@ jobs:
           sh ./update_koala_service.sh "example-remote-config-endpoint" "eucalyptus-remote-config-endpoint-Service-2G1lV7iR5KTg" "ghcr.io/vizzly-co/eucalyptus-remote-config-endpoint:$IMAGE_TAG"
 
           sh ./update_koala_service.sh "example-redshift" "eucalyptus-redshift-Service-IxBnnpw5REte" "ghcr.io/vizzly-co/eucalyptus-redshift:$IMAGE_TAG"
-          sh ./update_koala_service.sh "example-custom-components" "eucalyptus-custom-components-Service-LrMK1HGoDK7p" "ghcr.io/vizzly-co/eucalyptus-custom-components:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-ui-features" "eucalyptus-ui-features-Service-LrMK1HGoDK7p" "ghcr.io/vizzly-co/eucalyptus-ui-features:$IMAGE_TAG"
 
           sh ./update_koala_service.sh "example-nextjs-v12_3_4" "eucalyptus-nextjs-v12-3-4-Service-8PuIlq2TdY0Z" "ghcr.io/vizzly-co/eucalyptus-nextjs-v12_3_4:$IMAGE_TAG"
-          
+
           sh ./update_koala_service.sh "example-cra-programmatic" "cra-programmatic-2035-Service-KX3j9cV5l1lf" "ghcr.io/vizzly-co/eucalyptus-cra-programmatic:$IMAGE_TAG"
 
           sh ./update_koala_service.sh "example-webcomponent" "webcomponent-2037-Service-ubIuvuYE6oY8" "ghcr.io/vizzly-co/eucalyptus-webcomponent:$IMAGE_TAG"
