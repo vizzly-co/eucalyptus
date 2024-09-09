@@ -154,7 +154,6 @@ export function getIdentity(userReference: string) {
         dataSetIds: "*",
         scope,
         userReference,
-        accessType: "admin",
       }),
     });
 
