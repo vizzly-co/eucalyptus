@@ -4,10 +4,14 @@ import Vizzly, { VizzlyState } from "@vizzly/dashboard";
 import fetch from "isomorphic-fetch";
 
 import { QueryResponse, Vizzly as VizzlyServices } from "@vizzly/services";
+import { VariablesComponent } from "./VariableComponent";
 // Replace the attributes from any `app.tsx` project in the eucalyptus to have a local environment that hot-updates!
 
 const App = () => {
   const [vizzlyLoaded, setVizzlyLoaded] = useState<boolean>(false);
+  const [route, setRoute] = useState<string>(
+    "dsh_0c23c9f4146745118fcfaabf5aab5184"
+  );
   useEffect(() => {
     async function initializeVizzly() {
       try {
@@ -33,7 +37,30 @@ const App = () => {
     return <div>Loading...</div>;
   }
 
-  return <Component />;
+  return (
+    <React.StrictMode>
+      <main>
+        <header>
+          <button
+            onClick={() => setRoute("dsh_0c23c9f4146745118fcfaabf5aab5184")}
+          >
+            Drilldowns
+          </button>
+          <button
+            onClick={() => setRoute("dsh_2e5fd9f491754e92aa8fcb34962414e0")}
+          >
+            Variables
+          </button>
+        </header>
+        <article>
+          {route === "dsh_0c23c9f4146745118fcfaabf5aab5184" && <Component />}
+          {route === "dsh_2e5fd9f491754e92aa8fcb34962414e0" && (
+            <VariablesComponent />
+          )}
+        </article>
+      </main>
+    </React.StrictMode>
+  );
 };
 
 const Component = () => {
@@ -72,10 +99,10 @@ const Component = () => {
   }, []);
 
   return (
-    <React.StrictMode>
+    <Fragment>
       <div style={{ display: "flex", flexDirection: "row" }}>
         <div style={{ width: 200 }}>
-          <h3>Actions</h3>
+          <h3>Drilldown Actions</h3>
           <ul>
             <li>
               <span style={{ fontSize: "0.65rem" }}>
@@ -123,7 +150,6 @@ const Component = () => {
                 timeDimension to dimension
               </button>
             </li>
-            <hr />
             <li>
               <span style={{ fontSize: "0.65rem" }}>
                 Changes Dimension Chart
@@ -290,7 +316,7 @@ const Component = () => {
       <div>
         {clickEvent && <p>Click event: {JSON.stringify(clickEvent)}</p>}
       </div>
-    </React.StrictMode>
+    </Fragment>
   );
 };
 

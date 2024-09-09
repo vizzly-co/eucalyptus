@@ -76,14 +76,14 @@ Parameters:
         "js-services-only",
         "editor-webcomponent",
         "remote-config-endpoint",
-        "custom-components",
+        "ui-features",
         "original-cra",
         "cra-programmatic",
         "webcomponent",
         "original-koala",
         "any-managed-euc-cloud",
         "origin-simulator",
-        "remote-origin-simulator-backed"
+        "remote-origin-simulator-backed",
       ]
 
 Conditions:

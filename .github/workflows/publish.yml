@@ -45,14 +45,14 @@ jobs:
             "js-services-only",
             "editor-webcomponent",
             "remote-config-endpoint",
-            "custom-components",
+            "ui-features",
             "original-koala",
             "cra",
             "cra-programmatic",
             "webcomponent",
             "any-managed-euc-cloud",
             "remote-origin-simulator-backed",
-            "www-react-17"
+            "www-react-17",
           ]
 
     steps:

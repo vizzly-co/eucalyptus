@@ -1,5 +1,5 @@
 {
-  "name": "custom-components",
+  "name": "ui-features",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "isomorphic-fetch": "^3.0.0",
-    "@vizzly/dashboard": "*",
-    "@vizzly/services": "*",
+    "@vizzly/dashboard": "0.12.15-dev-b945d6857f523a6526ffbebb0d1f5bde19583fb9",
+    "@vizzly/services": "0.12.15-dev-b945d6857f523a6526ffbebb0d1f5bde19583fb9",
     "esbuild": "^0.16.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
