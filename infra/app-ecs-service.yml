@@ -76,7 +76,7 @@ Parameters:
         "js-services-only",
         "editor-webcomponent",
         "remote-config-endpoint",
-        "ui-features",
+        "custom-components",
         "original-cra",
         "cra-programmatic",
         "webcomponent",
