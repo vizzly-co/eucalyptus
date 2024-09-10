@@ -1,0 +1,44 @@
+name: Release batch 2 of ECS services with the latest images...
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 9-20/3 * * *"
+
+jobs:
+  publish-docker-image:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-2
+
+      - name: Release the images to the ECS services
+        env:
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          echo "Updating the running services to version $IMAGE_TAG..."
+
+          message="The Koala is updating the apps on the tree. Expect eucalyptus outage for the next few minutes."
+          curl -X POST --data-urlencode "payload={\"channel\": \"#smoke-tests\", \"username\": \"Koala\", \"text\": \"${message}\", \"icon_emoji\": \":koala:\"}" https://hooks.slack.com/services/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
+
+          sh ./update_koala_service.sh "example-redshift" "eucalyptus-redshift-Service-IxBnnpw5REte" "ghcr.io/vizzly-co/eucalyptus-redshift:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-custom-components" "eucalyptus-custom-components-Service-LrMK1HGoDK7p" "ghcr.io/vizzly-co/eucalyptus-custom-components:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-nextjs-v12_3_4" "eucalyptus-nextjs-v12-3-4-Service-8PuIlq2TdY0Z" "ghcr.io/vizzly-co/eucalyptus-nextjs-v12_3_4:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-cra-programmatic" "cra-programmatic-2035-Service-KX3j9cV5l1lf" "ghcr.io/vizzly-co/eucalyptus-cra-programmatic:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-webcomponent" "webcomponent-2037-Service-ubIuvuYE6oY8" "ghcr.io/vizzly-co/eucalyptus-webcomponent:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-any-managed-euc-cloud" "any-managed-euc-cloud-9040-Service-8iMtBHJPmxR7" "ghcr.io/vizzly-co/eucalyptus-any-managed-euc-cloud:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-original-koala" "original-koala-2039-Service-f14ACjRbLCiC" "ghcr.io/vizzly-co/eucalyptus-original-koala:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-remote-origin-simulator-backed" "dash-4002-remote-origin-simulator-backed-Service-bipR3jkcq2Rt" "ghcr.io/vizzly-co/eucalyptus-remote-origin-simulator-backed:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-pdf-download-with-addons" "eucalyptus-pdf-download-with-addons-Service-P0222pk1r2nX" "ghcr.io/vizzly-co/eucalyptus-pdf-download-with-addons:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-pdf-download-with-no-addons" "eucalyptus-pdf-download-with-no-addons-Service-koTyCH25vvwm" "ghcr.io/vizzly-co/eucalyptus-pdf-download-with-no-addons:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-microsoft-sql-server" "eucalyptus-microsoft-sql-server-2-Service-AE7gJhM9UIyE" "ghcr.io/vizzly-co/eucalyptus-microsoft-sql-server:$IMAGE_TAG"
+
+          # sh ./update_koala_service.sh "example-QE-dynamic-datasets-dashboard" "dynamic-datasets-dashboard-qe2-Service-E69muRAsgqZk" "ghcr.io/vizzly-co/query-engine-dev:$IMAGE_TAG"

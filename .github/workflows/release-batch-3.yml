@@ -1,0 +1,43 @@
+name: Release batch 3 of ECS services with the latest images...
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 10-21/3 * * *"
+
+jobs:
+  publish-docker-image:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-2
+
+      - name: Release the images to the ECS services
+        env:
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          echo "Updating the running services to version $IMAGE_TAG..."
+
+          message="The Koala is updating the apps on the tree. Expect eucalyptus outage for the next few minutes."
+          curl -X POST --data-urlencode "payload={\"channel\": \"#smoke-tests\", \"username\": \"Koala\", \"text\": \"${message}\", \"icon_emoji\": \":koala:\"}" https://hooks.slack.com/services/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
+
+          sh ./update_koala_service.sh "example-result-accuracy" "eucalyptus-result-accuracy-Service-ufu2togI6QMZ" "ghcr.io/vizzly-co/eucalyptus-result-accuracy:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-sql-views" "eucalyptus-sql-views-Service-xPWcD6r1VIos" "ghcr.io/vizzly-co/eucalyptus-sql-views:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-in-browser-global-library" "in-browser-global-library-Service-9ZJsmQKkF7bp" "ghcr.io/vizzly-co/eucalyptus-in-browser-global-library:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-upcasting-regression-testing" "upcasting-regression-testing-2-Service-RWvxOyl0yzfE" "ghcr.io/vizzly-co/eucalyptus-upcasting-regression-testing:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-js-services-only" "eucalyptus-js-services-only-Service-Ni8ULQx4ASPH" "ghcr.io/vizzly-co/eucalyptus-js-services-only:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-editor-webcomponent" "editor-webcomponent-Service-zrKHDGJrkCAH" "ghcr.io/vizzly-co/eucalyptus-editor-webcomponent:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-global-library-with-editor" "global-library-with-editor-Service-6AZx3xxi8OPQ" "ghcr.io/vizzly-co/eucalyptus-global-library-with-editor:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-remote-config-endpoint" "eucalyptus-remote-config-endpoint-Service-2G1lV7iR5KTg" "ghcr.io/vizzly-co/eucalyptus-remote-config-endpoint:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-dynamic-remote-config" "frontend-dynamic-remote-config-Service-yzsvYcCKusq8" "ghcr.io/vizzly-co/eucalyptus-dynamic-remote-config:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-track-user-events" "track-user-events-app-Service-2bc7Glsj2fLc" "ghcr.io/vizzly-co/eucalyptus-track-user-events:$IMAGE_TAG"
+
+          # sh ./update_koala_service.sh "example-QE-dynamic-datasets-dashboard" "dynamic-datasets-dashboard-qe2-Service-E69muRAsgqZk" "ghcr.io/vizzly-co/query-engine-dev:$IMAGE_TAG"

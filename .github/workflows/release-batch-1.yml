@@ -1,0 +1,41 @@
+name: Release batch 1 of ECS services with the latest images...
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 8-19/3 * * *"
+
+jobs:
+  publish-docker-image:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-2
+
+      - name: Release the images to the ECS services
+        env:
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          echo "Updating the running services to version $IMAGE_TAG..."
+
+          message="The Koala is updating the apps on the tree. Expect eucalyptus outage for the next few minutes."
+          curl -X POST --data-urlencode "payload={\"channel\": \"#smoke-tests\", \"username\": \"Koala\", \"text\": \"${message}\", \"icon_emoji\": \":koala:\"}" https://hooks.slack.com/services/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
+
+          sh ./update_koala_service.sh "example-original-cra" "cra-2034-Service-KBENlllSP0Be" "ghcr.io/vizzly-co/eucalyptus-cra:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-dashboard-management" "dashboard-management-angular-4-Service-MGjroSD2PfsM" "ghcr.io/vizzly-co/eucalyptus-dashboard-management:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-eucalyptus-in-browser" "eucalyptus-in-browser-4-Service-myzrqYTOoJbP" "ghcr.io/vizzly-co/eucalyptus-in-browser:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-eucalyptus-node-smart-proxy" "eucalyptus-node-smart-proxy-2-Service-Nzgq1fM2DKDl" "ghcr.io/vizzly-co/eucalyptus-node-smart-proxy:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-in-browser-encrypted-dashboards" "in-browser-encrypted-dashboards-Service-oY32H56z60j6" "ghcr.io/vizzly-co/eucalyptus-in-browser-encrypted-dashboards:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-dashboard-external-filters" "eucalyptus-dashboard-external-filters-Service-1ql5fekhwyi6" "ghcr.io/vizzly-co/eucalyptus-dashboard-external-filters:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-dynamic-datasets-dashboard" "eucalyptus-dynamic-datasets-dashboard-2-Service-DRHqMV2vyrIf" "ghcr.io/vizzly-co/eucalyptus-dynamic-datasets-dashboard:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-programmatic-in-browser" "programmatic-in-browser-Service-qzekUB3FUuSG" "ghcr.io/vizzly-co/eucalyptus-programmatic-in-browser:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-in-browser-encrypted-dashboard-management" "in-browser-encrypted-dashboard-management-Service-HY5j1OQK45ns" "ghcr.io/vizzly-co/eucalyptus-in-browser-encrypted-dashboard-management:$IMAGE_TAG"
+          sh ./update_koala_service.sh "example-in-browser-webcomponent" "in-browser-webcomponent-Service-W6pcgXLZkXSM" "ghcr.io/vizzly-co/eucalyptus-in-browser-webcomponent:$IMAGE_TAG"
