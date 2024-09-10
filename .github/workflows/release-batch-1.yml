@@ -26,7 +26,7 @@ jobs:
         run: |
           echo "Updating the running services to version $IMAGE_TAG..."
 
-          message="The Koala is updating the apps on the tree. Expect eucalyptus outage for the next few minutes."
+          message="BATCH 1 - The Koala is updating the apps on the tree. Expect eucalyptus outage for the next few minutes."
           curl -X POST --data-urlencode "payload={\"channel\": \"#smoke-tests\", \"username\": \"Koala\", \"text\": \"${message}\", \"icon_emoji\": \":koala:\"}" https://hooks.slack.com/services/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
 
           sh ./update_koala_service.sh "example-original-cra" "cra-2034-Service-KBENlllSP0Be" "ghcr.io/vizzly-co/eucalyptus-cra:$IMAGE_TAG"
