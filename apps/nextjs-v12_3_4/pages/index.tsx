@@ -36,7 +36,7 @@ const Home: NextPage = () => {
         vizzlyApiHost="https://staging.api.vizzly.co"
         queryEngineEndpoint="https://staging.api.vizzly.co/managed/mqe_f69a3d3ad797479492e2f91a25d3add2"
         parentDashboardId="dsh_0c23c9f4146745118fcfaabf5aab5184"
-        identity={getIdentity("nextjs-v12.3.4")}
+        identity={getIdentity("nextjs-v12-3-4")}
       />
     </div>
   )

@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 9027",
     "build": "next build",
     "start": "next start -p 9027",
     "lint": "next lint"
   },
   "dependencies": { "isomorphic-fetch": "^3.0.0",
-    "@vizzly/dashboard": "0.12.9-dev-a785bac184df34c9c06d8ed40bf68619d1207182",
+    "@vizzly/dashboard": "0.14.1-dev-67b1946cac7933009f4f1af495354dd92b76b139",
     "next": "12.3.4",
     "react": "18.2.0",
     "react-dom": "18.2.0"
