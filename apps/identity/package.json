@@ -9,7 +9,7 @@
     "start:local": ". ./secrets.env && yarn start"
   },
   "dependencies": {
-    "@vizzly/auth": "^0.2.12",
+    "@vizzly/auth": "^0.2.13",
     "cookie-parser": "^1.4.6",
     "express": "^4.18.2",
     "isomorphic-fetch": "^3.0.0",
