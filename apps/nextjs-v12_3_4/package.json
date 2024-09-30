@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p 9031",
+    "start": "next start -p 9027",
     "lint": "next lint"
   },
   "dependencies": { "isomorphic-fetch": "^3.0.0",
