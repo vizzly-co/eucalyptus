@@ -69,6 +69,7 @@ Parameters:
         "sql-views",
         "microsoft-sql-server",
         "nextjs-v12_3_4",
+        "vite-react",
         "redshift",
         "result-accuracy",
         "dashboard-external-filters",
