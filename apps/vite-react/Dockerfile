@@ -10,4 +10,6 @@ COPY . .
 RUN yarn install
 RUN yarn build
 
+EXPOSE 9031
+
 ENTRYPOINT [ "yarn", "preview" ]
