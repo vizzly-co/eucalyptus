@@ -53,7 +53,6 @@ jobs:
             "any-managed-euc-cloud",
             "remote-origin-simulator-backed",
             "www-react-17",
-            "vite-react",
           ]
 
     steps:
