@@ -39,6 +39,6 @@ jobs:
           sh ./update_koala_service.sh "example-remote-config-endpoint" "eucalyptus-remote-config-endpoint-Service-2G1lV7iR5KTg" "ghcr.io/vizzly-co/eucalyptus-remote-config-endpoint:$IMAGE_TAG"
           sh ./update_koala_service.sh "example-dynamic-remote-config" "frontend-dynamic-remote-config-Service-yzsvYcCKusq8" "ghcr.io/vizzly-co/eucalyptus-dynamic-remote-config:$IMAGE_TAG"
           sh ./update_koala_service.sh "example-track-user-events" "track-user-events-app-Service-2bc7Glsj2fLc" "ghcr.io/vizzly-co/eucalyptus-track-user-events:$IMAGE_TAG"
-          sh ./update_koala_service.sh "example-vite-react" "eucalyptus-example-vite-react-app-Service-ytTkgafGcq6U" "ghcr.io/vizzly-co/eucalyptus-vite-react:$IMAGE_TAG"
+          # sh ./update_koala_service.sh "example-vite-react" "eucalyptus-example-vite-react-app-Service-ytTkgafGcq6U" "ghcr.io/vizzly-co/eucalyptus-vite-react:$IMAGE_TAG"
 
           # sh ./update_koala_service.sh "example-QE-dynamic-datasets-dashboard" "dynamic-datasets-dashboard-qe2-Service-E69muRAsgqZk" "ghcr.io/vizzly-co/query-engine-dev:$IMAGE_TAG"
