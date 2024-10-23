@@ -208,6 +208,7 @@ const Component = () => {
             vizzlyApiHost="https://staging.api.vizzly.co"
             queryEngineEndpoint="https://staging.api.vizzly.co/managed/mqe_f69a3d3ad797479492e2f91a25d3add2"
             parentDashboardId="dsh_0c23c9f4146745118fcfaabf5aab5184"
+            dashboardId={getQueryVariable("dashboardId") || undefined}
             developerTools={{ viewRawResults: true, viewRawAttributes: true }}
             identity={getIdentity(getQueryVariable("user") ?? "new_user")}
             renderDownloadIcon={(props) => <div>JSX Download Icon</div>}
@@ -478,6 +479,7 @@ const VariablesComponent = () => {
           vizzlyApiHost="https://staging.api.vizzly.co"
           queryEngineEndpoint="https://staging.api.vizzly.co/managed/mqe_f69a3d3ad797479492e2f91a25d3add2"
           parentDashboardId="dsh_2e5fd9f491754e92aa8fcb34962414e0"
+          dashboardId={getQueryVariable("dashboardId") || undefined}
           developerTools={{ viewRawResults: true, viewRawAttributes: true }}
           identity={getIdentity(getQueryVariable("user") ?? "new_user")}
           variables={() => {

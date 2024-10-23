@@ -9,10 +9,10 @@
     "serve": "http-server ./www -c-1 -p 9026"
   },
   "dependencies": {
-    "isomorphic-fetch": "^3.0.0",
-    "@vizzly/dashboard": "0.12.15-dev-b945d6857f523a6526ffbebb0d1f5bde19583fb9",
+    "@vizzly/dashboard": "0.14.2-dev-c2dffaf1ed618e9fccb9aa19c3030da55fa5cc99",
     "@vizzly/services": "0.12.15-dev-b945d6857f523a6526ffbebb0d1f5bde19583fb9",
     "esbuild": "^0.16.10",
+    "isomorphic-fetch": "^3.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
