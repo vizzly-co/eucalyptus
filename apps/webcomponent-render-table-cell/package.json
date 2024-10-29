@@ -1,0 +1,12 @@
+{
+  "name": "webcomponent",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "sh ./build.sh",
+    "serve": "http-server ./dist -p 2097"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

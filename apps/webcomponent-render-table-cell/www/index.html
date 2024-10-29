@@ -1,0 +1,60 @@
+<html>
+
+<head>
+  <script src="https://static.app.vizzly.co/embedded/{{ VERSION }}/bundle.js"></script>
+</head>
+
+<body>
+  <script type="module">
+    const getQueryParam = (name, defaultValue = undefined) => {
+      return new URLSearchParams(window.location.search).get(name) ?? defaultValue;
+    };
+
+    const managedQueryEngineId = getQueryParam('managedQueryEngineId');
+    const parentDashboardId = getQueryParam('parentDashboardId');
+    const projectId = getQueryParam('projectId');
+    const timeZone = getQueryParam('timeZone');
+    const userReference = getQueryParam('userReference', 'default');
+    const scope = getQueryParam('scope', 'read_write');
+    const accessType = getQueryParam('accessType', 'standard');
+
+
+    // ?projectId=prj_694b3c446195428a8b489c004be7194a&managedQueryEngineId=mqe_e224e8e3e01d4d5888feb8bcb6f654d3&userReference=sdfksnfks
+
+    // this could also load from a locally built .mjs file, if there is a webserver
+    // that serves the file. This avoids needing to publish first
+    dashboard.render({
+      queryEngineEndpoint: `https://staging.api.vizzly.co/managed/${managedQueryEngineId}`,
+      vizzlyApiHost: 'https://staging.api.vizzly.co',
+      renderTableCell: data => {
+        return `<div data-render-table-cell-override style="color: green; fontSize: 16px; background: red">OVERRIDE ${data.cell.value}</div>`;
+      },
+      identity: async () => {
+        // Hit the auth app
+        const response = await fetch('https://example.vizzly.co:9012/identity', {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify({
+            projectId,
+            secureFilters: {},
+            dataSetIds: '*',
+            scope: scope,
+            userReference,
+            accessType
+          }),
+        });
+
+        const { accessTokens } = await response.json();
+
+        return accessTokens;
+      }
+
+    });
+  </script>
+  <vizzly-dashboard id="dashboard" />
+</body>
+
+</html>
