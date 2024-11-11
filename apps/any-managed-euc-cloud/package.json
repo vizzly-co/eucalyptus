@@ -9,7 +9,7 @@
     "serve": "http-server ./www -c-1 -p 9040 -c-1"
   },
   "dependencies": {
-    "@vizzly/dashboard": "0.12.13-dev-17345eecf9746d3ff5cf749f05a6ccdd4e74d0c3",
+    "@vizzly/dashboard": "0.14.3",
     "esbuild": "^0.16.10",
     "isomorphic-fetch": "^3.0.0",
     "react": "^18.2.0",
