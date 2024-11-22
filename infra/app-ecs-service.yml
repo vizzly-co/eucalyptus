@@ -84,6 +84,7 @@ Parameters:
         "any-managed-euc-cloud",
         "origin-simulator",
         "remote-origin-simulator-backed",
+        "gain-theory-config-building"
       ]
 
 Conditions:
