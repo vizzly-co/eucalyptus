@@ -7,6 +7,7 @@ COPY ./www ./www
 COPY ./yarn.lock ./yarn.lock
 COPY ./package.json ./package.json
 COPY ./app.tsx ./app.tsx
+COPY ./src ./src
 
 RUN yarn install
 RUN yarn build
