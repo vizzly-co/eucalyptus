@@ -18,7 +18,7 @@ function App() {
       channel: 'Digital',
       metricNameOne: 'Revenue',
       varOne: 'Campaign',
-      varTwo: 'Show'
+      varTwo: 'Site'
     }
   });
 
@@ -45,7 +45,7 @@ function App() {
       },
       dataSets: [
         {
-          id: 'Data set ID, unique per user',
+          id: 'das_custom',
           description: 'Custom built data set',
           connectionId: connectionId,
           fields: [
