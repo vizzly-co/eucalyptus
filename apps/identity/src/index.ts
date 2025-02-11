@@ -23,7 +23,7 @@ tScr9CSIWn5Ov0Zya/CzF4XjfOSMKfaodpFtjYZ0MC4BjmVuYlrixXSrQg==
 app.all("/identity", async (req, res) => {
   if (req.method === "POST") {
     const privateKey = Settings.getVizzlyPrivateKey();
-    const ttlInMinutes = 10;
+    const ttlInMinutes = 10080;
     const signer = createSigner({ privateKey, ttlInMinutes });
 
     try {
